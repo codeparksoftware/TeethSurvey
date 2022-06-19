@@ -33,11 +33,11 @@
             DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
             DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition1 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement1 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.colDesc = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colCat = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.officeNavigationBar1 = new DevExpress.XtraBars.Navigation.OfficeNavigationBar();
@@ -52,6 +52,15 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.anketYonetimGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.label14 = new System.Windows.Forms.Label();
             this.lblQuestionOnOption = new System.Windows.Forms.Label();
             this.lblCategoryOnOption = new System.Windows.Forms.Label();
@@ -59,13 +68,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.rgOption = new DevExpress.XtraEditors.RadioGroup();
-            this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
-            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.chkIsMultiple = new DevExpress.XtraEditors.CheckEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -73,7 +76,8 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItemRadio = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.takeSurvey = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
             this.cmbSurcveys = new System.Windows.Forms.ComboBox();
@@ -91,11 +95,20 @@
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.mainPage = new DevExpress.XtraBars.Navigation.NavigationPage();
+            this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
+            this.txtAnketNumber = new DevExpress.XtraEditors.TextEdit();
+            this.txtQuestionNumber = new DevExpress.XtraEditors.TextEdit();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
-            this.mainPage = new DevExpress.XtraBars.Navigation.NavigationPage();
-            this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
+            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
+            this.layoutControlItemCombo = new DevExpress.XtraLayout.LayoutControlItem();
+            this.checkedListBoxOptions = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.layoutControlItemChecked = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.officeNavigationBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame1)).BeginInit();
             this.navigationFrame1.SuspendLayout();
@@ -114,8 +127,9 @@
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rgOption.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rgOption.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIsMultiple.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -123,7 +137,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRadio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             this.takeSurvey.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             this.layoutControl3.SuspendLayout();
@@ -135,6 +150,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).BeginInit();
+            this.mainPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
+            this.layoutControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnketNumber.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQuestionNumber.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemCombo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxOptions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemChecked)).BeginInit();
             this.SuspendLayout();
             // 
             // colDesc
@@ -159,7 +185,7 @@
             // officeNavigationBar1
             // 
             this.officeNavigationBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.officeNavigationBar1.Location = new System.Drawing.Point(0, 406);
+            this.officeNavigationBar1.Location = new System.Drawing.Point(0, 506);
             this.officeNavigationBar1.Name = "officeNavigationBar1";
             this.officeNavigationBar1.NavigationClient = this.navigationFrame1;
             this.officeNavigationBar1.Size = new System.Drawing.Size(1029, 46);
@@ -175,11 +201,11 @@
             this.navigationFrame1.Location = new System.Drawing.Point(0, 143);
             this.navigationFrame1.Name = "navigationFrame1";
             this.navigationFrame1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
+            this.mainPage,
             this.manageSurvey,
-            this.takeSurvey,
-            this.mainPage});
+            this.takeSurvey});
             this.navigationFrame1.SelectedPage = this.manageSurvey;
-            this.navigationFrame1.Size = new System.Drawing.Size(1029, 263);
+            this.navigationFrame1.Size = new System.Drawing.Size(1029, 363);
             this.navigationFrame1.TabIndex = 6;
             this.navigationFrame1.Text = "Teeth Survey";
             this.navigationFrame1.SelectedPageChanged += new DevExpress.XtraBars.Navigation.SelectedPageChangedEventHandler(this.navigationFrame1_SelectedPageChanged);
@@ -189,7 +215,7 @@
             this.manageSurvey.Caption = "Manage Survey";
             this.manageSurvey.Controls.Add(this.splitContainer2);
             this.manageSurvey.Name = "manageSurvey";
-            this.manageSurvey.Size = new System.Drawing.Size(1029, 263);
+            this.manageSurvey.Size = new System.Drawing.Size(1029, 363);
             // 
             // splitContainer2
             // 
@@ -205,7 +231,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.rightPanel);
-            this.splitContainer2.Size = new System.Drawing.Size(1029, 263);
+            this.splitContainer2.Size = new System.Drawing.Size(1029, 363);
             this.splitContainer2.SplitterDistance = 343;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 4;
@@ -218,7 +244,7 @@
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemButtonEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(343, 263);
+            this.gridControl1.Size = new System.Drawing.Size(343, 363);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.tileView1});
@@ -245,9 +271,11 @@
             this.tileView1.GridControl = this.gridControl1;
             this.tileView1.Name = "tileView1";
             this.tileView1.OptionsBehavior.ReadOnly = true;
+            this.tileView1.OptionsFind.AlwaysVisible = true;
             this.tileView1.OptionsTiles.GroupTextPadding = new System.Windows.Forms.Padding(12, 8, 12, 8);
             this.tileView1.OptionsTiles.IndentBetweenGroups = 0;
             this.tileView1.OptionsTiles.IndentBetweenItems = 0;
+            this.tileView1.OptionsTiles.ItemSize = new System.Drawing.Size(248, 80);
             this.tileView1.OptionsTiles.LayoutMode = DevExpress.XtraGrid.Views.Tile.TileViewLayoutMode.List;
             this.tileView1.OptionsTiles.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tileView1.OptionsTiles.Padding = new System.Windows.Forms.Padding(0);
@@ -277,7 +305,7 @@
             // 
             this.repositoryItemButtonEdit1.AutoHeight = false;
             this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete, "Sil", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete, "Sil", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.repositoryItemButtonEdit1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
             // 
@@ -287,7 +315,7 @@
             this.rightPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightPanel.Location = new System.Drawing.Point(0, 0);
             this.rightPanel.Name = "rightPanel";
-            this.rightPanel.Size = new System.Drawing.Size(683, 263);
+            this.rightPanel.Size = new System.Drawing.Size(683, 363);
             this.rightPanel.TabIndex = 0;
             this.rightPanel.Visible = false;
             // 
@@ -297,7 +325,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(683, 263);
+            this.panelControl1.Size = new System.Drawing.Size(683, 363);
             this.panelControl1.TabIndex = 13;
             // 
             // panelControl3
@@ -306,11 +334,13 @@
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl3.Location = new System.Drawing.Point(2, 2);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(679, 259);
+            this.panelControl3.Size = new System.Drawing.Size(679, 359);
             this.panelControl3.TabIndex = 14;
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.checkedListBoxOptions);
+            this.layoutControl1.Controls.Add(this.comboBoxOptions);
             this.layoutControl1.Controls.Add(this.label14);
             this.layoutControl1.Controls.Add(this.lblQuestionOnOption);
             this.layoutControl1.Controls.Add(this.lblCategoryOnOption);
@@ -318,71 +348,15 @@
             this.layoutControl1.Controls.Add(this.label11);
             this.layoutControl1.Controls.Add(this.label2);
             this.layoutControl1.Controls.Add(this.rgOption);
+            this.layoutControl1.Controls.Add(this.chkIsMultiple);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(2, 2);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(716, 0, 650, 400);
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(675, 255);
+            this.layoutControl1.Size = new System.Drawing.Size(675, 355);
             this.layoutControl1.TabIndex = 5;
             this.layoutControl1.Text = "layoutControl1";
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(12, 36);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(103, 20);
-            this.label14.TabIndex = 16;
-            this.label14.Text = "Question";
-            // 
-            // lblQuestionOnOption
-            // 
-            this.lblQuestionOnOption.Location = new System.Drawing.Point(119, 36);
-            this.lblQuestionOnOption.Name = "lblQuestionOnOption";
-            this.lblQuestionOnOption.Size = new System.Drawing.Size(544, 20);
-            this.lblQuestionOnOption.TabIndex = 15;
-            this.lblQuestionOnOption.Text = "label13";
-            // 
-            // lblCategoryOnOption
-            // 
-            this.lblCategoryOnOption.Location = new System.Drawing.Point(119, 12);
-            this.lblCategoryOnOption.Name = "lblCategoryOnOption";
-            this.lblCategoryOnOption.Size = new System.Drawing.Size(544, 20);
-            this.lblCategoryOnOption.TabIndex = 14;
-            this.lblCategoryOnOption.Text = "label12";
-            // 
-            // lblDependedQuestionOnOption
-            // 
-            this.lblDependedQuestionOnOption.Location = new System.Drawing.Point(119, 60);
-            this.lblDependedQuestionOnOption.Name = "lblDependedQuestionOnOption";
-            this.lblDependedQuestionOnOption.Size = new System.Drawing.Size(544, 20);
-            this.lblDependedQuestionOnOption.TabIndex = 10;
-            this.lblDependedQuestionOnOption.Text = "label1";
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(12, 60);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(103, 20);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Depended Question";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(12, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 20);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Category";
-            // 
-            // rgOption
-            // 
-            this.rgOption.Location = new System.Drawing.Point(52, 84);
-            this.rgOption.MenuManager = this.ribbonControl1;
-            this.rgOption.Name = "rgOption";
-            this.rgOption.Size = new System.Drawing.Size(611, 159);
-            this.rgOption.StyleController = this.layoutControl1;
-            this.rgOption.TabIndex = 17;
             // 
             // ribbonControl1
             // 
@@ -437,21 +411,107 @@
             this.barButtonItem4.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem4.ImageOptions.LargeImage")));
             this.barButtonItem4.Name = "barButtonItem4";
             // 
+            // barButtonItem5
+            // 
+            this.barButtonItem5.Caption = "Refresh";
+            this.barButtonItem5.Id = 2;
+            this.barButtonItem5.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.ImageOptions.Image")));
+            this.barButtonItem5.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.ImageOptions.LargeImage")));
+            this.barButtonItem5.Name = "barButtonItem5";
+            this.barButtonItem5.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem5_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup1});
+            this.anketYonetimGroup,
+            this.ribbonPageGroup2});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "Survey ";
             // 
-            // ribbonPageGroup1
+            // anketYonetimGroup
             // 
-            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem1);
-            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem2);
-            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem4);
-            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem5);
-            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "Anket Yönetim";
+            this.anketYonetimGroup.ItemLinks.Add(this.barButtonItem1);
+            this.anketYonetimGroup.ItemLinks.Add(this.barButtonItem2);
+            this.anketYonetimGroup.ItemLinks.Add(this.barButtonItem4);
+            this.anketYonetimGroup.Name = "anketYonetimGroup";
+            this.anketYonetimGroup.Text = "Anket Yönetim";
+            this.anketYonetimGroup.Visible = false;
+            // 
+            // ribbonPageGroup2
+            // 
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem5);
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "Common";
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(12, 61);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(126, 28);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "Question";
+            // 
+            // lblQuestionOnOption
+            // 
+            this.lblQuestionOnOption.Location = new System.Drawing.Point(142, 61);
+            this.lblQuestionOnOption.Name = "lblQuestionOnOption";
+            this.lblQuestionOnOption.Size = new System.Drawing.Size(521, 28);
+            this.lblQuestionOnOption.TabIndex = 15;
+            // 
+            // lblCategoryOnOption
+            // 
+            this.lblCategoryOnOption.BackColor = System.Drawing.Color.Transparent;
+            this.lblCategoryOnOption.Font = new System.Drawing.Font("Tahoma", 18.25F);
+            this.lblCategoryOnOption.Location = new System.Drawing.Point(142, 12);
+            this.lblCategoryOnOption.Name = "lblCategoryOnOption";
+            this.lblCategoryOnOption.Size = new System.Drawing.Size(521, 45);
+            this.lblCategoryOnOption.TabIndex = 14;
+            this.lblCategoryOnOption.Text = "             ";
+            // 
+            // lblDependedQuestionOnOption
+            // 
+            this.lblDependedQuestionOnOption.Location = new System.Drawing.Point(142, 93);
+            this.lblDependedQuestionOnOption.Name = "lblDependedQuestionOnOption";
+            this.lblDependedQuestionOnOption.Size = new System.Drawing.Size(521, 21);
+            this.lblDependedQuestionOnOption.TabIndex = 10;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(12, 93);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(126, 21);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "Depended Question";
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 18.25F);
+            this.label2.ForeColor = System.Drawing.Color.Maroon;
+            this.label2.Location = new System.Drawing.Point(12, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(126, 45);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Category";
+            // 
+            // rgOption
+            // 
+            this.rgOption.Location = new System.Drawing.Point(52, 141);
+            this.rgOption.MenuManager = this.ribbonControl1;
+            this.rgOption.Name = "rgOption";
+            this.rgOption.Size = new System.Drawing.Size(611, 106);
+            this.rgOption.StyleController = this.layoutControl1;
+            this.rgOption.TabIndex = 17;
+            // 
+            // chkIsMultiple
+            // 
+            this.chkIsMultiple.Location = new System.Drawing.Point(12, 118);
+            this.chkIsMultiple.MenuManager = this.ribbonControl1;
+            this.chkIsMultiple.Name = "chkIsMultiple";
+            this.chkIsMultiple.Properties.Caption = "Multiple Answer";
+            this.chkIsMultiple.Size = new System.Drawing.Size(651, 19);
+            this.chkIsMultiple.StyleController = this.layoutControl1;
+            this.chkIsMultiple.TabIndex = 20;
             // 
             // Root
             // 
@@ -464,9 +524,12 @@
             this.layoutControlItem2,
             this.layoutControlItem6,
             this.layoutControlItem3,
-            this.layoutControlItem7});
+            this.layoutControlItemRadio,
+            this.layoutControlItem12,
+            this.layoutControlItemCombo,
+            this.layoutControlItemChecked});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(675, 255);
+            this.Root.Size = new System.Drawing.Size(675, 355);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem5
@@ -475,7 +538,7 @@
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem5.MinSize = new System.Drawing.Size(24, 24);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(107, 24);
+            this.layoutControlItem5.Size = new System.Drawing.Size(130, 49);
             this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
@@ -483,66 +546,85 @@
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.label11;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 48);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 81);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(107, 24);
+            this.layoutControlItem1.Size = new System.Drawing.Size(130, 25);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.lblCategoryOnOption;
-            this.layoutControlItem4.Location = new System.Drawing.Point(107, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(130, 0);
+            this.layoutControlItem4.MaxSize = new System.Drawing.Size(525, 49);
+            this.layoutControlItem4.MinSize = new System.Drawing.Size(525, 49);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(548, 24);
+            this.layoutControlItem4.Size = new System.Drawing.Size(525, 49);
+            this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.lblDependedQuestionOnOption;
-            this.layoutControlItem2.Location = new System.Drawing.Point(107, 48);
+            this.layoutControlItem2.Location = new System.Drawing.Point(130, 81);
+            this.layoutControlItem2.MaxSize = new System.Drawing.Size(525, 25);
+            this.layoutControlItem2.MinSize = new System.Drawing.Size(525, 25);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(548, 24);
+            this.layoutControlItem2.Size = new System.Drawing.Size(525, 25);
+            this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.label14;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 24);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 49);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(107, 24);
+            this.layoutControlItem6.Size = new System.Drawing.Size(130, 32);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.lblQuestionOnOption;
-            this.layoutControlItem3.Location = new System.Drawing.Point(107, 24);
-            this.layoutControlItem3.MinSize = new System.Drawing.Size(24, 24);
+            this.layoutControlItem3.Location = new System.Drawing.Point(130, 49);
+            this.layoutControlItem3.MaxSize = new System.Drawing.Size(525, 32);
+            this.layoutControlItem3.MinSize = new System.Drawing.Size(525, 32);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(548, 24);
+            this.layoutControlItem3.Size = new System.Drawing.Size(525, 32);
             this.layoutControlItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
-            // layoutControlItem7
+            // layoutControlItemRadio
             // 
-            this.layoutControlItem7.Control = this.rgOption;
-            this.layoutControlItem7.CustomizationFormText = "Options";
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 72);
-            this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(655, 163);
-            this.layoutControlItem7.Text = "Options";
-            this.layoutControlItem7.TextSize = new System.Drawing.Size(37, 13);
+            this.layoutControlItemRadio.Control = this.rgOption;
+            this.layoutControlItemRadio.CustomizationFormText = "Options";
+            this.layoutControlItemRadio.Location = new System.Drawing.Point(0, 129);
+            this.layoutControlItemRadio.MinSize = new System.Drawing.Size(94, 17);
+            this.layoutControlItemRadio.Name = "layoutControlItemRadio";
+            this.layoutControlItemRadio.Size = new System.Drawing.Size(655, 110);
+            this.layoutControlItemRadio.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItemRadio.Text = "Options";
+            this.layoutControlItemRadio.TextSize = new System.Drawing.Size(37, 13);
+            // 
+            // layoutControlItem12
+            // 
+            this.layoutControlItem12.Control = this.chkIsMultiple;
+            this.layoutControlItem12.Location = new System.Drawing.Point(0, 106);
+            this.layoutControlItem12.Name = "layoutControlItem12";
+            this.layoutControlItem12.Size = new System.Drawing.Size(655, 23);
+            this.layoutControlItem12.Text = "Çoklu Cevap";
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem12.TextVisible = false;
             // 
             // takeSurvey
             // 
             this.takeSurvey.Caption = "Take Survey";
             this.takeSurvey.Controls.Add(this.layoutControl3);
             this.takeSurvey.Name = "takeSurvey";
-            this.takeSurvey.Size = new System.Drawing.Size(1029, 263);
+            this.takeSurvey.Size = new System.Drawing.Size(1029, 363);
             // 
             // layoutControl3
             // 
@@ -698,6 +780,77 @@
             this.layoutControlItem20.Text = "Hasta Soyadi:";
             this.layoutControlItem20.TextSize = new System.Drawing.Size(67, 13);
             // 
+            // mainPage
+            // 
+            this.mainPage.Caption = "Main Page";
+            this.mainPage.Controls.Add(this.layoutControl2);
+            this.mainPage.Name = "mainPage";
+            this.mainPage.Size = new System.Drawing.Size(1029, 363);
+            // 
+            // layoutControl2
+            // 
+            this.layoutControl2.Controls.Add(this.txtAnketNumber);
+            this.layoutControl2.Controls.Add(this.txtQuestionNumber);
+            this.layoutControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl2.Name = "layoutControl2";
+            this.layoutControl2.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(716, 127, 650, 400);
+            this.layoutControl2.Root = this.layoutControlGroup1;
+            this.layoutControl2.Size = new System.Drawing.Size(1029, 363);
+            this.layoutControl2.TabIndex = 0;
+            this.layoutControl2.Text = "layoutControl2";
+            // 
+            // txtAnketNumber
+            // 
+            this.txtAnketNumber.Location = new System.Drawing.Point(104, 12);
+            this.txtAnketNumber.MenuManager = this.ribbonControl1;
+            this.txtAnketNumber.Name = "txtAnketNumber";
+            this.txtAnketNumber.Properties.AllowFocused = false;
+            this.txtAnketNumber.Properties.ReadOnly = true;
+            this.txtAnketNumber.Size = new System.Drawing.Size(913, 20);
+            this.txtAnketNumber.StyleController = this.layoutControl2;
+            this.txtAnketNumber.TabIndex = 4;
+            // 
+            // txtQuestionNumber
+            // 
+            this.txtQuestionNumber.Location = new System.Drawing.Point(104, 36);
+            this.txtQuestionNumber.MenuManager = this.ribbonControl1;
+            this.txtQuestionNumber.Name = "txtQuestionNumber";
+            this.txtQuestionNumber.Properties.AllowFocused = false;
+            this.txtQuestionNumber.Properties.ReadOnly = true;
+            this.txtQuestionNumber.Size = new System.Drawing.Size(913, 20);
+            this.txtQuestionNumber.StyleController = this.layoutControl2;
+            this.txtQuestionNumber.TabIndex = 5;
+            // 
+            // layoutControlGroup1
+            // 
+            this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup1.GroupBordersVisible = false;
+            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem8,
+            this.layoutControlItem9});
+            this.layoutControlGroup1.Name = "Root";
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1029, 363);
+            this.layoutControlGroup1.TextVisible = false;
+            // 
+            // layoutControlItem8
+            // 
+            this.layoutControlItem8.Control = this.txtAnketNumber;
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem8.Name = "layoutControlItem8";
+            this.layoutControlItem8.Size = new System.Drawing.Size(1009, 24);
+            this.layoutControlItem8.Text = "Total Anket Sayısı:";
+            this.layoutControlItem8.TextSize = new System.Drawing.Size(89, 13);
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.txtQuestionNumber;
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 24);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(1009, 319);
+            this.layoutControlItem9.Text = "Total Soru Sayısı";
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(89, 13);
+            // 
             // ribbonPageGroup3
             // 
             this.ribbonPageGroup3.AllowTextClipping = false;
@@ -719,26 +872,47 @@
             this.bbiNew.ImageOptions.ImageUri.Uri = "New";
             this.bbiNew.Name = "bbiNew";
             // 
-            // mainPage
+            // comboBoxOptions
             // 
-            this.mainPage.Caption = "Main Page";
-            this.mainPage.Name = "mainPage";
-            this.mainPage.Size = new System.Drawing.Size(1029, 263);
+            this.comboBoxOptions.FormattingEnabled = true;
+            this.comboBoxOptions.Location = new System.Drawing.Point(52, 251);
+            this.comboBoxOptions.Name = "comboBoxOptions";
+            this.comboBoxOptions.Size = new System.Drawing.Size(611, 21);
+            this.comboBoxOptions.TabIndex = 21;
             // 
-            // barButtonItem5
+            // layoutControlItemCombo
             // 
-            this.barButtonItem5.Caption = "Refresh";
-            this.barButtonItem5.Id = 2;
-            this.barButtonItem5.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.ImageOptions.Image")));
-            this.barButtonItem5.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.ImageOptions.LargeImage")));
-            this.barButtonItem5.Name = "barButtonItem5";
-            this.barButtonItem5.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem5_ItemClick);
+            this.layoutControlItemCombo.Control = this.comboBoxOptions;
+            this.layoutControlItemCombo.Location = new System.Drawing.Point(0, 239);
+            this.layoutControlItemCombo.MinSize = new System.Drawing.Size(64, 25);
+            this.layoutControlItemCombo.Name = "layoutControlItemCombo";
+            this.layoutControlItemCombo.Size = new System.Drawing.Size(655, 48);
+            this.layoutControlItemCombo.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItemCombo.Text = "Options";
+            this.layoutControlItemCombo.TextSize = new System.Drawing.Size(37, 13);
+            // 
+            // checkedListBoxOptions
+            // 
+            this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 299);
+            this.checkedListBoxOptions.Name = "checkedListBoxOptions";
+            this.checkedListBoxOptions.Size = new System.Drawing.Size(611, 44);
+            this.checkedListBoxOptions.StyleController = this.layoutControl1;
+            this.checkedListBoxOptions.TabIndex = 22;
+            // 
+            // layoutControlItemChecked
+            // 
+            this.layoutControlItemChecked.Control = this.checkedListBoxOptions;
+            this.layoutControlItemChecked.Location = new System.Drawing.Point(0, 287);
+            this.layoutControlItemChecked.Name = "layoutControlItemChecked";
+            this.layoutControlItemChecked.Size = new System.Drawing.Size(655, 48);
+            this.layoutControlItemChecked.Text = "Options";
+            this.layoutControlItemChecked.TextSize = new System.Drawing.Size(37, 13);
             // 
             // frmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1029, 452);
+            this.ClientSize = new System.Drawing.Size(1029, 552);
             this.Controls.Add(this.navigationFrame1);
             this.Controls.Add(this.officeNavigationBar1);
             this.Controls.Add(this.ribbonControl1);
@@ -766,8 +940,9 @@
             this.panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.rgOption.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rgOption.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIsMultiple.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -775,7 +950,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRadio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             this.takeSurvey.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
             this.layoutControl3.ResumeLayout(false);
@@ -787,6 +963,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).EndInit();
+            this.mainPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
+            this.layoutControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnketNumber.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQuestionNumber.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemCombo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxOptions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemChecked)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -799,7 +986,7 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup anketYonetimGroup;
         private DevExpress.XtraBars.Navigation.NavigationFrame navigationFrame1;
         private DevExpress.XtraBars.Navigation.NavigationPage manageSurvey;
         private System.Windows.Forms.SplitContainer splitContainer2;
@@ -839,7 +1026,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraEditors.RadioGroup rgOption;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemRadio;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
         private DevExpress.XtraBars.BarButtonItem barButtonItem4;
@@ -851,5 +1038,18 @@
         private DevExpress.XtraGrid.Columns.TileViewColumn colCat;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.Navigation.NavigationPage mainPage;
+        private DevExpress.XtraLayout.LayoutControl layoutControl2;
+        private DevExpress.XtraEditors.TextEdit txtAnketNumber;
+        private DevExpress.XtraEditors.TextEdit txtQuestionNumber;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraEditors.CheckEdit chkIsMultiple;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
+        private DevExpress.XtraEditors.CheckedListBoxControl checkedListBoxOptions;
+        private System.Windows.Forms.ComboBox comboBoxOptions;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemCombo;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemChecked;
     }
 }

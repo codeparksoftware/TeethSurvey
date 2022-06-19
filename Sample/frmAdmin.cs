@@ -4,7 +4,6 @@ using DevExpress.XtraSplashScreen;
 using EntityFramework.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,18 +16,56 @@ namespace Sample
     {
         private Survey Survey;
         private List<Quest> Quests { get; set; }
+        public static List<OptionControl> GetOptionControls => new List<OptionControl>() {
+            new OptionControl{
+               Text= nameof(OptionControls.RadioButton),
+               Id=(int)OptionControls.RadioButton        },
+            new OptionControl{
+               Text= nameof(OptionControls.CheckedListBox),
+               Id=(int)OptionControls.CheckedListBox},
+            new OptionControl{
+               Text= nameof(OptionControls.ComboBox),
+               Id=(int)OptionControls.ComboBox} };
+
         public frmAdmin()
         {
             InitializeComponent();
-
+            colCat.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
         }
 
         private async void frmAdmin_LoadAsync(object sender, EventArgs e)
         {
-            await Init();
+            await InitMainPage();
         }
 
-        private async Task Init()
+        private async Task InitMainPage()
+        {
+            try
+            {
+                SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+                await Task.Run(() =>
+                {
+                    using (var m = new Model())
+                    {
+                        var totalSurveyFuture = m.Surveys.FutureCount();
+                        var totalQuestFuture = m.Questions.FutureCount();
+                        txtAnketNumber.Invoke((Action)(() =>
+                        {
+                            txtAnketNumber.Text = totalSurveyFuture.Value.ToString();
+                        }));
+                        txtQuestionNumber.Invoke((Action)(() =>
+                        txtQuestionNumber.Text = totalQuestFuture.Value.ToString()));
+                    }
+                });
+            }
+            finally
+            {
+                SplashScreenManager.CloseForm(false);
+
+            }
+        }
+
+        private async Task InitAnketQuestion()
         {
             try
             {
@@ -64,11 +101,11 @@ namespace Sample
 
 
                     Quests = questions.Select(f => CreateQuest(f, questions)).ToList();
-                    gridControl1.Invoke(new Action(()=>
+                    gridControl1.Invoke(new Action(() =>
                     {
                         gridControl1.DataSource = Quests;
-                    }));             
-                    
+                    }));
+
                     cmbPollster.DataSource = surveys.DistinctBy(f => f.Pollster).ToList();
                     cmbPollster.DisplayMember = nameof(Survey.Pollster);
 
@@ -77,27 +114,30 @@ namespace Sample
                     cmbSurcveys.DisplayMember = nameof(Survey.SurveyName);
                 }
             });
-            }
+        }
 
         private static Quest CreateQuest(Question q, List<Question> questions)
         {
             var quest = new Quest
-            {
-                Id = q.QuestionId,
-                CategoryTitle = q.Category.CategoryTitle,
-                Description = q.Description,
-                DependedQuestionDescription = q.Question2?.Description,
-                Options = q.Options?.Select(f => new Opt()
-                {
-                    Id = f.OptionId,
-                    QuestionId = f.QuestionId,
-                    Text = f.Text,
-                    Value = f.Value
-                }).ToList(),
-                Quests = questions.
+            (
+               q.QuestionId,
+                 q.Category.CategoryTitle,
+                q.Description,
+                q.TypeId,
+                q.Question2?.Description,
+                questions.
                 Where(f => f.DependedQuestionId == q.QuestionId).
-                Select(f => CreateQuest(f, questions)).ToList()
-            };
+                Select(f => CreateQuest(f, questions)).ToList(),
+                 q.Options?.Select(f => new Opt()
+                 {
+                     Id = f.OptionId,
+                     QuestionId = f.QuestionId,
+                     Text = f.Text,
+                     Value = f.Value
+                 }).ToList(),
+                 q.IsMultipleOption,
+                 q.ControlId);
+
             return quest;
         }
 
@@ -106,6 +146,8 @@ namespace Sample
 
             var row = tileView1.GetFocusedRow();
             rgOption.Properties.Items.Clear();
+            checkedListBoxOptions.Items.Clear();
+            comboBoxOptions.Items.Clear();
 
             if (row is Quest q)
             {
@@ -113,6 +155,35 @@ namespace Sample
                 lblCategoryOnOption.Text = q.CategoryTitle;
                 lblQuestionOnOption.Text = q.Description;
                 lblDependedQuestionOnOption.Text = q.DependedQuestionDescription;
+                chkIsMultiple.Checked = q.IsMultipleOption;
+
+                layoutControlItem1.Visibility = string.IsNullOrWhiteSpace(
+                    q.DependedQuestionDescription) ? DevExpress.XtraLayout.Utils.LayoutVisibility.Never :
+                    DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
+                if (q.ControlId == (int)OptionControls.ComboBox)
+                {
+                    layoutControlItemCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                    layoutControlItemChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                    layoutControlItemRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
+                }
+                else if (q.ControlId == (int)OptionControls.CheckedListBox)
+                {
+                    layoutControlItemCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                    layoutControlItemChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                    layoutControlItemRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                }
+                else if (q.ControlId == (int)OptionControls.RadioButton)
+                {
+                    layoutControlItemCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                    layoutControlItemChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                    layoutControlItemRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                }
+          
+
+                checkedListBoxOptions.Items.AddRange(q.Options.Select(f => new CheckedListBoxItem(f.Text)).ToArray());
+                comboBoxOptions.Items.AddRange(q.Options.Select(f => f.Text).ToArray());
                 rgOption.Properties.Items.
                     AddRange(
                     q.
@@ -186,36 +257,35 @@ namespace Sample
 
         private async void navigationFrame1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
         {
-            if(Quests is null || Quests?.Any() == false)
+            if (navigationFrame1.SelectedPage == manageSurvey)
             {
-                await Init();
+                if (Quests is null || Quests?.Any() == false)
+                {
+                    await InitAnketQuestion();
+                }
+                anketYonetimGroup.Visible = true;
             }
+            if (navigationFrame1.SelectedPage == mainPage)
+            {
+                anketYonetimGroup.Visible = false;
+            }
+
         }
 
         private async void barButtonItem5_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            await Init();
+
+            if (navigationFrame1.SelectedPage == manageSurvey)
+            {
+                await InitAnketQuestion();
+            }
+            else if (navigationFrame1.SelectedPage == mainPage)
+            {
+                await InitMainPage();
+            }
         }
     }
 
 
-    public sealed class Quest
-    {
-        public int Id { get; set; }
-        public string CategoryTitle { get; set; }
-        public string Description { get; set; }
-        public string QuestionType { get; set; }
-        public string DependedQuestionDescription { get; set; }
-        public List<Quest> Quests { get; set; }
 
-        public List<Opt> Options { get; set; }
-    }
-
-    public sealed class Opt
-    {
-        public int Id { get; set; }
-        public string Text { get; set; }
-        public int? Value { get; set; }
-        public int QuestionId { get; set; }
-    }
 }

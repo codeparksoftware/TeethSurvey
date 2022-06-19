@@ -15,6 +15,13 @@ namespace Sample
     {
         private int? _questionId { get; }
         private bool _isLoadingToUpdate = false;
+        private List<OptionControl> GetOptionControls() => new List<OptionControl>()
+        {
+            new OptionControl(){Id=(int)OptionControls.RadioButton, Text=nameof(OptionControls.RadioButton)},
+            new OptionControl(){Id=(int)OptionControls.ComboBox, Text=nameof(OptionControls.ComboBox)},
+            new OptionControl(){Id=(int)OptionControls.CheckedListBox, Text=nameof(OptionControls.CheckedListBox)}
+        };
+
         public InsertForm(int? questionId)
         {
             SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
@@ -27,6 +34,10 @@ namespace Sample
                 LoadQuestionData();
                 Text = "Soru Düzenle";
             }
+            comboControl.DataSource = GetOptionControls();
+            comboControl.DisplayMember = nameof(OptionControl.Text);
+            comboControl.ValueMember = nameof(OptionControl.Id);
+
             SplashScreenManager.CloseForm(false);
         }
 
@@ -43,6 +54,8 @@ namespace Sample
                     DependedQuestionId = f.DependedQuestionId,
                     DependedOptionIds = f.DependendOptions.Select(d => d.DependedOptionId).ToList(),
                     QuestionId = f.QuestionId,
+                    ControlId=f.ControlId,
+                    IsMultiple=f.IsMultipleOption,
                     Opts = f.Options.Select(o =>
                       new Opt
                       {
@@ -64,7 +77,8 @@ namespace Sample
                         OptionlistView.Items.Add(item);
                     }
                     txtDesc.Text = quest.Description;
-
+                    chkMultiple.Checked = quest.IsMultiple;
+                    comboControl.SelectedValue = quest.ControlId;
                     DependendQuestCombo.SelectedValue = quest.DependedQuestionId ?? -1;
 
                     if (quest.DependedQuestionId.HasValue)
@@ -150,7 +164,7 @@ namespace Sample
 
             try
             {
-                if (!_questionId.HasValue)
+                if (!_questionId.HasValue)//insert
                 {
                     using (var model = new Model())
                     {
@@ -168,8 +182,9 @@ namespace Sample
                                 DependedOptionId = (int)f.Value
                             }).ToList(),
                             //DependedOptionId = dependendOptions.EditValue is Option o ? o.OptionId : (int?)null,
-                            Options = opts
-
+                            Options = opts,
+                            ControlId = int.TryParse(comboControl.SelectedValue?.ToString(), out var cid) ? cid : 1,
+                            IsMultipleOption = chkMultiple.Checked
 
                         };
 
@@ -188,6 +203,8 @@ namespace Sample
                         question.CategoryId = int.Parse(CategoryCombo.SelectedValue?.ToString());
                         question.Description = txtDesc.Text;
                         question.DependedQuestionId = int.Parse(DependendQuestCombo.SelectedValue?.ToString());
+                        question.IsMultipleOption = chkMultiple.Checked;
+                        question.ControlId = int.TryParse(comboControl.SelectedValue?.ToString(), out var cid) ? cid : 1;
                         question.DependendOptions = dependendOptions.CheckedItems.OfType<CheckedListBoxItem>().
                             Select(f => new DependendOption()
                             {
@@ -242,7 +259,7 @@ namespace Sample
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message);
 
             }
         }
@@ -309,7 +326,6 @@ namespace Sample
                 if (!_isLoadingToUpdate)
                 {
                     RefreshDependedOption(q);
-
                 }
             }
         }
@@ -338,8 +354,6 @@ namespace Sample
                 LoadCombos(f.Result);
             }
         }
-
-
 
         private void OptionlistView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -427,6 +441,8 @@ namespace Sample
             public int? DependedQuestionId { get; set; }
             public List<int> DependedOptionIds { get; set; }
             public List<Opt> Opts { get; set; }
+            public bool IsMultiple { get; set; }
+            public int ControlId { get; set; }
         }
         public class Opt
         {

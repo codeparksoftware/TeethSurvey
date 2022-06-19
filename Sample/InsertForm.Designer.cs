@@ -63,6 +63,10 @@
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.chkMultiple = new System.Windows.Forms.CheckBox();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.comboControl = new System.Windows.Forms.ComboBox();
+            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -83,15 +87,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             this.SuspendLayout();
             // 
             // CategoryCombo
             // 
             this.CategoryCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoryCombo.FormattingEnabled = true;
-            this.CategoryCombo.Location = new System.Drawing.Point(110, 12);
+            this.CategoryCombo.Location = new System.Drawing.Point(122, 12);
             this.CategoryCombo.Name = "CategoryCombo";
-            this.CategoryCombo.Size = new System.Drawing.Size(687, 21);
+            this.CategoryCombo.Size = new System.Drawing.Size(675, 21);
             this.CategoryCombo.TabIndex = 0;
             this.CategoryCombo.SelectedIndexChanged += new System.EventHandler(this.CategoryCombo_SelectedIndexChanged);
             // 
@@ -99,18 +105,18 @@
             // 
             this.DependendQuestCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DependendQuestCombo.FormattingEnabled = true;
-            this.DependendQuestCombo.Location = new System.Drawing.Point(110, 253);
+            this.DependendQuestCombo.Location = new System.Drawing.Point(122, 253);
             this.DependendQuestCombo.Name = "DependendQuestCombo";
-            this.DependendQuestCombo.Size = new System.Drawing.Size(848, 21);
+            this.DependendQuestCombo.Size = new System.Drawing.Size(836, 21);
             this.DependendQuestCombo.TabIndex = 2;
             this.DependendQuestCombo.SelectedIndexChanged += new System.EventHandler(this.DependendQuestCombo_SelectedIndexChanged);
             // 
             // txtDesc
             // 
-            this.txtDesc.Location = new System.Drawing.Point(110, 38);
+            this.txtDesc.Location = new System.Drawing.Point(122, 38);
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(848, 76);
+            this.txtDesc.Size = new System.Drawing.Size(836, 76);
             this.txtDesc.TabIndex = 5;
             // 
             // btnCncl
@@ -134,9 +140,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(111, 229);
+            this.button1.Location = new System.Drawing.Point(123, 229);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(169, 20);
+            this.button1.Size = new System.Drawing.Size(167, 20);
             this.button1.TabIndex = 9;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
@@ -154,6 +160,8 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.comboControl);
+            this.layoutControl1.Controls.Add(this.chkMultiple);
             this.layoutControl1.Controls.Add(this.OptionlistView);
             this.layoutControl1.Controls.Add(this.btnFinish);
             this.layoutControl1.Controls.Add(this.btnOk);
@@ -181,11 +189,11 @@
             this.OptionlistView.FullRowSelect = true;
             this.OptionlistView.GridLines = true;
             this.OptionlistView.HideSelection = false;
-            this.OptionlistView.Location = new System.Drawing.Point(110, 118);
+            this.OptionlistView.Location = new System.Drawing.Point(122, 118);
             this.OptionlistView.MultiSelect = false;
             this.OptionlistView.Name = "OptionlistView";
             this.OptionlistView.ShowGroups = false;
-            this.OptionlistView.Size = new System.Drawing.Size(848, 107);
+            this.OptionlistView.Size = new System.Drawing.Size(836, 107);
             this.OptionlistView.TabIndex = 14;
             this.OptionlistView.UseCompatibleStateImageBehavior = false;
             this.OptionlistView.View = System.Windows.Forms.View.Details;
@@ -232,9 +240,9 @@
             // dependendOptions
             // 
             this.dependendOptions.AllowDrop = true;
-            this.dependendOptions.Location = new System.Drawing.Point(110, 278);
+            this.dependendOptions.Location = new System.Drawing.Point(122, 327);
             this.dependendOptions.Name = "dependendOptions";
-            this.dependendOptions.Size = new System.Drawing.Size(848, 170);
+            this.dependendOptions.Size = new System.Drawing.Size(836, 134);
             this.dependendOptions.StyleController = this.layoutControl1;
             this.dependendOptions.TabIndex = 11;
             // 
@@ -268,7 +276,9 @@
             this.simpleLabelItem2,
             this.emptySpaceItem2,
             this.layoutControlItem1,
-            this.layoutControlItem4});
+            this.layoutControlItem4,
+            this.layoutControlItem11,
+            this.layoutControlItem12});
             this.Root.Name = "Root";
             this.Root.Size = new System.Drawing.Size(970, 524);
             this.Root.TextVisible = false;
@@ -282,7 +292,7 @@
             this.layoutControlItem2.Size = new System.Drawing.Size(789, 26);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.Text = "Category";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(95, 13);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(107, 13);
             // 
             // layoutControlItem3
             // 
@@ -294,7 +304,7 @@
             this.layoutControlItem3.Size = new System.Drawing.Size(950, 80);
             this.layoutControlItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem3.Text = "Description";
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(95, 13);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(107, 13);
             // 
             // layoutControlItem6
             // 
@@ -303,7 +313,7 @@
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(950, 25);
             this.layoutControlItem6.Text = "Depended Question";
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(95, 13);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(107, 13);
             // 
             // layoutControlItem7
             // 
@@ -335,35 +345,35 @@
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.dependendOptions;
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 266);
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 315);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(950, 174);
+            this.layoutControlItem10.Size = new System.Drawing.Size(950, 138);
             this.layoutControlItem10.Text = "Depended Option";
-            this.layoutControlItem10.TextSize = new System.Drawing.Size(95, 13);
+            this.layoutControlItem10.TextSize = new System.Drawing.Size(107, 13);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.button1;
-            this.layoutControlItem5.Location = new System.Drawing.Point(99, 217);
+            this.layoutControlItem5.Location = new System.Drawing.Point(111, 217);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(173, 24);
+            this.layoutControlItem5.Size = new System.Drawing.Size(171, 24);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(431, 217);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(439, 217);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(519, 24);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(511, 24);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(272, 217);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(282, 217);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(159, 24);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(157, 24);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleLabelItem1
@@ -376,23 +386,23 @@
             this.simpleLabelItem1.Size = new System.Drawing.Size(447, 24);
             this.simpleLabelItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.simpleLabelItem1.Text = " ";
-            this.simpleLabelItem1.TextSize = new System.Drawing.Size(95, 13);
+            this.simpleLabelItem1.TextSize = new System.Drawing.Size(107, 13);
             // 
             // simpleLabelItem2
             // 
             this.simpleLabelItem2.AllowHotTrack = false;
             this.simpleLabelItem2.Location = new System.Drawing.Point(0, 217);
             this.simpleLabelItem2.Name = "simpleLabelItem2";
-            this.simpleLabelItem2.Size = new System.Drawing.Size(99, 24);
+            this.simpleLabelItem2.Size = new System.Drawing.Size(111, 24);
             this.simpleLabelItem2.Text = " ";
-            this.simpleLabelItem2.TextSize = new System.Drawing.Size(95, 13);
+            this.simpleLabelItem2.TextSize = new System.Drawing.Size(107, 13);
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 440);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 453);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(950, 40);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(950, 27);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem1
@@ -411,7 +421,43 @@
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(950, 111);
             this.layoutControlItem4.Text = "Options";
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(95, 13);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(107, 13);
+            // 
+            // chkMultiple
+            // 
+            this.chkMultiple.Location = new System.Drawing.Point(12, 278);
+            this.chkMultiple.Name = "chkMultiple";
+            this.chkMultiple.Size = new System.Drawing.Size(946, 20);
+            this.chkMultiple.TabIndex = 15;
+            this.chkMultiple.Text = "IsMultiple Option?";
+            this.chkMultiple.UseVisualStyleBackColor = true;
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.chkMultiple;
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 266);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(950, 24);
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem11.TextVisible = false;
+            // 
+            // comboControl
+            // 
+            this.comboControl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboControl.FormattingEnabled = true;
+            this.comboControl.Location = new System.Drawing.Point(122, 302);
+            this.comboControl.Name = "comboControl";
+            this.comboControl.Size = new System.Drawing.Size(836, 21);
+            this.comboControl.TabIndex = 16;
+            // 
+            // layoutControlItem12
+            // 
+            this.layoutControlItem12.Control = this.comboControl;
+            this.layoutControlItem12.Location = new System.Drawing.Point(0, 290);
+            this.layoutControlItem12.Name = "layoutControlItem12";
+            this.layoutControlItem12.Size = new System.Drawing.Size(950, 25);
+            this.layoutControlItem12.Text = "Option Display Control";
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(107, 13);
             // 
             // InsertForm
             // 
@@ -442,6 +488,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -480,5 +528,9 @@
         private System.Windows.Forms.ToolStripMenuItem silToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ekleToolStripMenuItem;
+        private System.Windows.Forms.CheckBox chkMultiple;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private System.Windows.Forms.ComboBox comboControl;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
     }
 }
