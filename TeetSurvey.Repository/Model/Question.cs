@@ -12,6 +12,7 @@ namespace TeetSurvey.Repository.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Question()
         {
+            Answers = new HashSet<Answer>();
             DependendOptions = new HashSet<DependendOption>();
             Options = new HashSet<Option>();
             Question1 = new HashSet<Question>();
@@ -34,6 +35,9 @@ namespace TeetSurvey.Repository.Model
         public bool IsMultipleOption { get; set; }
 
         public int ControlId { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Answer> Answers { get; set; }
 
         public virtual Category Category { get; set; }
 

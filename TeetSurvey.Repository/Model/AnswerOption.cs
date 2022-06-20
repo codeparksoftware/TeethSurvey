@@ -6,17 +6,13 @@ namespace TeetSurvey.Repository.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("AnwerOption")]
-    public partial class AnwerOption
+    [Table("AnswerOption")]
+    public partial class AnswerOption
     {
         public int Id { get; set; }
 
         public int AnswerId { get; set; }
 
         public int OptionId { get; set; }
-
-        public virtual Answer Answer { get; set; }
-
-        public virtual Option Option { get; set; }
     }
 }

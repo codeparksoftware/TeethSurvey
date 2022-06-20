@@ -13,7 +13,7 @@ namespace TeetSurvey.Repository.Model
         }
 
         public virtual DbSet<Answer> Answers { get; set; }
-        public virtual DbSet<AnwerOption> AnwerOptions { get; set; }
+        public virtual DbSet<AnswerOption> AnswerOptions { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<DependendOption> DependendOptions { get; set; }
         public virtual DbSet<Option> Options { get; set; }
@@ -25,18 +25,13 @@ namespace TeetSurvey.Repository.Model
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Answer>()
-                .HasMany(e => e.AnwerOptions)
-                .WithRequired(e => e.Answer)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Category>()
                 .HasMany(e => e.Questions)
                 .WithRequired(e => e.Category)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Option>()
-                .HasMany(e => e.AnwerOptions)
+                .HasMany(e => e.Answers)
                 .WithRequired(e => e.Option)
                 .WillCascadeOnDelete(false);
 
@@ -52,6 +47,11 @@ namespace TeetSurvey.Repository.Model
             modelBuilder.Entity<Patient>()
                 .HasMany(e => e.Surveys)
                 .WithRequired(e => e.Patient)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Question>()
+                .HasMany(e => e.Answers)
+                .WithRequired(e => e.Question)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Question>()

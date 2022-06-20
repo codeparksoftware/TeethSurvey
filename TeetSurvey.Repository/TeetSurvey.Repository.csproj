@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Answer.cs" />
-    <Compile Include="Model\AnwerOption.cs" />
+    <Compile Include="Model\AnswerOption.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\DependendOption.cs" />
     <Compile Include="Model\Model.cs" />

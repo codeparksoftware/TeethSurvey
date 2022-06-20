@@ -9,12 +9,6 @@ namespace TeetSurvey.Repository.Model
     [Table("Answer")]
     public partial class Answer
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Answer()
-        {
-            AnwerOptions = new HashSet<AnwerOption>();
-        }
-
         public int AnswerId { get; set; }
 
         public int QuestionId { get; set; }
@@ -24,9 +18,12 @@ namespace TeetSurvey.Repository.Model
 
         public int SurveyId { get; set; }
 
-        public virtual Survey Survey { get; set; }
+        public int OptionId { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AnwerOption> AnwerOptions { get; set; }
+        public virtual Option Option { get; set; }
+
+        public virtual Question Question { get; set; }
+
+        public virtual Survey Survey { get; set; }
     }
 }

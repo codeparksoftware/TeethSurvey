@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
+            DevExpress.Utils.ContextButton contextButton3 = new DevExpress.Utils.ContextButton();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdmin));
-            DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
-            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition1 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
-            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement1 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.ContextButton contextButton4 = new DevExpress.Utils.ContextButton();
+            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition2 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
+            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement2 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             this.colDesc = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colCat = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.officeNavigationBar1 = new DevExpress.XtraBars.Navigation.OfficeNavigationBar();
@@ -52,6 +52,15 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.checkedListBoxOptions = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lblQuestionOnOption = new System.Windows.Forms.Label();
+            this.lblCategoryOnOption = new System.Windows.Forms.Label();
+            this.lblDependedQuestionOnOption = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.rgOption = new DevExpress.XtraEditors.RadioGroup();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
@@ -61,13 +70,6 @@
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.anketYonetimGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.label14 = new System.Windows.Forms.Label();
-            this.lblQuestionOnOption = new System.Windows.Forms.Label();
-            this.lblCategoryOnOption = new System.Windows.Forms.Label();
-            this.lblDependedQuestionOnOption = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.rgOption = new DevExpress.XtraEditors.RadioGroup();
             this.chkIsMultiple = new DevExpress.XtraEditors.CheckEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -78,6 +80,8 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItemRadio = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItemCombo = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItemChecked = new DevExpress.XtraLayout.LayoutControlItem();
             this.takeSurvey = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
             this.cmbSurcveys = new System.Windows.Forms.ComboBox();
@@ -105,10 +109,6 @@
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
-            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
-            this.layoutControlItemCombo = new DevExpress.XtraLayout.LayoutControlItem();
-            this.checkedListBoxOptions = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.layoutControlItemChecked = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.officeNavigationBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame1)).BeginInit();
             this.navigationFrame1.SuspendLayout();
@@ -127,8 +127,9 @@
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxOptions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rgOption.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIsMultiple.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
@@ -139,6 +140,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRadio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemCombo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemChecked)).BeginInit();
             this.takeSurvey.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             this.layoutControl3.SuspendLayout();
@@ -158,9 +161,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemCombo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxOptions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemChecked)).BeginInit();
             this.SuspendLayout();
             // 
             // colDesc
@@ -204,7 +204,7 @@
             this.mainPage,
             this.manageSurvey,
             this.takeSurvey});
-            this.navigationFrame1.SelectedPage = this.manageSurvey;
+            this.navigationFrame1.SelectedPage = this.mainPage;
             this.navigationFrame1.Size = new System.Drawing.Size(1029, 363);
             this.navigationFrame1.TabIndex = 6;
             this.navigationFrame1.Text = "Teeth Survey";
@@ -256,18 +256,18 @@
             this.colDesc,
             this.colCat});
             this.tileView1.ColumnSet.GroupColumn = this.colCat;
-            contextButton1.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
-            contextButton1.AppearanceNormal.Options.UseImage = true;
-            contextButton1.Id = new System.Guid("7c5800c4-d16f-4e3e-81ab-53a218c3ab3f");
-            contextButton1.ImageOptionsCollection.ItemNormal.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
-            contextButton1.Name = "cbSil";
-            contextButton2.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
-            contextButton2.AppearanceNormal.Options.UseImage = true;
-            contextButton2.Id = new System.Guid("5acbee6b-8808-4e3e-9ed7-80b7a437c2b0");
-            contextButton2.ImageOptionsCollection.ItemNormal.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
-            contextButton2.Name = "cbEdit";
-            this.tileView1.ContextButtons.Add(contextButton1);
-            this.tileView1.ContextButtons.Add(contextButton2);
+            contextButton3.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
+            contextButton3.AppearanceNormal.Options.UseImage = true;
+            contextButton3.Id = new System.Guid("7c5800c4-d16f-4e3e-81ab-53a218c3ab3f");
+            contextButton3.ImageOptionsCollection.ItemNormal.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            contextButton3.Name = "cbSil";
+            contextButton4.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
+            contextButton4.AppearanceNormal.Options.UseImage = true;
+            contextButton4.Id = new System.Guid("5acbee6b-8808-4e3e-9ed7-80b7a437c2b0");
+            contextButton4.ImageOptionsCollection.ItemNormal.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
+            contextButton4.Name = "cbEdit";
+            this.tileView1.ContextButtons.Add(contextButton3);
+            this.tileView1.ContextButtons.Add(contextButton4);
             this.tileView1.GridControl = this.gridControl1;
             this.tileView1.Name = "tileView1";
             this.tileView1.OptionsBehavior.ReadOnly = true;
@@ -282,13 +282,13 @@
             this.tileView1.OptionsTiles.RowCount = 0;
             this.tileView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCat, DevExpress.Data.ColumnSortOrder.Ascending)});
-            this.tileView1.TileRows.Add(tableRowDefinition1);
-            tileViewItemElement1.Column = this.colDesc;
-            tileViewItemElement1.StretchHorizontal = true;
-            tileViewItemElement1.StretchVertical = true;
-            tileViewItemElement1.Text = "colDesc";
-            tileViewItemElement1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
-            this.tileView1.TileTemplate.Add(tileViewItemElement1);
+            this.tileView1.TileRows.Add(tableRowDefinition2);
+            tileViewItemElement2.Column = this.colDesc;
+            tileViewItemElement2.StretchHorizontal = true;
+            tileViewItemElement2.StretchVertical = true;
+            tileViewItemElement2.Text = "colDesc";
+            tileViewItemElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
+            this.tileView1.TileTemplate.Add(tileViewItemElement2);
             this.tileView1.ContextButtonClick += new DevExpress.Utils.ContextItemClickEventHandler(this.tileView1_ContextButtonClick);
             this.tileView1.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridView1_FocusedRowChanged);
             // 
@@ -305,7 +305,7 @@
             // 
             this.repositoryItemButtonEdit1.AutoHeight = false;
             this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete, "Sil", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete, "Sil", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.repositoryItemButtonEdit1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
             // 
@@ -357,6 +357,82 @@
             this.layoutControl1.Size = new System.Drawing.Size(675, 355);
             this.layoutControl1.TabIndex = 5;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // checkedListBoxOptions
+            // 
+            this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 299);
+            this.checkedListBoxOptions.Name = "checkedListBoxOptions";
+            this.checkedListBoxOptions.Size = new System.Drawing.Size(611, 44);
+            this.checkedListBoxOptions.StyleController = this.layoutControl1;
+            this.checkedListBoxOptions.TabIndex = 22;
+            // 
+            // comboBoxOptions
+            // 
+            this.comboBoxOptions.FormattingEnabled = true;
+            this.comboBoxOptions.Location = new System.Drawing.Point(52, 251);
+            this.comboBoxOptions.Name = "comboBoxOptions";
+            this.comboBoxOptions.Size = new System.Drawing.Size(611, 21);
+            this.comboBoxOptions.TabIndex = 21;
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(12, 61);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(126, 28);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "Question";
+            // 
+            // lblQuestionOnOption
+            // 
+            this.lblQuestionOnOption.Location = new System.Drawing.Point(142, 61);
+            this.lblQuestionOnOption.Name = "lblQuestionOnOption";
+            this.lblQuestionOnOption.Size = new System.Drawing.Size(521, 28);
+            this.lblQuestionOnOption.TabIndex = 15;
+            // 
+            // lblCategoryOnOption
+            // 
+            this.lblCategoryOnOption.BackColor = System.Drawing.Color.Transparent;
+            this.lblCategoryOnOption.Font = new System.Drawing.Font("Tahoma", 18.25F);
+            this.lblCategoryOnOption.Location = new System.Drawing.Point(142, 12);
+            this.lblCategoryOnOption.Name = "lblCategoryOnOption";
+            this.lblCategoryOnOption.Size = new System.Drawing.Size(521, 45);
+            this.lblCategoryOnOption.TabIndex = 14;
+            this.lblCategoryOnOption.Text = "             ";
+            // 
+            // lblDependedQuestionOnOption
+            // 
+            this.lblDependedQuestionOnOption.Location = new System.Drawing.Point(142, 93);
+            this.lblDependedQuestionOnOption.Name = "lblDependedQuestionOnOption";
+            this.lblDependedQuestionOnOption.Size = new System.Drawing.Size(521, 21);
+            this.lblDependedQuestionOnOption.TabIndex = 10;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(12, 93);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(126, 21);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "Depended Question";
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 18.25F);
+            this.label2.ForeColor = System.Drawing.Color.Maroon;
+            this.label2.Location = new System.Drawing.Point(12, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(126, 45);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Category";
+            // 
+            // rgOption
+            // 
+            this.rgOption.Location = new System.Drawing.Point(52, 141);
+            this.rgOption.MenuManager = this.ribbonControl1;
+            this.rgOption.Name = "rgOption";
+            this.rgOption.Size = new System.Drawing.Size(611, 106);
+            this.rgOption.StyleController = this.layoutControl1;
+            this.rgOption.TabIndex = 17;
             // 
             // ribbonControl1
             // 
@@ -442,66 +518,6 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem5);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "Common";
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(12, 61);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(126, 28);
-            this.label14.TabIndex = 16;
-            this.label14.Text = "Question";
-            // 
-            // lblQuestionOnOption
-            // 
-            this.lblQuestionOnOption.Location = new System.Drawing.Point(142, 61);
-            this.lblQuestionOnOption.Name = "lblQuestionOnOption";
-            this.lblQuestionOnOption.Size = new System.Drawing.Size(521, 28);
-            this.lblQuestionOnOption.TabIndex = 15;
-            // 
-            // lblCategoryOnOption
-            // 
-            this.lblCategoryOnOption.BackColor = System.Drawing.Color.Transparent;
-            this.lblCategoryOnOption.Font = new System.Drawing.Font("Tahoma", 18.25F);
-            this.lblCategoryOnOption.Location = new System.Drawing.Point(142, 12);
-            this.lblCategoryOnOption.Name = "lblCategoryOnOption";
-            this.lblCategoryOnOption.Size = new System.Drawing.Size(521, 45);
-            this.lblCategoryOnOption.TabIndex = 14;
-            this.lblCategoryOnOption.Text = "             ";
-            // 
-            // lblDependedQuestionOnOption
-            // 
-            this.lblDependedQuestionOnOption.Location = new System.Drawing.Point(142, 93);
-            this.lblDependedQuestionOnOption.Name = "lblDependedQuestionOnOption";
-            this.lblDependedQuestionOnOption.Size = new System.Drawing.Size(521, 21);
-            this.lblDependedQuestionOnOption.TabIndex = 10;
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(12, 93);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(126, 21);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Depended Question";
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 18.25F);
-            this.label2.ForeColor = System.Drawing.Color.Maroon;
-            this.label2.Location = new System.Drawing.Point(12, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 45);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Category";
-            // 
-            // rgOption
-            // 
-            this.rgOption.Location = new System.Drawing.Point(52, 141);
-            this.rgOption.MenuManager = this.ribbonControl1;
-            this.rgOption.Name = "rgOption";
-            this.rgOption.Size = new System.Drawing.Size(611, 106);
-            this.rgOption.StyleController = this.layoutControl1;
-            this.rgOption.TabIndex = 17;
             // 
             // chkIsMultiple
             // 
@@ -619,6 +635,26 @@
             this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem12.TextVisible = false;
             // 
+            // layoutControlItemCombo
+            // 
+            this.layoutControlItemCombo.Control = this.comboBoxOptions;
+            this.layoutControlItemCombo.Location = new System.Drawing.Point(0, 239);
+            this.layoutControlItemCombo.MinSize = new System.Drawing.Size(64, 25);
+            this.layoutControlItemCombo.Name = "layoutControlItemCombo";
+            this.layoutControlItemCombo.Size = new System.Drawing.Size(655, 48);
+            this.layoutControlItemCombo.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItemCombo.Text = "Options";
+            this.layoutControlItemCombo.TextSize = new System.Drawing.Size(37, 13);
+            // 
+            // layoutControlItemChecked
+            // 
+            this.layoutControlItemChecked.Control = this.checkedListBoxOptions;
+            this.layoutControlItemChecked.Location = new System.Drawing.Point(0, 287);
+            this.layoutControlItemChecked.Name = "layoutControlItemChecked";
+            this.layoutControlItemChecked.Size = new System.Drawing.Size(655, 48);
+            this.layoutControlItemChecked.Text = "Options";
+            this.layoutControlItemChecked.TextSize = new System.Drawing.Size(37, 13);
+            // 
             // takeSurvey
             // 
             this.takeSurvey.Caption = "Take Survey";
@@ -676,6 +712,7 @@
             this.btnStart.TabIndex = 13;
             this.btnStart.Text = "Anket Başlat";
             this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // txtSurname
             // 
@@ -872,42 +909,6 @@
             this.bbiNew.ImageOptions.ImageUri.Uri = "New";
             this.bbiNew.Name = "bbiNew";
             // 
-            // comboBoxOptions
-            // 
-            this.comboBoxOptions.FormattingEnabled = true;
-            this.comboBoxOptions.Location = new System.Drawing.Point(52, 251);
-            this.comboBoxOptions.Name = "comboBoxOptions";
-            this.comboBoxOptions.Size = new System.Drawing.Size(611, 21);
-            this.comboBoxOptions.TabIndex = 21;
-            // 
-            // layoutControlItemCombo
-            // 
-            this.layoutControlItemCombo.Control = this.comboBoxOptions;
-            this.layoutControlItemCombo.Location = new System.Drawing.Point(0, 239);
-            this.layoutControlItemCombo.MinSize = new System.Drawing.Size(64, 25);
-            this.layoutControlItemCombo.Name = "layoutControlItemCombo";
-            this.layoutControlItemCombo.Size = new System.Drawing.Size(655, 48);
-            this.layoutControlItemCombo.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItemCombo.Text = "Options";
-            this.layoutControlItemCombo.TextSize = new System.Drawing.Size(37, 13);
-            // 
-            // checkedListBoxOptions
-            // 
-            this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 299);
-            this.checkedListBoxOptions.Name = "checkedListBoxOptions";
-            this.checkedListBoxOptions.Size = new System.Drawing.Size(611, 44);
-            this.checkedListBoxOptions.StyleController = this.layoutControl1;
-            this.checkedListBoxOptions.TabIndex = 22;
-            // 
-            // layoutControlItemChecked
-            // 
-            this.layoutControlItemChecked.Control = this.checkedListBoxOptions;
-            this.layoutControlItemChecked.Location = new System.Drawing.Point(0, 287);
-            this.layoutControlItemChecked.Name = "layoutControlItemChecked";
-            this.layoutControlItemChecked.Size = new System.Drawing.Size(655, 48);
-            this.layoutControlItemChecked.Text = "Options";
-            this.layoutControlItemChecked.TextSize = new System.Drawing.Size(37, 13);
-            // 
             // frmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -940,8 +941,9 @@
             this.panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxOptions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rgOption.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIsMultiple.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
@@ -952,6 +954,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRadio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemCombo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemChecked)).EndInit();
             this.takeSurvey.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
             this.layoutControl3.ResumeLayout(false);
@@ -971,9 +975,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemCombo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxOptions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemChecked)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

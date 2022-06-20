@@ -4,6 +4,7 @@ using DevExpress.XtraSplashScreen;
 using EntityFramework.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -89,9 +90,11 @@ namespace Sample
             {
                 using (var ctx = new Model())
                 {
-                    var questionFuture = ctx.Questions.Future();
-                    var surveyFuture = ctx.Surveys.Future();
-                    var surveynameFuture = ctx.Surveys.Where(f => f.SurveyName != null).Future();
+                    var questionFuture = ctx.Questions.AsNoTracking().Future();
+                    var surveyFuture = ctx.Surveys.AsNoTracking().Future();
+                    var surveynameFuture =
+                    ctx.Surveys.AsNoTracking().
+                    Where(f => f.SurveyName != null).Future();
 
 
 
@@ -116,7 +119,7 @@ namespace Sample
             });
         }
 
-        private static Quest CreateQuest(Question q, List<Question> questions)
+        public static Quest CreateQuest(Question q, List<Question> questions)
         {
             var quest = new Quest
             (
@@ -136,7 +139,7 @@ namespace Sample
                      Value = f.Value
                  }).ToList(),
                  q.IsMultipleOption,
-                 q.ControlId);
+                 q.ControlId, q.DependedQuestionId);
 
             return quest;
         }
@@ -180,7 +183,7 @@ namespace Sample
                     layoutControlItemChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                     layoutControlItemRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 }
-          
+
 
                 checkedListBoxOptions.Items.AddRange(q.Options.Select(f => new CheckedListBoxItem(f.Text)).ToArray());
                 comboBoxOptions.Items.AddRange(q.Options.Select(f => f.Text).ToArray());
@@ -214,6 +217,8 @@ namespace Sample
             m.SaveChanges();
             Survey = m.Surveys.FirstOrDefault(f => f.SurveyId == sur.SurveyId);
             SingleService.Instance.Survey = Survey;
+            var surveyform = new SurveyWizardForm();
+            surveyform.ShowDialog();
 
         }
 
@@ -269,7 +274,31 @@ namespace Sample
             {
                 anketYonetimGroup.Visible = false;
             }
+            if (navigationFrame1.SelectedPage == takeSurvey)
+            {
+                await InitTakeSurvey();
+            }
 
+        }
+
+        private async Task InitTakeSurvey()
+        {
+            try
+            {
+                SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+                cmbSurcveys.Items.Clear();
+                cmbPollster.Items.Clear();
+                using (var m = new Model())
+                {
+                    var srvys = await m.Surveys.ToListAsync();
+                    cmbSurcveys.Items.AddRange(m.Surveys.Select(f => f.SurveyName).ToArray());
+                    cmbPollster.Items.AddRange(m.Surveys.Select(f => f.Pollster).ToArray());
+                }
+            }
+            finally
+            {
+                SplashScreenManager.CloseForm(false);
+            }
         }
 
         private async void barButtonItem5_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -283,6 +312,11 @@ namespace Sample
             {
                 await InitMainPage();
             }
+        }
+
+        private void btnStart_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 

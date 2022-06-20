@@ -13,17 +13,19 @@ namespace Sample
             List<Quest> quests,
             List<Opt> options,
             bool isMultipleOption,
-            int controlId)
+            int controlId,
+            int? parentQuestionId)
         {
             Id = id;
             CategoryTitle = categoryTitle;
             Description = description;
             QuestionType = questionType;
             DependedQuestionDescription = dependedQuestionDescription;
-            Quests = quests;
+            SubQuests = quests;
             Options = options;
             IsMultipleOption = isMultipleOption;
             ControlId = controlId;
+            ParentQuestionId = parentQuestionId;
         }
 
         public int Id { get; }
@@ -31,8 +33,8 @@ namespace Sample
         public string Description { get; }
         public int QuestionType { get; }
         public string DependedQuestionDescription { get; }
-        public List<Quest> Quests { get; }
-
+        public List<Quest> SubQuests { get; }
+        public int? ParentQuestionId { get; }
         public List<Opt> Options { get; }
         public bool IsMultipleOption { get; }
         public int ControlId { get; }
