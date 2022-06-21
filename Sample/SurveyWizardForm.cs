@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using TeetSurvey.Repository.Model;
 using static Sample.InsertForm;
 
@@ -17,7 +19,8 @@ namespace Sample
         public SurveyWizardForm()
         {
             InitializeComponent();
-
+            this.Text = SingleService.Instance.Survey.SurveyName +
+                " [ " + SingleService.Instance.Survey.Pollster + " ] ";
         }
 
         private async void SurveyWizardForm_Load(object sender, System.EventArgs e)
@@ -45,8 +48,14 @@ namespace Sample
                                 AnswerId = a.AnswerId,
                                 OptionId = a.OptionId,
                                 QuestionId = a.QuestionId
-                            }).
-                                ToList(),
+                            }).ToList(),
+                            DependedOptions = q.DependendOptions.
+                            Select(h => new DependedOptions()
+                            {
+                                ParentQuestId = q.DependedQuestionId,
+                                SubQuestId = q.QuestionId,
+                                ParentQuestionOptions = q.DependendOptions.Select(o => o.DependedOptionId).ToList(),
+                            }).ToList(),
                             CategoryTitle = q.Category.CategoryTitle,
                             Description = q.Description,
                             QuestionType = q.TypeId,
@@ -67,6 +76,7 @@ namespace Sample
                 var first = CategoryWithQuestions.FirstOrDefault();
                 var firstQ = first.Quests.FirstOrDefault();
                 UpdateUI(firstQ);
+
             }
             finally
             {
@@ -102,39 +112,22 @@ namespace Sample
             public bool IsMultipleOption { get; set; }
             public int ControlId { get; set; }
             public List<Answer> Answers { get; set; }
+            public List<DependedOptions> DependedOptions { get; set; }
+            public bool IsSubQuestion => ParentQuestionId.HasValue;
         }
-        int catIndex = 0;
-        int qIndex = 0;
-        bool isFinished = false;
-        private void wizardControl1_NextClick(object sender, DevExpress.XtraWizard.WizardCommandButtonClickEventArgs e)
-        {
-            if (wizardControl1.SelectedPage == wizardPage1)
-            {
-                e.Handled = true;
-                if (CategoryWithQuestions?.Any() == false) { return; }
-                if (isFinished == false)
-                {
-                    UpdateUI(CategoryWithQuestions[catIndex].Quests[qIndex]);
-                    qIndex++;
-                    if (CategoryWithQuestions[catIndex].Quests.Count <= qIndex)
-                    {
-                        qIndex = 0;
-                        catIndex++;
-                    }
-                }
-                if (CategoryWithQuestions.Count == catIndex)
-                {
-                    isFinished = true;
-                    System.Windows.Forms.MessageBox.Show("Anket bitmiştir teşekkürler");
-                }
-            }
 
+        public class DependedOptions
+        {
+            public int SubQuestId { get; set; }
+            public int? ParentQuestId { get; set; }
+            public List<int> ParentQuestionOptions { get; set; }
         }
+
 
         private void UpdateUI(SurveyQuest surveyQuest)
         {
 
-            wizardPage1.Text = surveyQuest.CategoryTitle;
+            lblCat.Text = surveyQuest.CategoryTitle;
             lblQuestion.Text = surveyQuest.Description;
             radioOptions.Properties.Items.Clear();
             comboOptions.Items.Clear();
@@ -174,28 +167,80 @@ namespace Sample
             }
         }
 
-        private void wizardControl1_PrevClick(object sender, DevExpress.XtraWizard.WizardCommandButtonClickEventArgs e)
-        {
-            if (wizardControl1.SelectedPage == wizardPage1)
-            {
-                e.Handled = true;
-                if (CategoryWithQuestions?.Any() == false) { return; }
-                if (0 == catIndex && 0 == qIndex)
-                {
-                    return;
 
-                }
-                if (isFinished == false)
+
+
+        private int _catIndex = 0;
+        public int catIndex
+        {
+            get => _catIndex;
+            set
+            {
+                _catIndex = value;
+
+            }
+        }
+        int qIndex = 0;
+
+
+        private async void btnNext_ClickAsync(object sender, EventArgs e)
+        {
+            if (CategoryWithQuestions?.Any() == false) { return; }
+
+            qIndex++;
+            if (CategoryWithQuestions[catIndex].Quests.Count <= qIndex)
+            {
+                qIndex = 0;
+                catIndex++;
+            }
+
+            if (CategoryWithQuestions.Count == catIndex)
+            {
+
+                var res = MessageBox.Show(
+                      "Anket bitmiştir teşekkürler. Anketi bilgilerini kaydetmek istiyor musunuz?",
+                      SingleService.Instance.Survey.SurveyName,
+                       MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes)
                 {
-                    UpdateUI(CategoryWithQuestions[catIndex].Quests[qIndex]);
-                    qIndex--;
-                    if (0 < qIndex)
+                    if (await SaveSurvey())
                     {
-                        catIndex--;
-                        qIndex = CategoryWithQuestions[catIndex].Quests.Count - 1;
+                        btnNext.Visible = false;
+                        btnCancel.Visible = false;
                     }
                 }
+                return;
             }
+
+            UpdateUI(CategoryWithQuestions[catIndex].Quests[qIndex]);
+
+        }
+
+        private async Task<bool> SaveSurvey()
+        {
+            await Task.Delay(1000);
+            return true;
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+
+            if (CategoryWithQuestions?.Any() == false) { return; }
+            if (0 == catIndex && 0 == qIndex)
+            {
+                return;
+
+            }
+
+
+            qIndex--;
+            if (qIndex < 0)
+            {
+                catIndex--;
+                qIndex = CategoryWithQuestions[catIndex].Quests.Count - 1;
+            }
+            UpdateUI(CategoryWithQuestions[catIndex].Quests[qIndex]);
+
 
         }
     }
