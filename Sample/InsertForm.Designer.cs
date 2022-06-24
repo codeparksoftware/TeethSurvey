@@ -38,6 +38,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnFinish = new System.Windows.Forms.Button();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.comboControl = new System.Windows.Forms.ComboBox();
+            this.chkMultiple = new System.Windows.Forms.CheckBox();
             this.OptionlistView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -63,9 +65,7 @@
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.chkMultiple = new System.Windows.Forms.CheckBox();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.comboControl = new System.Windows.Forms.ComboBox();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -179,6 +179,25 @@
             this.layoutControl1.Size = new System.Drawing.Size(970, 524);
             this.layoutControl1.TabIndex = 11;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // comboControl
+            // 
+            this.comboControl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboControl.FormattingEnabled = true;
+            this.comboControl.Location = new System.Drawing.Point(122, 302);
+            this.comboControl.Name = "comboControl";
+            this.comboControl.Size = new System.Drawing.Size(836, 21);
+            this.comboControl.TabIndex = 16;
+            // 
+            // chkMultiple
+            // 
+            this.chkMultiple.Location = new System.Drawing.Point(12, 278);
+            this.chkMultiple.Name = "chkMultiple";
+            this.chkMultiple.Size = new System.Drawing.Size(946, 20);
+            this.chkMultiple.TabIndex = 15;
+            this.chkMultiple.Text = "IsMultiple Option?";
+            this.chkMultiple.UseVisualStyleBackColor = true;
+            this.chkMultiple.CheckedChanged += new System.EventHandler(this.chkMultiple_CheckedChanged);
             // 
             // OptionlistView
             // 
@@ -423,15 +442,6 @@
             this.layoutControlItem4.Text = "Options";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(107, 13);
             // 
-            // chkMultiple
-            // 
-            this.chkMultiple.Location = new System.Drawing.Point(12, 278);
-            this.chkMultiple.Name = "chkMultiple";
-            this.chkMultiple.Size = new System.Drawing.Size(946, 20);
-            this.chkMultiple.TabIndex = 15;
-            this.chkMultiple.Text = "IsMultiple Option?";
-            this.chkMultiple.UseVisualStyleBackColor = true;
-            // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.chkMultiple;
@@ -440,15 +450,6 @@
             this.layoutControlItem11.Size = new System.Drawing.Size(950, 24);
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
-            // 
-            // comboControl
-            // 
-            this.comboControl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboControl.FormattingEnabled = true;
-            this.comboControl.Location = new System.Drawing.Point(122, 302);
-            this.comboControl.Name = "comboControl";
-            this.comboControl.Size = new System.Drawing.Size(836, 21);
-            this.comboControl.TabIndex = 16;
             // 
             // layoutControlItem12
             // 

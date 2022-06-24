@@ -31,6 +31,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblCat = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnPrevious = new DevExpress.XtraEditors.SimpleButton();
             this.btnNext = new DevExpress.XtraEditors.SimpleButton();
@@ -45,7 +46,6 @@
             this.layoutControlRadio = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlChecked = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlCombo = new DevExpress.XtraLayout.LayoutControlItem();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -91,6 +91,14 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(677, 55);
             this.panel2.TabIndex = 1;
+            // 
+            // simpleButton1
+            // 
+            this.simpleButton1.Location = new System.Drawing.Point(333, 20);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.Size = new System.Drawing.Size(75, 23);
+            this.simpleButton1.TabIndex = 1;
+            this.simpleButton1.Text = "Finish";
             // 
             // btnCancel
             // 
@@ -161,6 +169,7 @@
             // 
             this.radioOptions.Location = new System.Drawing.Point(52, 87);
             this.radioOptions.Name = "radioOptions";
+            this.radioOptions.Properties.ItemVertAlignment = DevExpress.XtraEditors.RadioItemVertAlignment.Top;
             this.radioOptions.Size = new System.Drawing.Size(613, 71);
             this.radioOptions.StyleController = this.layoutControl1;
             this.radioOptions.TabIndex = 5;
@@ -223,14 +232,6 @@
             this.layoutControlCombo.Text = "Options";
             this.layoutControlCombo.TextSize = new System.Drawing.Size(37, 13);
             this.layoutControlCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-            // 
-            // simpleButton1
-            // 
-            this.simpleButton1.Location = new System.Drawing.Point(333, 20);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(75, 23);
-            this.simpleButton1.TabIndex = 1;
-            this.simpleButton1.Text = "Finish";
             // 
             // SurveyWizardForm
             // 

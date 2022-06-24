@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraEditors.Controls;
+﻿using DevExpress.Utils.Extensions;
+using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraSplashScreen;
 using System;
 using System.Collections.Generic;
@@ -129,6 +130,7 @@ namespace Sample
 
             lblCat.Text = surveyQuest.CategoryTitle;
             lblQuestion.Text = surveyQuest.Description;
+    
             radioOptions.Properties.Items.Clear();
             comboOptions.Items.Clear();
             checkedListBoxOptions.Items.Clear();
@@ -165,6 +167,10 @@ namespace Sample
                     Options.
                     Select(f => new RadioGroupItem(f.Id, f.Text)).ToArray());
             }
+
+            radioOptions.Properties.Items.ForEach(f => f.Value = false);
+            checkedListBoxOptions.UnCheckAll();
+            radioOptions.SelectedIndex = -1;
         }
 
 

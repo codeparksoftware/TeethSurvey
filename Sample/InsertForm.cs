@@ -458,5 +458,17 @@ namespace Sample
             public List<Quest> Quests { get; set; }
         }
 
+        private void chkMultiple_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMultiple.Checked)
+            {
+                comboControl.SelectedValue = (int)OptionControls.CheckedListBox;
+                comboControl.Enabled = false;
+            }
+            else
+            {
+                comboControl.Enabled = true;
+            }
+        }
     }
 }
