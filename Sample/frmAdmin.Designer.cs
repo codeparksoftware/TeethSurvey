@@ -54,12 +54,9 @@
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.checkedListBoxOptions = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.comboBoxOptions = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.lblQuestionOnOption = new System.Windows.Forms.Label();
             this.lblCategoryOnOption = new System.Windows.Forms.Label();
             this.lblDependedQuestionOnOption = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.rgOption = new DevExpress.XtraEditors.RadioGroup();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
@@ -72,11 +69,8 @@
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.chkIsMultiple = new DevExpress.XtraEditors.CheckEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItemRadio = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -132,11 +126,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIsMultiple.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRadio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
@@ -341,12 +332,9 @@
             // 
             this.layoutControl1.Controls.Add(this.checkedListBoxOptions);
             this.layoutControl1.Controls.Add(this.comboBoxOptions);
-            this.layoutControl1.Controls.Add(this.label14);
             this.layoutControl1.Controls.Add(this.lblQuestionOnOption);
             this.layoutControl1.Controls.Add(this.lblCategoryOnOption);
             this.layoutControl1.Controls.Add(this.lblDependedQuestionOnOption);
-            this.layoutControl1.Controls.Add(this.label11);
-            this.layoutControl1.Controls.Add(this.label2);
             this.layoutControl1.Controls.Add(this.rgOption);
             this.layoutControl1.Controls.Add(this.chkIsMultiple);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -360,77 +348,53 @@
             // 
             // checkedListBoxOptions
             // 
-            this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 299);
+            this.checkedListBoxOptions.Location = new System.Drawing.Point(110, 299);
             this.checkedListBoxOptions.Name = "checkedListBoxOptions";
-            this.checkedListBoxOptions.Size = new System.Drawing.Size(611, 44);
+            this.checkedListBoxOptions.Size = new System.Drawing.Size(553, 44);
             this.checkedListBoxOptions.StyleController = this.layoutControl1;
             this.checkedListBoxOptions.TabIndex = 22;
             // 
             // comboBoxOptions
             // 
             this.comboBoxOptions.FormattingEnabled = true;
-            this.comboBoxOptions.Location = new System.Drawing.Point(52, 251);
+            this.comboBoxOptions.Location = new System.Drawing.Point(110, 251);
             this.comboBoxOptions.Name = "comboBoxOptions";
-            this.comboBoxOptions.Size = new System.Drawing.Size(611, 21);
+            this.comboBoxOptions.Size = new System.Drawing.Size(553, 21);
             this.comboBoxOptions.TabIndex = 21;
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(12, 61);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(126, 28);
-            this.label14.TabIndex = 16;
-            this.label14.Text = "Question";
             // 
             // lblQuestionOnOption
             // 
-            this.lblQuestionOnOption.Location = new System.Drawing.Point(142, 61);
+            this.lblQuestionOnOption.Location = new System.Drawing.Point(110, 61);
             this.lblQuestionOnOption.Name = "lblQuestionOnOption";
-            this.lblQuestionOnOption.Size = new System.Drawing.Size(521, 28);
+            this.lblQuestionOnOption.Size = new System.Drawing.Size(423, 28);
             this.lblQuestionOnOption.TabIndex = 15;
             // 
             // lblCategoryOnOption
             // 
             this.lblCategoryOnOption.BackColor = System.Drawing.Color.Transparent;
             this.lblCategoryOnOption.Font = new System.Drawing.Font("Tahoma", 18.25F);
-            this.lblCategoryOnOption.Location = new System.Drawing.Point(142, 12);
+            this.lblCategoryOnOption.Location = new System.Drawing.Point(110, 12);
             this.lblCategoryOnOption.Name = "lblCategoryOnOption";
-            this.lblCategoryOnOption.Size = new System.Drawing.Size(521, 45);
+            this.lblCategoryOnOption.Size = new System.Drawing.Size(423, 45);
             this.lblCategoryOnOption.TabIndex = 14;
             this.lblCategoryOnOption.Text = "             ";
             // 
             // lblDependedQuestionOnOption
             // 
-            this.lblDependedQuestionOnOption.Location = new System.Drawing.Point(142, 93);
+            this.lblDependedQuestionOnOption.Location = new System.Drawing.Point(110, 93);
             this.lblDependedQuestionOnOption.Name = "lblDependedQuestionOnOption";
-            this.lblDependedQuestionOnOption.Size = new System.Drawing.Size(521, 21);
+            this.lblDependedQuestionOnOption.Size = new System.Drawing.Size(423, 21);
             this.lblDependedQuestionOnOption.TabIndex = 10;
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(12, 93);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(126, 21);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Depended Question";
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 18.25F);
-            this.label2.ForeColor = System.Drawing.Color.Maroon;
-            this.label2.Location = new System.Drawing.Point(12, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 45);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Category";
             // 
             // rgOption
             // 
-            this.rgOption.Location = new System.Drawing.Point(52, 141);
+            this.rgOption.Location = new System.Drawing.Point(110, 141);
             this.rgOption.MenuManager = this.ribbonControl1;
             this.rgOption.Name = "rgOption";
-            this.rgOption.Size = new System.Drawing.Size(611, 106);
+            this.rgOption.Properties.AllowFocused = false;
+            this.rgOption.Properties.ItemVertAlignment = DevExpress.XtraEditors.RadioItemVertAlignment.Top;
+            this.rgOption.Properties.ReadOnly = true;
+            this.rgOption.Size = new System.Drawing.Size(553, 106);
             this.rgOption.StyleController = this.layoutControl1;
             this.rgOption.TabIndex = 17;
             // 
@@ -524,7 +488,9 @@
             this.chkIsMultiple.Location = new System.Drawing.Point(12, 118);
             this.chkIsMultiple.MenuManager = this.ribbonControl1;
             this.chkIsMultiple.Name = "chkIsMultiple";
+            this.chkIsMultiple.Properties.AllowFocused = false;
             this.chkIsMultiple.Properties.Caption = "Multiple Answer";
+            this.chkIsMultiple.Properties.ReadOnly = true;
             this.chkIsMultiple.Size = new System.Drawing.Size(651, 19);
             this.chkIsMultiple.StyleController = this.layoutControl1;
             this.chkIsMultiple.TabIndex = 20;
@@ -534,11 +500,8 @@
             this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.Root.GroupBordersVisible = false;
             this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem5,
-            this.layoutControlItem1,
             this.layoutControlItem4,
             this.layoutControlItem2,
-            this.layoutControlItem6,
             this.layoutControlItem3,
             this.layoutControlItemRadio,
             this.layoutControlItem12,
@@ -548,70 +511,41 @@
             this.Root.Size = new System.Drawing.Size(675, 355);
             this.Root.TextVisible = false;
             // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.Control = this.label2;
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem5.MinSize = new System.Drawing.Size(24, 24);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(130, 49);
-            this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem5.TextVisible = false;
-            // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.label11;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 81);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(130, 25);
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem1.TextVisible = false;
-            // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.lblCategoryOnOption;
-            this.layoutControlItem4.Location = new System.Drawing.Point(130, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.MaxSize = new System.Drawing.Size(525, 49);
             this.layoutControlItem4.MinSize = new System.Drawing.Size(525, 49);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(525, 49);
+            this.layoutControlItem4.Size = new System.Drawing.Size(655, 49);
             this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem4.TextVisible = false;
+            this.layoutControlItem4.Text = "Category";
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(95, 13);
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.lblDependedQuestionOnOption;
-            this.layoutControlItem2.Location = new System.Drawing.Point(130, 81);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 81);
             this.layoutControlItem2.MaxSize = new System.Drawing.Size(525, 25);
             this.layoutControlItem2.MinSize = new System.Drawing.Size(525, 25);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(525, 25);
+            this.layoutControlItem2.Size = new System.Drawing.Size(655, 25);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextVisible = false;
-            // 
-            // layoutControlItem6
-            // 
-            this.layoutControlItem6.Control = this.label14;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 49);
-            this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(130, 32);
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem6.TextVisible = false;
+            this.layoutControlItem2.Text = "Depended Question";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(95, 13);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.lblQuestionOnOption;
-            this.layoutControlItem3.Location = new System.Drawing.Point(130, 49);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 49);
             this.layoutControlItem3.MaxSize = new System.Drawing.Size(525, 32);
             this.layoutControlItem3.MinSize = new System.Drawing.Size(525, 32);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(525, 32);
+            this.layoutControlItem3.Size = new System.Drawing.Size(655, 32);
             this.layoutControlItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextVisible = false;
+            this.layoutControlItem3.Text = "Question";
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(95, 13);
             // 
             // layoutControlItemRadio
             // 
@@ -623,7 +557,7 @@
             this.layoutControlItemRadio.Size = new System.Drawing.Size(655, 110);
             this.layoutControlItemRadio.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItemRadio.Text = "Options";
-            this.layoutControlItemRadio.TextSize = new System.Drawing.Size(37, 13);
+            this.layoutControlItemRadio.TextSize = new System.Drawing.Size(95, 13);
             // 
             // layoutControlItem12
             // 
@@ -644,7 +578,7 @@
             this.layoutControlItemCombo.Size = new System.Drawing.Size(655, 48);
             this.layoutControlItemCombo.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItemCombo.Text = "Options";
-            this.layoutControlItemCombo.TextSize = new System.Drawing.Size(37, 13);
+            this.layoutControlItemCombo.TextSize = new System.Drawing.Size(95, 13);
             // 
             // layoutControlItemChecked
             // 
@@ -653,7 +587,7 @@
             this.layoutControlItemChecked.Name = "layoutControlItemChecked";
             this.layoutControlItemChecked.Size = new System.Drawing.Size(655, 48);
             this.layoutControlItemChecked.Text = "Options";
-            this.layoutControlItemChecked.TextSize = new System.Drawing.Size(37, 13);
+            this.layoutControlItemChecked.TextSize = new System.Drawing.Size(95, 13);
             // 
             // takeSurvey
             // 
@@ -946,11 +880,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIsMultiple.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemRadio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
@@ -1013,18 +944,12 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lblQuestionOnOption;
         private System.Windows.Forms.Label lblCategoryOnOption;
         private System.Windows.Forms.Label lblDependedQuestionOnOption;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label2;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraEditors.RadioGroup rgOption;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItemRadio;

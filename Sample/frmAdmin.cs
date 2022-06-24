@@ -144,7 +144,9 @@ namespace Sample
             return quest;
         }
 
-        private void gridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        private void gridView1_FocusedRowChanged(
+            object sender, 
+            DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
 
             var row = tileView1.GetFocusedRow();
@@ -160,7 +162,7 @@ namespace Sample
                 lblDependedQuestionOnOption.Text = q.DependedQuestionDescription;
                 chkIsMultiple.Checked = q.IsMultipleOption;
 
-                layoutControlItem1.Visibility = string.IsNullOrWhiteSpace(
+                layoutControlItem2.Visibility = string.IsNullOrWhiteSpace(
                     q.DependedQuestionDescription) ? DevExpress.XtraLayout.Utils.LayoutVisibility.Never :
                     DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
 
@@ -212,7 +214,14 @@ namespace Sample
                 PatientTCKN = txtTCKN.Text
             });
 
-            var sur = new Survey() { SurveyName = cmbSurcveys.Text, Pollster = cmbPollster.Text, SurveyDate = DateTime.Now, Patient = added };
+            var sur = new Survey()
+            {
+                SurveyName = cmbSurcveys.Text,
+                Pollster = cmbPollster.Text,
+                SurveyDate = DateTime.Now,
+                Patient = added
+            };
+
             m.Surveys.Add(sur);
             m.SaveChanges();
             Survey = m.Surveys.FirstOrDefault(f => f.SurveyId == sur.SurveyId);
@@ -222,7 +231,9 @@ namespace Sample
 
         }
 
-        private async void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private async void barButtonItem1_ItemClick(
+            object sender, 
+            DevExpress.XtraBars.ItemClickEventArgs e)
         {
             var insert = new InsertForm(null);
             if (insert.ShowDialog() == DialogResult.OK)
@@ -260,7 +271,9 @@ namespace Sample
             }
         }
 
-        private async void navigationFrame1_SelectedPageChanged(object sender, DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
+        private async void navigationFrame1_SelectedPageChanged(
+            object sender, 
+            DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
         {
             if (navigationFrame1.SelectedPage == manageSurvey)
             {
