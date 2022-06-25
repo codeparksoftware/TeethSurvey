@@ -5,7 +5,7 @@ namespace Sample
 {
     public partial class InputBox : Form
     {
-        public InputBox(string text,int? val)
+        public InputBox(string text,int? val, bool isDefault)
         {
             InitializeComponent();
             if (string.IsNullOrWhiteSpace(text) == false)
@@ -16,6 +16,7 @@ namespace Sample
             {
                 txtValue.Text = ""+val;
             }
+            chkIsDefault.Checked = isDefault;
         }
 
         private void button1_Click(object sender, EventArgs e)

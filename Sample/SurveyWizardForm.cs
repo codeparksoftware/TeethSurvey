@@ -66,7 +66,8 @@ namespace Sample
                                 Id = f.OptionId,
                                 QuestionId = f.QuestionId,
                                 Text = f.Text,
-                                Value = f.Value
+                                Value = f.Value,
+                                IsDefault = f.IsDefault
                             }).ToList(),
                             IsMultipleOption = q.IsMultipleOption,
                             ControlId = q.ControlId,
@@ -130,10 +131,10 @@ namespace Sample
 
             lblCat.Text = surveyQuest.CategoryTitle;
             lblQuestion.Text = surveyQuest.Description;
-    
+
             radioOptions.Properties.Items.Clear();
-            comboOptions.Items.Clear();
-            checkedListBoxOptions.Items.Clear();
+            comboOptions.DataSource = null;
+            checkedListBoxOptions.DataSource = null;
 
             if (surveyQuest.ControlId == (int)OptionControls.RadioButton)
             {
@@ -151,26 +152,31 @@ namespace Sample
                 layoutControlRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-                checkedListBoxOptions.Items.AddRange(
-                    surveyQuest.
-                    Options.
-                    Select(f => new RadioGroupItem(f.Id, f.Text)).ToArray());
+                checkedListBoxOptions.DataSource = surveyQuest.
+                    Options.ToList();
+                checkedListBoxOptions.DisplayMember = nameof(Opt.Text);
+                checkedListBoxOptions.ValueMember = nameof(Opt.Id);
+                checkedListBoxOptions.CheckMember = nameof(Opt.IsDefault);
             }
             else if (surveyQuest.ControlId == (int)OptionControls.ComboBox)
             {
-
+                
                 layoutControlRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-                comboOptions.Items.AddRange(
-                    surveyQuest.
-                    Options.
-                    Select(f => new RadioGroupItem(f.Id, f.Text)).ToArray());
+                comboOptions.DataSource = surveyQuest.
+                    Options.ToList();
+
+                comboOptions.DisplayMember = nameof(Opt.Text);
+                comboOptions.ValueMember = nameof(Opt.Id);
+                comboOptions.SelectedValue = surveyQuest.Options.FirstOrDefault(f => f.IsDefault)?.Id;
+
             }
 
-            radioOptions.Properties.Items.ForEach(f => f.Value = false);
-            checkedListBoxOptions.UnCheckAll();
-            radioOptions.SelectedIndex = -1;
+
+         
+
+            radioOptions.EditValue = surveyQuest.Options.FirstOrDefault(g => g.IsDefault)?.Id ?? -1;
         }
 
 

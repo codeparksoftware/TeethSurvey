@@ -136,7 +136,8 @@ namespace Sample
                      Id = f.OptionId,
                      QuestionId = f.QuestionId,
                      Text = f.Text,
-                     Value = f.Value
+                     Value = f.Value,
+                     IsDefault = f.IsDefault
                  }).ToList(),
                  q.IsMultipleOption,
                  q.ControlId, q.DependedQuestionId);
@@ -145,14 +146,14 @@ namespace Sample
         }
 
         private void gridView1_FocusedRowChanged(
-            object sender, 
+            object sender,
             DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
 
             var row = tileView1.GetFocusedRow();
             rgOption.Properties.Items.Clear();
             checkedListBoxOptions.Items.Clear();
-            comboBoxOptions.Items.Clear();
+            comboBoxOptions.DataSource = null;
 
             if (row is Quest q)
             {
@@ -185,15 +186,27 @@ namespace Sample
                     layoutControlItemChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                     layoutControlItemRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 }
+                var defaultOpt = q.Options.FirstOrDefault(f => f.IsDefault)?.Id;
+
+                checkedListBoxOptions.Items.
+                    AddRange(q.Options.
+                    Select(f => new CheckedListBoxItem(f.Text, f.IsDefault)).ToArray());
 
 
-                checkedListBoxOptions.Items.AddRange(q.Options.Select(f => new CheckedListBoxItem(f.Text)).ToArray());
-                comboBoxOptions.Items.AddRange(q.Options.Select(f => f.Text).ToArray());
+                comboBoxOptions.DataSource = q.Options;
+                comboBoxOptions.DisplayMember = nameof(Opt.Text);
+                comboBoxOptions.ValueMember = nameof(Opt.Id);
+                comboBoxOptions.SelectedValue = defaultOpt;
+
                 rgOption.Properties.Items.
                     AddRange(
                     q.
                     Options.
                     Select(f => new RadioGroupItem(f.Id, f.Text)).ToArray());
+
+                rgOption.EditValue =
+                rgOption.Properties.Items.
+                    FirstOrDefault(f => f.Value.ToString() == defaultOpt?.ToString())?.Value;
             }
             else
             {
@@ -202,37 +215,51 @@ namespace Sample
 
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private async void btnStart_Click(object sender, EventArgs e)
         {
-            var m = new Model();
-
-            var added = m.Patients.Add(new Patient()
+            using (var m = new Model())
             {
-                EnrollDate = enrollDate.Value,
-                PatientName = txtName.Text,
-                PatientSurname = txtSurname.Text,
-                PatientTCKN = txtTCKN.Text
-            });
 
-            var sur = new Survey()
-            {
-                SurveyName = cmbSurcveys.Text,
-                Pollster = cmbPollster.Text,
-                SurveyDate = DateTime.Now,
-                Patient = added
-            };
+                var patient = m.Patients.Add(new Patient()
+                {
+                    EnrollDate = enrollDate.Value,
+                    PatientName = txtName.Text,
+                    PatientSurname = txtSurname.Text,
+                    PatientTCKN = txtTCKN.Text
+                });
+                var sId = cmbSurcveys.SelectedValue?.ToString();
+                var sur = m.Surveys.FirstOrDefault(f =>
+                f.SurveyId.ToString() == sId);
+                if (sur == null)
+                {
+                    sur = new Survey()
+                    {
+                        SurveyName = cmbSurcveys.Text,
+                        Pollster = cmbPollster.Text,
+                        SurveyDate = DateTime.Now,
+                        Patient = patient
+                    };
 
-            m.Surveys.Add(sur);
-            m.SaveChanges();
-            Survey = m.Surveys.FirstOrDefault(f => f.SurveyId == sur.SurveyId);
-            SingleService.Instance.Survey = Survey;
+                    m.Surveys.Add(sur);
+                    await m.SaveChangesAsync();
+                }
+
+                else
+                {
+                    sur.Patient = patient;
+                    m.Entry(sur).State = EntityState.Modified;
+                    await m.SaveChangesAsync();
+                }
+                Survey = m.Surveys.FirstOrDefault(f => f.SurveyId == sur.SurveyId);
+                SingleService.Instance.Survey = Survey;
+            }
             var surveyform = new SurveyWizardForm();
             surveyform.ShowDialog();
 
         }
 
         private async void barButtonItem1_ItemClick(
-            object sender, 
+            object sender,
             DevExpress.XtraBars.ItemClickEventArgs e)
         {
             var insert = new InsertForm(null);
@@ -272,7 +299,7 @@ namespace Sample
         }
 
         private async void navigationFrame1_SelectedPageChanged(
-            object sender, 
+            object sender,
             DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
         {
             if (navigationFrame1.SelectedPage == manageSurvey)
@@ -299,14 +326,36 @@ namespace Sample
             try
             {
                 SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
-                cmbSurcveys.Items.Clear();
-                cmbPollster.Items.Clear();
-                using (var m = new Model())
+                await Task.Run(() =>
                 {
-                    var srvys = await m.Surveys.ToListAsync();
-                    cmbSurcveys.Items.AddRange(m.Surveys.Select(f => f.SurveyName).ToArray());
-                    cmbPollster.Items.AddRange(m.Surveys.Select(f => f.Pollster).ToArray());
-                }
+                    using (var ctx = new Model())
+                    {
+
+                        var surveyFuture = ctx.Surveys.AsNoTracking().Future();
+                        var surveynameFuture =
+                        ctx.Surveys.AsNoTracking().
+                        Where(f => f.SurveyName != null).Future();
+
+                        var surveys = surveyFuture.ToList();
+                        var surveynames = surveynameFuture.ToList();
+
+                        cmbPollster.Invoke((Action)(() =>
+                        {
+                            cmbPollster.DataSource = surveys.DistinctBy(f => f.Pollster).ToList();
+                            cmbPollster.DisplayMember = nameof(Survey.Pollster);
+                        }));
+
+                        cmbSurcveys.Invoke((Action)(() =>
+                        {
+
+                            cmbSurcveys.DataSource = surveynames.DistinctBy(f => f.SurveyName).ToList();
+                            cmbSurcveys.DisplayMember = nameof(Survey.SurveyName);
+                            cmbSurcveys.ValueMember = nameof(Survey.SurveyId);
+                        }));
+
+                    }
+                });
+
             }
             finally
             {

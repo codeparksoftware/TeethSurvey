@@ -17,9 +17,15 @@ namespace Sample
         private bool _isLoadingToUpdate = false;
         private List<OptionControl> GetOptionControls() => new List<OptionControl>()
         {
-            new OptionControl(){Id=(int)OptionControls.RadioButton, Text=nameof(OptionControls.RadioButton)},
-            new OptionControl(){Id=(int)OptionControls.ComboBox, Text=nameof(OptionControls.ComboBox)},
-            new OptionControl(){Id=(int)OptionControls.CheckedListBox, Text=nameof(OptionControls.CheckedListBox)}
+            new OptionControl(){
+                Id =(int)OptionControls.RadioButton,
+                Text =nameof(OptionControls.RadioButton)},
+            new OptionControl(){
+                Id =(int)OptionControls.ComboBox,
+                Text =nameof(OptionControls.ComboBox)},
+            new OptionControl(){
+                Id =(int)OptionControls.CheckedListBox,
+                Text =nameof(OptionControls.CheckedListBox)}
         };
 
         public InsertForm(int? questionId)
@@ -54,15 +60,17 @@ namespace Sample
                     DependedQuestionId = f.DependedQuestionId,
                     DependedOptionIds = f.DependendOptions.Select(d => d.DependedOptionId).ToList(),
                     QuestionId = f.QuestionId,
-                    ControlId=f.ControlId,
-                    IsMultiple=f.IsMultipleOption,
+                    ControlId = f.ControlId,
+                    IsMultiple = f.IsMultipleOption,
                     Opts = f.Options.Select(o =>
                       new Opt
                       {
                           OptId = o.OptionId,
                           QuestionId = o.QuestionId,
                           Text = o.Text,
-                          Value = o.Value
+                          Value = o.Value,
+                          IsDefault = o.IsDefault
+
                       }).ToList()
                 }).
                     FirstOrDefaultAsync(q => q.QuestionId == _questionId.Value);
@@ -74,6 +82,7 @@ namespace Sample
                         var item = new ListViewItem(option.Text);
                         item.Tag = option.OptId;
                         item.SubItems.Add(option.Value?.ToString());
+                        item.SubItems.Add(option.IsDefault.ToString());
                         OptionlistView.Items.Add(item);
                     }
                     txtDesc.Text = quest.Description;
@@ -102,6 +111,7 @@ namespace Sample
 
         private void LoadCombos(int selectedCatId)
         {
+            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
             using (var model = new Model())
             {
                 var categories = model.Categories.Select(f => new Cat
@@ -121,7 +131,9 @@ namespace Sample
                           {
                               OptId = o.OptionId,
                               QuestionId = o.QuestionId,
-                              Text = o.Text
+                              Text = o.Text,
+                              Value = o.Value,
+                              IsDefault = o.IsDefault
                           }).ToList()
                       }).ToList()
                 }).ToList();
@@ -132,6 +144,7 @@ namespace Sample
                 CategoryCombo.ValueMember = nameof(Cat.CatId);
                 CategoryCombo.SelectedValue = selectedCatId;
             }
+            SplashScreenManager.CloseForm(false);
         }
 
 
@@ -192,6 +205,7 @@ namespace Sample
                         if (model.SaveChanges() > 0)
                         {
                             MessageBox.Show("Insert operation has been done succesfully.");
+                            LoadCombos(int.TryParse(CategoryCombo.SelectedValue?.ToString(), out var cId) ? cId : -1);
                         }
                     }
                 }
@@ -202,7 +216,11 @@ namespace Sample
                         var question = model.Questions.FirstOrDefault(f => f.QuestionId == _questionId.Value);
                         question.CategoryId = int.Parse(CategoryCombo.SelectedValue?.ToString());
                         question.Description = txtDesc.Text;
-                        question.DependedQuestionId = int.Parse(DependendQuestCombo.SelectedValue?.ToString());
+                        question.DependedQuestionId =
+                            int.TryParse(DependendQuestCombo.SelectedValue?.ToString(), out var depId) && depId != -1
+                            ? depId
+                            : (int?)null;
+
                         question.IsMultipleOption = chkMultiple.Checked;
                         question.ControlId = int.TryParse(comboControl.SelectedValue?.ToString(), out var cid) ? cid : 1;
                         question.DependendOptions = dependendOptions.CheckedItems.OfType<CheckedListBoxItem>().
@@ -217,6 +235,7 @@ namespace Sample
                             OptionId = int.TryParse(f.Tag?.ToString(), out var id) ? id : 0,
                             Text = f.Text,
                             Value = int.TryParse(f.SubItems[1].Text, out var val) ? val : (int?)null,
+                            IsDefault = f.SubItems[2].Text == true.ToString()
                         }).ToList();
 
                         var interstects = currentOptions.
@@ -232,6 +251,7 @@ namespace Sample
                             {
                                 opt.Text = editedOptions.FirstOrDefault(f => f.OptionId == oId)?.Text;
                                 opt.Value = editedOptions.FirstOrDefault(f => f.OptionId == oId)?.Value;
+                                opt.IsDefault = editedOptions.FirstOrDefault(f => f.OptionId == oId)?.IsDefault ?? false;
                             }
                         }
 
@@ -243,7 +263,13 @@ namespace Sample
                         }
                         foreach (var item in right)
                         {
-                            question.Options.Add(new Option() { QuestionId = question.QuestionId, Text = item.Text, Value = item.Value });
+                            question.Options.Add(new Option()
+                            {
+                                QuestionId = question.QuestionId,
+                                Text = item.Text,
+                                Value = item.Value,
+                                IsDefault = item.IsDefault
+                            });
                         }
 
                         model.Questions.Attach(question);
@@ -286,7 +312,8 @@ namespace Sample
                     Text = OptionlistView.Items[i].Text,
                     Value = int.TryParse(
                         OptionlistView.Items[i].SubItems[1].Text,
-                        out var res) ? res : (int?)null
+                        out var res) ? res : (int?)null,
+                    IsDefault = OptionlistView.Items[i].SubItems[2].Text == true.ToString()
                 };
                 opts.Add(opt);
             }
@@ -296,10 +323,21 @@ namespace Sample
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var input = new InputBox(string.Empty, (int?)null);
+            var input = new InputBox(string.Empty, (int?)null, false);
             if (input.ShowDialog() == DialogResult.OK)
             {
-                OptionlistView.Items.Add(input.txtOption.Text).SubItems.Add(input.txtValue.Text);
+                if (input.chkIsDefault.Checked)
+                {
+                    foreach (ListViewItem old in OptionlistView.Items)
+                    {
+                        old.SubItems[2].Text = false.ToString();
+                    }
+                }
+                var item = OptionlistView.Items.Add(input.txtOption.Text);
+                item.SubItems.
+                Add(input.txtValue.Text);
+                item.SubItems.Add(input.chkIsDefault.Checked.ToString());
+
             }
 
         }
@@ -408,11 +446,21 @@ namespace Sample
             var input =
                 new InputBox(
                     OptionlistView.SelectedItems[0].Text,
-                    int.TryParse(OptionlistView.SelectedItems[0].SubItems[1].Text, out var val) ? val : (int?)null);
+                    int.TryParse(OptionlistView.SelectedItems[0].SubItems[1].Text, out var val)
+                    ? val : (int?)null,
+                    OptionlistView.SelectedItems[0].SubItems[2].Text == true.ToString());
             if (input.ShowDialog() == DialogResult.OK)
             {
+                if (input.chkIsDefault.Checked)
+                {
+                    foreach (ListViewItem old in OptionlistView.Items)
+                    {
+                        old.SubItems[2].Text = false.ToString();
+                    }
+                }
                 OptionlistView.SelectedItems[0].Text = input.txtOption.Text;
                 OptionlistView.SelectedItems[0].SubItems[1].Text = input.txtValue.Text;
+                OptionlistView.SelectedItems[0].SubItems[2].Text = input.chkIsDefault.Checked.ToString();
             }
         }
 
@@ -450,6 +498,7 @@ namespace Sample
             public string Text { get; set; }
             public int QuestionId { get; set; }
             public int? Value { get; set; }
+            public bool IsDefault { get; set; }
         }
         private class Cat
         {

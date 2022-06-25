@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample
+﻿namespace Sample
 {
     public sealed class Opt
     {
@@ -12,5 +6,6 @@ namespace Sample
         public string Text { get; set; }
         public int? Value { get; set; }
         public int QuestionId { get; set; }
+        public bool IsDefault { get; set; }
     }
 }

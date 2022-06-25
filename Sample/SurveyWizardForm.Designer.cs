@@ -151,26 +151,29 @@
             // 
             // comboOptions
             // 
+            this.comboOptions.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.comboOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboOptions.FormattingEnabled = true;
-            this.comboOptions.Location = new System.Drawing.Point(52, 286);
+            this.comboOptions.Location = new System.Drawing.Point(52, 87);
             this.comboOptions.Name = "comboOptions";
             this.comboOptions.Size = new System.Drawing.Size(613, 21);
             this.comboOptions.TabIndex = 7;
             // 
             // checkedListBoxOptions
             // 
-            this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 162);
+            this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 178);
             this.checkedListBoxOptions.Name = "checkedListBoxOptions";
-            this.checkedListBoxOptions.Size = new System.Drawing.Size(613, 120);
+            this.checkedListBoxOptions.Size = new System.Drawing.Size(613, 129);
             this.checkedListBoxOptions.StyleController = this.layoutControl1;
             this.checkedListBoxOptions.TabIndex = 6;
             // 
             // radioOptions
             // 
-            this.radioOptions.Location = new System.Drawing.Point(52, 87);
+            this.radioOptions.Location = new System.Drawing.Point(52, 112);
             this.radioOptions.Name = "radioOptions";
             this.radioOptions.Properties.ItemVertAlignment = DevExpress.XtraEditors.RadioItemVertAlignment.Top;
-            this.radioOptions.Size = new System.Drawing.Size(613, 71);
+            this.radioOptions.Size = new System.Drawing.Size(613, 62);
             this.radioOptions.StyleController = this.layoutControl1;
             this.radioOptions.TabIndex = 5;
             // 
@@ -207,27 +210,33 @@
             // layoutControlRadio
             // 
             this.layoutControlRadio.Control = this.radioOptions;
-            this.layoutControlRadio.Location = new System.Drawing.Point(0, 75);
+            this.layoutControlRadio.Location = new System.Drawing.Point(0, 100);
             this.layoutControlRadio.Name = "layoutControlRadio";
-            this.layoutControlRadio.Size = new System.Drawing.Size(657, 75);
+            this.layoutControlRadio.Size = new System.Drawing.Size(657, 66);
             this.layoutControlRadio.Text = "Options";
             this.layoutControlRadio.TextSize = new System.Drawing.Size(37, 13);
             // 
             // layoutControlChecked
             // 
             this.layoutControlChecked.Control = this.checkedListBoxOptions;
-            this.layoutControlChecked.Location = new System.Drawing.Point(0, 150);
+            this.layoutControlChecked.Location = new System.Drawing.Point(0, 166);
             this.layoutControlChecked.Name = "layoutControlChecked";
-            this.layoutControlChecked.Size = new System.Drawing.Size(657, 124);
+            this.layoutControlChecked.Size = new System.Drawing.Size(657, 133);
             this.layoutControlChecked.Text = "Options";
             this.layoutControlChecked.TextSize = new System.Drawing.Size(37, 13);
             this.layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             // 
             // layoutControlCombo
             // 
+            this.layoutControlCombo.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.layoutControlCombo.AppearanceItemCaption.Options.UseBackColor = true;
+            this.layoutControlCombo.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.layoutControlCombo.AppearanceItemCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
             this.layoutControlCombo.Control = this.comboOptions;
-            this.layoutControlCombo.Location = new System.Drawing.Point(0, 274);
+            this.layoutControlCombo.Location = new System.Drawing.Point(0, 75);
             this.layoutControlCombo.Name = "layoutControlCombo";
+            this.layoutControlCombo.OptionsPrint.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.layoutControlCombo.OptionsPrint.AppearanceItemCaption.Options.UseBackColor = true;
             this.layoutControlCombo.Size = new System.Drawing.Size(657, 25);
             this.layoutControlCombo.Text = "Options";
             this.layoutControlCombo.TextSize = new System.Drawing.Size(37, 13);

@@ -26,6 +26,8 @@ namespace TeetSurvey.Repository.Model
 
         public int? Value { get; set; }
 
+        public bool IsDefault { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Answer> Answers { get; set; }
 
