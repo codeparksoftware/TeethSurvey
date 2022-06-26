@@ -232,8 +232,8 @@ namespace Sample
             }
             using (var m = new Model())
             {
-                if (m.Categories.Any(f => f.SurveyListId == sId) == false ||
-                    m.Categories.FirstOrDefault(f => f.SurveyListId == sId)?.Questions.Any() == false)
+                if (m.Categories.ToList().Any(f => f.SurveyListId == sId) == false ||
+                    m.Questions.Any(f => f.Category.SurveyListId == sId) == false)
                 {
                     MessageBox.Show("Bu Ankete ait hiç soru bulunmamaktadır");
                     return;
