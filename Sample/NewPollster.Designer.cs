@@ -1,6 +1,6 @@
 ﻿namespace Sample
 {
-    partial class NewCategory
+    partial class NewPollster
     {
         /// <summary>
         /// Required designer variable.
@@ -58,15 +58,15 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(613, 88);
-            this.layoutControl1.TabIndex = 0;
+            this.layoutControl1.Size = new System.Drawing.Size(800, 85);
+            this.layoutControl1.TabIndex = 1;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(456, 54);
+            this.btnOk.Location = new System.Drawing.Point(596, 51);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(145, 22);
+            this.btnOk.Size = new System.Drawing.Size(192, 22);
             this.btnOk.StyleController = this.layoutControl1;
             this.btnOk.TabIndex = 6;
             this.btnOk.Text = "Ok";
@@ -74,9 +74,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(308, 54);
+            this.btnCancel.Location = new System.Drawing.Point(401, 51);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(144, 22);
+            this.btnCancel.Size = new System.Drawing.Size(191, 22);
             this.btnCancel.StyleController = this.layoutControl1;
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
@@ -84,9 +84,9 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(77, 12);
+            this.txtName.Location = new System.Drawing.Point(50, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(524, 20);
+            this.txtName.Size = new System.Drawing.Size(738, 20);
             this.txtName.StyleController = this.layoutControl1;
             this.txtName.TabIndex = 4;
             // 
@@ -101,7 +101,7 @@
             this.layoutControlItem2,
             this.emptySpaceItem2});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(613, 88);
+            this.Root.Size = new System.Drawing.Size(800, 85);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -109,33 +109,33 @@
             this.layoutControlItem1.Control = this.txtName;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(593, 24);
-            this.layoutControlItem1.Text = "Kategori Adı:";
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(62, 13);
+            this.layoutControlItem1.Size = new System.Drawing.Size(780, 24);
+            this.layoutControlItem1.Text = "Pollster";
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(35, 13);
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 42);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 39);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(296, 26);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(389, 26);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.btnOk;
-            this.layoutControlItem3.Location = new System.Drawing.Point(444, 42);
+            this.layoutControlItem3.Location = new System.Drawing.Point(584, 39);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(149, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(196, 26);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.btnCancel;
-            this.layoutControlItem2.Location = new System.Drawing.Point(296, 42);
+            this.layoutControlItem2.Location = new System.Drawing.Point(389, 39);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(148, 26);
+            this.layoutControlItem2.Size = new System.Drawing.Size(195, 26);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
@@ -144,17 +144,17 @@
             this.emptySpaceItem2.AllowHotTrack = false;
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 24);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(593, 18);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(780, 15);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // NewCategory
+            // NewPollster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(613, 88);
+            this.ClientSize = new System.Drawing.Size(800, 85);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "NewCategory";
-            this.Text = "Kategory ekle";
+            this.Name = "NewPollster";
+            this.Text = "NewPollster";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();

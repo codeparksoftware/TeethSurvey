@@ -46,6 +46,7 @@
             this.layoutControlRadio = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlChecked = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlCombo = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -58,10 +59,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlRadio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlChecked)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlCombo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.AliceBlue;
             this.panel1.Controls.Add(this.lblCat);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -73,12 +76,12 @@
             // 
             this.lblCat.AutoSize = true;
             this.lblCat.Font = new System.Drawing.Font("Tahoma", 18.25F);
-            this.lblCat.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.lblCat.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblCat.Location = new System.Drawing.Point(12, 9);
             this.lblCat.Name = "lblCat";
-            this.lblCat.Size = new System.Drawing.Size(79, 30);
+            this.lblCat.Size = new System.Drawing.Size(141, 30);
             this.lblCat.TabIndex = 0;
-            this.lblCat.Text = "label1";
+            this.lblCat.Text = "                ";
             // 
             // panel2
             // 
@@ -144,15 +147,16 @@
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
+            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(716, 125, 650, 400);
             this.layoutControl1.Root = this.Root;
             this.layoutControl1.Size = new System.Drawing.Size(677, 319);
             this.layoutControl1.TabIndex = 1;
-            this.layoutControl1.Text = "layoutControl1";
+            this.layoutControl1.Text = " ";
             // 
             // comboOptions
             // 
-            this.comboOptions.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.comboOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboOptions.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.comboOptions.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboOptions.FormattingEnabled = true;
             this.comboOptions.Location = new System.Drawing.Point(52, 87);
@@ -164,7 +168,7 @@
             // 
             this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 178);
             this.checkedListBoxOptions.Name = "checkedListBoxOptions";
-            this.checkedListBoxOptions.Size = new System.Drawing.Size(613, 129);
+            this.checkedListBoxOptions.Size = new System.Drawing.Size(613, 63);
             this.checkedListBoxOptions.StyleController = this.layoutControl1;
             this.checkedListBoxOptions.TabIndex = 6;
             // 
@@ -187,13 +191,15 @@
             // 
             // Root
             // 
+            this.Root.DefaultLayoutType = DevExpress.XtraLayout.Utils.LayoutType.Horizontal;
             this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.Root.GroupBordersVisible = false;
             this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
             this.layoutControlRadio,
             this.layoutControlChecked,
-            this.layoutControlCombo});
+            this.layoutControlCombo,
+            this.emptySpaceItem1});
             this.Root.Name = "Root";
             this.Root.Size = new System.Drawing.Size(677, 319);
             this.Root.TextVisible = false;
@@ -215,32 +221,46 @@
             this.layoutControlRadio.Size = new System.Drawing.Size(657, 66);
             this.layoutControlRadio.Text = "Options";
             this.layoutControlRadio.TextSize = new System.Drawing.Size(37, 13);
+            this.layoutControlRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             // 
             // layoutControlChecked
             // 
             this.layoutControlChecked.Control = this.checkedListBoxOptions;
             this.layoutControlChecked.Location = new System.Drawing.Point(0, 166);
             this.layoutControlChecked.Name = "layoutControlChecked";
-            this.layoutControlChecked.Size = new System.Drawing.Size(657, 133);
+            this.layoutControlChecked.Size = new System.Drawing.Size(657, 67);
             this.layoutControlChecked.Text = "Options";
             this.layoutControlChecked.TextSize = new System.Drawing.Size(37, 13);
             this.layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             // 
             // layoutControlCombo
             // 
-            this.layoutControlCombo.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.layoutControlCombo.AppearanceItemCaption.BackColor = System.Drawing.Color.Transparent;
             this.layoutControlCombo.AppearanceItemCaption.Options.UseBackColor = true;
             this.layoutControlCombo.AppearanceItemCaption.Options.UseTextOptions = true;
             this.layoutControlCombo.AppearanceItemCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
             this.layoutControlCombo.Control = this.comboOptions;
             this.layoutControlCombo.Location = new System.Drawing.Point(0, 75);
+            this.layoutControlCombo.MaxSize = new System.Drawing.Size(657, 25);
+            this.layoutControlCombo.MinSize = new System.Drawing.Size(657, 25);
             this.layoutControlCombo.Name = "layoutControlCombo";
             this.layoutControlCombo.OptionsPrint.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.layoutControlCombo.OptionsPrint.AppearanceItemCaption.Options.UseBackColor = true;
             this.layoutControlCombo.Size = new System.Drawing.Size(657, 25);
+            this.layoutControlCombo.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlCombo.Text = "Options";
             this.layoutControlCombo.TextSize = new System.Drawing.Size(37, 13);
             this.layoutControlCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 233);
+            this.emptySpaceItem1.MinSize = new System.Drawing.Size(104, 24);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(657, 66);
+            this.emptySpaceItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // SurveyWizardForm
             // 
@@ -270,6 +290,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlRadio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlChecked)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlCombo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -294,5 +315,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlChecked;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlCombo;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
     }
 }

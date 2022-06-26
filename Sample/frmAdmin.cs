@@ -1,10 +1,13 @@
-﻿using DevExpress.XtraEditors.Controls;
+﻿using DevExpress.Utils;
+using DevExpress.Utils.Controls;
+using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Tile;
 using DevExpress.XtraSplashScreen;
 using EntityFramework.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -44,26 +47,40 @@ namespace Sample
             try
             {
                 SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
-                await Task.Run(() =>
+
+                using (var m = new Model())
                 {
-                    using (var m = new Model())
-                    {
-                        var totalSurveyFuture = m.Surveys.FutureCount();
-                        var totalQuestFuture = m.Questions.FutureCount();
-                        txtAnketNumber.Invoke((Action)(() =>
-                        {
-                            txtAnketNumber.Text = totalSurveyFuture.Value.ToString();
-                        }));
-                        txtQuestionNumber.Invoke((Action)(() =>
-                        txtQuestionNumber.Text = totalQuestFuture.Value.ToString()));
-                    }
-                });
+                    var surveys = await m.Surveys.
+                        Select(f =>
+                       new SurveyView()
+                       {
+                           Patient = f.Patient.PatientName,
+                           Pollster = f.Pollster.Name,
+                           SurveyId = f.Id,
+                           SurveyDate = f.SurveyDate,
+                           SurveyName = f.SurveyList.SurveyName,
+                           IsSubmitted = f.IsSubmitted
+                       })
+                    .ToListAsync();
+                    gridSurvey.DataSource = surveys;
+                }
+
             }
             finally
             {
                 SplashScreenManager.CloseForm(false);
 
             }
+        }
+        public class SurveyView
+        {
+            public int SurveyId { get; set; }
+            public string Pollster { get; set; }
+            public string SurveyName { get; set; }
+            public DateTime SurveyDate { get; set; }
+            public string Patient { get; set; }
+            public bool IsSubmitted { get; set; }
+            public Image Icon => IsSubmitted ? Sample.Properties.Resources.apply_16x16 : Sample.Properties.Resources.time2_16x16;
         }
 
         private async Task InitAnketQuestion()
@@ -86,37 +103,21 @@ namespace Sample
 
         private async Task DataLoad()
         {
-            await Task.Run(() =>
+
+            using (var ctx = new Model())
             {
-                using (var ctx = new Model())
+                var questions = await ctx.Questions.AsNoTracking().ToListAsync();
+
+
+                Quests = questions.Select(f => CreateQuest(f, questions)).ToList();
+                gridControl1.Invoke(new Action(() =>
                 {
-                    var questionFuture = ctx.Questions.AsNoTracking().Future();
-                    var surveyFuture = ctx.Surveys.AsNoTracking().Future();
-                    var surveynameFuture =
-                    ctx.Surveys.AsNoTracking().
-                    Where(f => f.SurveyName != null).Future();
+                    gridControl1.DataSource = Quests;
+                }));
 
 
+            }
 
-                    var questions = questionFuture.ToList();
-                    var surveys = surveyFuture.ToList();
-                    var surveynames = surveynameFuture.ToList();
-
-
-                    Quests = questions.Select(f => CreateQuest(f, questions)).ToList();
-                    gridControl1.Invoke(new Action(() =>
-                    {
-                        gridControl1.DataSource = Quests;
-                    }));
-
-                    cmbPollster.DataSource = surveys.DistinctBy(f => f.Pollster).ToList();
-                    cmbPollster.DisplayMember = nameof(Survey.Pollster);
-
-
-                    cmbSurcveys.DataSource = surveynames.DistinctBy(f => f.SurveyName).ToList();
-                    cmbSurcveys.DisplayMember = nameof(Survey.SurveyName);
-                }
-            });
         }
 
         public static Quest CreateQuest(Question q, List<Question> questions)
@@ -196,8 +197,10 @@ namespace Sample
                 comboBoxOptions.DataSource = q.Options;
                 comboBoxOptions.DisplayMember = nameof(Opt.Text);
                 comboBoxOptions.ValueMember = nameof(Opt.Id);
-                comboBoxOptions.SelectedValue = defaultOpt;
-
+                if (defaultOpt != null)
+                {
+                    comboBoxOptions.SelectedValue = defaultOpt;
+                }
                 rgOption.Properties.Items.
                     AddRange(
                     q.
@@ -217,8 +220,24 @@ namespace Sample
 
         private async void btnStart_Click(object sender, EventArgs e)
         {
+            if (cmbSurveys.SelectedIndex < 0 ||
+                int.TryParse(cmbSurveys.SelectedValue?.ToString(), out var sId) == false)
+            {
+                return;
+            }
+            if (cmbPollster.SelectedIndex < 0 ||
+               int.TryParse(cmbPollster.SelectedValue?.ToString(), out var pId) == false)
+            {
+                return;
+            }
             using (var m = new Model())
             {
+                if (m.Categories.Any(f => f.SurveyListId == sId) == false ||
+                    m.Categories.FirstOrDefault(f => f.SurveyListId == sId)?.Questions.Any() == false)
+                {
+                    MessageBox.Show("Bu Ankete ait hiç soru bulunmamaktadır");
+                    return;
+                }
 
                 var patient = m.Patients.Add(new Patient()
                 {
@@ -227,34 +246,27 @@ namespace Sample
                     PatientSurname = txtSurname.Text,
                     PatientTCKN = txtTCKN.Text
                 });
-                var sId = cmbSurcveys.SelectedValue?.ToString();
-                var sur = m.Surveys.FirstOrDefault(f =>
-                f.SurveyId.ToString() == sId);
-                if (sur == null)
-                {
-                    sur = new Survey()
-                    {
-                        SurveyName = cmbSurcveys.Text,
-                        Pollster = cmbPollster.Text,
-                        SurveyDate = DateTime.Now,
-                        Patient = patient
-                    };
 
-                    m.Surveys.Add(sur);
-                    await m.SaveChangesAsync();
-                }
-
-                else
+                var sur = new Survey()
                 {
-                    sur.Patient = patient;
-                    m.Entry(sur).State = EntityState.Modified;
-                    await m.SaveChangesAsync();
-                }
-                Survey = m.Surveys.FirstOrDefault(f => f.SurveyId == sur.SurveyId);
+                    SurveyListId = sId,
+                    PollsterId = pId,
+                    SurveyDate = DateTime.Now,
+                    Patient = patient
+                };
+
+                Survey = m.Surveys.Add(sur);
+                await m.SaveChangesAsync();
+                Survey = m.Surveys.
+                    Include(f => f.Patient).Include(g => g.Pollster).
+                    Include(h => h.SurveyList)
+                    .FirstOrDefault(g => g.Id == Survey.Id);
+
                 SingleService.Instance.Survey = Survey;
+                var wizard = new SurveyWizardForm();
+                wizard.ShowDialog();
+
             }
-            var surveyform = new SurveyWizardForm();
-            surveyform.ShowDialog();
 
         }
 
@@ -285,7 +297,7 @@ namespace Sample
             }
         }
 
-        private void tileView1_ContextButtonClick(object sender, DevExpress.Utils.ContextItemClickEventArgs e)
+        private async void tileView1_ContextButtonClick(object sender, DevExpress.Utils.ContextItemClickEventArgs e)
         {
             if (e.Item.Name == "cbEdit")
             {
@@ -296,8 +308,78 @@ namespace Sample
                     frm.ShowDialog();
                 }
             }
-        }
+            if (e.Item.Name == "cbSil")
+            {
+                if (e.DataItem is TileViewItem item && tileView1.GetRow(item.RowHandle) is Quest quest)
+                {
+                    var confirm = MessageBox.Show(quest.Description + " \n sorusu silinecektir. Emin misiniz?", "Soru Silme", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirm == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            using (var m = new Model())
+                            {
+                                var qId = quest.Id;
+                                var IsAnswerExist = m.Answers.Any(f => f.QuestionId == qId);
+                                var isDepended = m.Questions.Any(f => f.DependedQuestionId == qId);
+                                if (isDepended || IsAnswerExist)
+                                {
+                                    var res = MessageBox.Show("Bu soruya ait cevap ya da altsorular bulunmaktadır.\n" +
+                                        "Silmeniz durumunda alt sorular da silinecektir" +
+                                        "\nYine de silmek istiyor musunuz?", "Soru Sil",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    if (res == DialogResult.Yes)
+                                    {
+                                        await RemoveChildren(m, qId);
+                                        m.Questions.RemoveRange(m.Questions.Where(f => f.DependedQuestionId == qId).ToList());
+                                        m.Answers.RemoveRange(m.Answers.Where(f => f.QuestionId == qId).ToList());
+                                        m.Options.RemoveRange(m.Options.Where(f => f.QuestionId == qId).ToList());
+                                        m.DependendOptions.RemoveRange(m.DependendOptions.Where(f => f.QuestionId == qId).ToList());
 
+                                        await m.SaveChangesAsync();
+                                        m.Questions.Remove(m.Questions.First(f => f.QuestionId == qId));
+                                        await m.SaveChangesAsync();
+                                        await InitAnketQuestion();
+                                    }
+                                    else
+                                    {
+                                        return;
+                                    }
+
+                                }
+                                else
+                                {
+                                    m.Options.RemoveRange(m.Options.Where(f => f.QuestionId == qId).ToList());
+                                    m.Questions.Remove(m.Questions.First(f => f.QuestionId == qId));
+                                    await m.SaveChangesAsync();
+                                    await InitAnketQuestion();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
+                    }
+                }
+
+            }
+        }
+        async Task RemoveChildren(Model m, int id)
+        {
+
+            var children = await m.Questions.Where(c => c.DependedQuestionId == id).ToListAsync();
+            foreach (var child in children)
+            {
+                await RemoveChildren(m, child.QuestionId);
+                m.Questions.Remove(child);
+                m.Answers.RemoveRange(m.Answers.Where(f => f.QuestionId == child.QuestionId).ToList());
+                m.Options.RemoveRange(m.Options.Where(f => f.QuestionId == child.QuestionId).ToList());
+                m.DependendOptions.RemoveRange(m.DependendOptions.Where(f => f.QuestionId == child.QuestionId).ToList());
+            }
+
+        }
         private async void navigationFrame1_SelectedPageChanged(
             object sender,
             DevExpress.XtraBars.Navigation.SelectedPageChangedEventArgs e)
@@ -331,26 +413,26 @@ namespace Sample
                     using (var ctx = new Model())
                     {
 
-                        var surveyFuture = ctx.Surveys.AsNoTracking().Future();
-                        var surveynameFuture =
-                        ctx.Surveys.AsNoTracking().
-                        Where(f => f.SurveyName != null).Future();
+                        var surveyListFuture = ctx.SurveyLists.AsNoTracking().Future();
+                        var pollsterFuture =
+                        ctx.Pollsters.AsNoTracking().Future();
 
-                        var surveys = surveyFuture.ToList();
-                        var surveynames = surveynameFuture.ToList();
+                        var surveyList = surveyListFuture.ToList();
+                        var pollster = pollsterFuture.ToList();
 
                         cmbPollster.Invoke((Action)(() =>
                         {
-                            cmbPollster.DataSource = surveys.DistinctBy(f => f.Pollster).ToList();
-                            cmbPollster.DisplayMember = nameof(Survey.Pollster);
+                            cmbPollster.DataSource = pollster;
+                            cmbPollster.DisplayMember = nameof(Pollster.Name);
+                            cmbPollster.ValueMember = nameof(Pollster.Id);
                         }));
 
-                        cmbSurcveys.Invoke((Action)(() =>
+                        cmbSurveys.Invoke((Action)(() =>
                         {
 
-                            cmbSurcveys.DataSource = surveynames.DistinctBy(f => f.SurveyName).ToList();
-                            cmbSurcveys.DisplayMember = nameof(Survey.SurveyName);
-                            cmbSurcveys.ValueMember = nameof(Survey.SurveyId);
+                            cmbSurveys.DataSource = surveyList;
+                            cmbSurveys.DisplayMember = nameof(SurveyList.SurveyName);
+                            cmbSurveys.ValueMember = nameof(SurveyList.Id);
                         }));
 
                     }
@@ -374,10 +456,64 @@ namespace Sample
             {
                 await InitMainPage();
             }
+            else if (navigationFrame1.SelectedPage == takeSurvey)
+            {
+                await InitTakeSurvey();
+            }
         }
 
-        private void btnStart_Click_1(object sender, EventArgs e)
+
+
+        private void barEditItem1_EditValueChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private async void btnAddPollster_Click(object sender, EventArgs e)
+        {
+            var pollsterAdd = new NewPollster();
+            if (pollsterAdd.ShowDialog() == DialogResult.OK)
+            {
+                using (var ctx = new Model())
+                {
+                    var pollster = await ctx.Pollsters.ToListAsync();
+
+                    cmbPollster.Invoke((Action)(() =>
+                    {
+                        cmbPollster.DataSource = pollster;
+                        cmbPollster.DisplayMember = nameof(Pollster.Name);
+                        cmbPollster.ValueMember = nameof(Pollster.Id);
+                    }));
+                    cmbPollster.SelectedValue = pollsterAdd.Result;
+                }
+            }
+        }
+
+        private async void btnAddAnket_Click(object sender, EventArgs e)
+        {
+            var surveyListAdd = new NewSurveyForm();
+            if (surveyListAdd.ShowDialog() == DialogResult.OK)
+            {
+                using (var ctx = new Model())
+                {
+                    var surveyList = await ctx.SurveyLists.ToListAsync();
+
+                    cmbSurveys.Invoke((Action)(() =>
+                    {
+
+                        cmbSurveys.DataSource = surveyList;
+                        cmbSurveys.DisplayMember = nameof(SurveyList.SurveyName);
+                        cmbSurveys.ValueMember = nameof(SurveyList.Id);
+                    }));
+                    cmbSurveys.SelectedValue = surveyListAdd.Result;
+                }
+            }
+        }
+
+        private void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            //Delete question
+
 
         }
     }

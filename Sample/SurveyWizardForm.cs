@@ -20,8 +20,8 @@ namespace Sample
         public SurveyWizardForm()
         {
             InitializeComponent();
-            this.Text = SingleService.Instance.Survey.SurveyName +
-                " [ " + SingleService.Instance.Survey.Pollster + " ] ";
+            this.Text = SingleService.Instance.Survey.SurveyList.SurveyName +
+                " [ " + SingleService.Instance.Survey.Pollster.Name + " ] ";
         }
 
         private async void SurveyWizardForm_Load(object sender, System.EventArgs e)
@@ -34,7 +34,8 @@ namespace Sample
                     CategoryWithQuestions =
                         await model.Categories.
                         AsNoTracking().
-                        Where(c => c.Questions.Count > 0).
+                        Where(c => c.Questions.Count > 0 
+                        && c.SurveyListId == SingleService.Instance.Survey.SurveyListId).
                         Select(c => new Cat()
                         {
                             CatId = c.CategoryId,
@@ -76,14 +77,16 @@ namespace Sample
                         }).ToListAsync();
                 }
                 var first = CategoryWithQuestions.FirstOrDefault();
-                var firstQ = first.Quests.FirstOrDefault();
-                UpdateUI(firstQ);
+                var firstQ = first?.Quests.FirstOrDefault();
+                if (firstQ != null)
+                {
+                    UpdateUI(firstQ);
+                }
 
             }
             finally
             {
                 SplashScreenManager.CloseForm(false);
-
             }
         }
 
@@ -138,6 +141,7 @@ namespace Sample
 
             if (surveyQuest.ControlId == (int)OptionControls.RadioButton)
             {
+                emptySpaceItem1.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 layoutControlCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -148,7 +152,7 @@ namespace Sample
             }
             else if (surveyQuest.ControlId == (int)OptionControls.CheckedListBox)
             {
-
+                emptySpaceItem1.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
@@ -160,8 +164,9 @@ namespace Sample
             }
             else if (surveyQuest.ControlId == (int)OptionControls.ComboBox)
             {
-                
+        
                 layoutControlRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                emptySpaceItem1.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 layoutControlCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 comboOptions.DataSource = surveyQuest.
@@ -174,7 +179,7 @@ namespace Sample
             }
 
 
-         
+
 
             radioOptions.EditValue = surveyQuest.Options.FirstOrDefault(g => g.IsDefault)?.Id ?? -1;
         }
@@ -211,7 +216,7 @@ namespace Sample
 
                 var res = MessageBox.Show(
                       "Anket bitmiştir teşekkürler. Anketi bilgilerini kaydetmek istiyor musunuz?",
-                      SingleService.Instance.Survey.SurveyName,
+                      SingleService.Instance.Survey.SurveyList.SurveyName,
                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes)
                 {

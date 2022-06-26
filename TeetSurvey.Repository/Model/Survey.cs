@@ -15,24 +15,26 @@ namespace TeetSurvey.Repository.Model
             Answers = new HashSet<Answer>();
         }
 
-        public int SurveyId { get; set; }
+        public int Id { get; set; }
 
         public int PatientId { get; set; }
 
-        public DateTime SurveyDate { get; set; }
+        public int? PollsterId { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Pollster { get; set; }
+        public DateTime SurveyDate { get; set; }
 
         public int? TotalPoint { get; set; }
 
-        [StringLength(500)]
-        public string SurveyName { get; set; }
+        public int SurveyListId { get; set; }
+        public bool IsSubmitted{ get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Answer> Answers { get; set; }
 
         public virtual Patient Patient { get; set; }
+
+        public virtual Pollster Pollster { get; set; }
+
+        public virtual SurveyList SurveyList { get; set; }
     }
 }

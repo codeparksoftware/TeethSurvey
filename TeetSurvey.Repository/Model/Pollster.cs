@@ -6,25 +6,22 @@ namespace TeetSurvey.Repository.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Category")]
-    public partial class Category
+    [Table("Pollster")]
+    public partial class Pollster
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public Pollster()
         {
-            Questions = new HashSet<Question>();
+            Surveys = new HashSet<Survey>();
         }
 
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
 
+        [Required]
         [StringLength(500)]
-        public string CategoryTitle { get; set; }
-
-        public int? SurveyListId { get; set; }
-
-        public virtual SurveyList SurveyList { get; set; }
+        public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Survey> Surveys { get; set; }
     }
 }

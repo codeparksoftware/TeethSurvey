@@ -290,18 +290,6 @@ namespace Sample
             }
         }
 
-        private ListViewItem FindItem(int optionId)
-        {
-            foreach (ListViewItem item in OptionlistView.Items)
-            {
-                if (item.Tag.ToString() == optionId.ToString())
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
-
         private List<Option> GetOptions()
         {
             var opts = new List<Option>();

@@ -13,15 +13,15 @@ namespace TeetSurvey.Repository.Model
         }
 
         public virtual DbSet<Answer> Answers { get; set; }
-        public virtual DbSet<AnswerOption> AnswerOptions { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<DependendOption> DependendOptions { get; set; }
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Pollster> Pollsters { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<QuestionControl> QuestionControls { get; set; }
         public virtual DbSet<Survey> Surveys { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<SurveyList> SurveyLists { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -77,6 +77,11 @@ namespace TeetSurvey.Repository.Model
             modelBuilder.Entity<Survey>()
                 .HasMany(e => e.Answers)
                 .WithRequired(e => e.Survey)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SurveyList>()
+                .HasMany(e => e.Surveys)
+                .WithRequired(e => e.SurveyList)
                 .WillCascadeOnDelete(false);
         }
     }

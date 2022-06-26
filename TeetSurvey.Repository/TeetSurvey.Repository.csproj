@@ -54,16 +54,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Answer.cs" />
-    <Compile Include="Model\AnswerOption.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\DependendOption.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Option.cs" />
     <Compile Include="Model\Patient.cs" />
+    <Compile Include="Model\Pollster.cs" />
     <Compile Include="Model\Question.cs" />
     <Compile Include="Model\QuestionControl.cs" />
     <Compile Include="Model\Survey.cs" />
-    <Compile Include="Model\sysdiagram.cs" />
+    <Compile Include="Model\SurveyList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

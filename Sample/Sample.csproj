@@ -134,6 +134,18 @@
     <Compile Include="NewCategory.Designer.cs">
       <DependentUpon>NewCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewPollster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewPollster.Designer.cs">
+      <DependentUpon>NewPollster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewSurveyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewSurveyForm.Designer.cs">
+      <DependentUpon>NewSurveyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Opt.cs" />
     <Compile Include="OptionControl.cs" />
     <Compile Include="Program.cs" />
@@ -185,6 +197,12 @@
     <EmbeddedResource Include="NewCategory.resx">
       <DependentUpon>NewCategory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewPollster.resx">
+      <DependentUpon>NewPollster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewSurveyForm.resx">
+      <DependentUpon>NewSurveyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -235,6 +253,10 @@
   <ItemGroup>
     <Content Include="images\delete.png" />
     <Content Include="MYSL.ICO" />
+    <None Include="Resources\time2_32x32.png" />
+    <None Include="Resources\time2_16x16.png" />
+    <None Include="Resources\apply_32x32.png" />
+    <None Include="Resources\apply_16x16.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

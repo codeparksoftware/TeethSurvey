@@ -43,12 +43,12 @@
             this.OptionlistView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colIsDefault = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.silToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ekleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dependendOptions = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.btnNewCat = new DevExpress.XtraEditors.SimpleButton();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -62,11 +62,11 @@
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colIsDefault = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnNewCat = new DevExpress.XtraEditors.SimpleButton();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -84,10 +84,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // CategoryCombo
@@ -226,6 +226,10 @@
             // 
             this.columnHeader2.Text = "Value";
             // 
+            // colIsDefault
+            // 
+            this.colIsDefault.Text = "Is Default";
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -264,17 +268,6 @@
             this.dependendOptions.Size = new System.Drawing.Size(836, 134);
             this.dependendOptions.StyleController = this.layoutControl1;
             this.dependendOptions.TabIndex = 11;
-            // 
-            // btnNewCat
-            // 
-            this.btnNewCat.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnNewCat.ImageOptions.Image")));
-            this.btnNewCat.Location = new System.Drawing.Point(801, 12);
-            this.btnNewCat.Name = "btnNewCat";
-            this.btnNewCat.Size = new System.Drawing.Size(157, 22);
-            this.btnNewCat.StyleController = this.layoutControl1;
-            this.btnNewCat.TabIndex = 12;
-            this.btnNewCat.Text = "Yeni Category";
-            this.btnNewCat.Click += new System.EventHandler(this.btnNewCat_Click);
             // 
             // Root
             // 
@@ -414,15 +407,6 @@
             this.emptySpaceItem2.Size = new System.Drawing.Size(950, 27);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.btnNewCat;
-            this.layoutControlItem1.Location = new System.Drawing.Point(789, 0);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(161, 26);
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem1.TextVisible = false;
-            // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.OptionlistView;
@@ -450,9 +434,25 @@
             this.layoutControlItem12.Text = "Option Display Control";
             this.layoutControlItem12.TextSize = new System.Drawing.Size(107, 13);
             // 
-            // colIsDefault
+            // btnNewCat
             // 
-            this.colIsDefault.Text = "Is Default";
+            this.btnNewCat.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnNewCat.ImageOptions.Image")));
+            this.btnNewCat.Location = new System.Drawing.Point(801, 12);
+            this.btnNewCat.Name = "btnNewCat";
+            this.btnNewCat.Size = new System.Drawing.Size(157, 22);
+            this.btnNewCat.StyleController = this.layoutControl1;
+            this.btnNewCat.TabIndex = 12;
+            this.btnNewCat.Text = "Yeni Category";
+            this.btnNewCat.Click += new System.EventHandler(this.btnNewCat_Click);
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.btnNewCat;
+            this.layoutControlItem1.Location = new System.Drawing.Point(789, 0);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(161, 26);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
             // 
             // InsertForm
             // 
@@ -480,10 +480,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             this.ResumeLayout(false);
 
         }
