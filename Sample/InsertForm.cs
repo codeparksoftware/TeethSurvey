@@ -1,11 +1,9 @@
 ﻿using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraSplashScreen;
-using EntityFramework.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TeetSurvey.Repository.Model;
 
@@ -33,7 +31,6 @@ namespace Sample
             SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
             InitializeComponent();
 
-            LoadCombos(-1);
             _questionId = questionId;
             if (questionId.HasValue)
             {
@@ -53,7 +50,7 @@ namespace Sample
             using (var m = new Model())
             {
                 var quest = await m.Questions.Select(f =>
-                new Quest
+                new InsertQuest
                 {
                     CategoryId = f.CategoryId,
                     Description = f.Description,
@@ -63,7 +60,7 @@ namespace Sample
                     ControlId = f.ControlId,
                     IsMultiple = f.IsMultipleOption,
                     Opts = f.Options.Select(o =>
-                      new Opt
+                      new InsertOpt
                       {
                           OptId = o.OptionId,
                           QuestionId = o.QuestionId,
@@ -109,40 +106,52 @@ namespace Sample
             _isLoadingToUpdate = false;
         }
 
-        private void LoadCombos(int selectedCatId)
+        private void LoadCombos(int selectedCatId, int surveyId)
         {
             SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
             using (var model = new Model())
             {
-                var categories = model.Categories.Select(f => new Cat
-                {
-                    CatId = f.CategoryId,
-                    Title = f.CategoryTitle,
-                    Quests = f.Questions.Select(q =>
-                      new Quest
-                      {
-                          CategoryId = q.CategoryId,
-                          Description = q.Description,
-                          QuestionId = q.QuestionId,
-                          Opts = q.
-                          Options.
-                          Select(o =>
-                          new Opt
+                var categories = model.
+                    Categories.
+                    Where(f => f.SurveyListId == surveyId).
+                    Select(f => new InsertCat
+                    {
+                        CatId = f.CategoryId,
+                        Title = f.CategoryTitle,
+                        Quests = f.Questions.Select(q =>
+                          new InsertQuest
                           {
-                              OptId = o.OptionId,
-                              QuestionId = o.QuestionId,
-                              Text = o.Text,
-                              Value = o.Value,
-                              IsDefault = o.IsDefault
+                              CategoryId = q.CategoryId,
+                              Description = q.Description,
+                              QuestionId = q.QuestionId,
+                              Opts = q.
+                              Options.
+                              Select(o =>
+                              new InsertOpt
+                              {
+                                  OptId = o.OptionId,
+                                  QuestionId = o.QuestionId,
+                                  Text = o.Text,
+                                  Value = o.Value,
+                                  IsDefault = o.IsDefault
+                              }).ToList()
                           }).ToList()
-                      }).ToList()
-                }).ToList();
+                    }).ToList();
 
-                categories.Insert(0, new Cat() { Title = "Seçiniz", CatId = -1 });
+
                 CategoryCombo.DataSource = categories;
-                CategoryCombo.DisplayMember = nameof(Cat.Title);
-                CategoryCombo.ValueMember = nameof(Cat.CatId);
-                CategoryCombo.SelectedValue = selectedCatId;
+                CategoryCombo.DisplayMember = nameof(InsertCat.Title);
+                CategoryCombo.ValueMember = nameof(InsertCat.CatId);
+
+                if (selectedCatId > 0)
+                {
+                    CategoryCombo.SelectedValue = selectedCatId;
+                }
+                else if (CategoryCombo.Items.Count > 0)
+                {
+                    CategoryCombo.SelectedIndex = 0;
+                }
+
             }
             SplashScreenManager.CloseForm(false);
         }
@@ -150,6 +159,11 @@ namespace Sample
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            if (comboSurveyList.SelectedValue.ToString() == "-1")
+            {
+                MessageBox.Show("Lütfen survey seçiniz");
+                return;
+            }
             if (CategoryCombo.SelectedValue.ToString() == "-1")
             {
                 MessageBox.Show("Lütfen kategori seçiniz");
@@ -205,7 +219,8 @@ namespace Sample
                         if (model.SaveChanges() > 0)
                         {
                             MessageBox.Show("Insert operation has been done succesfully.");
-                            LoadCombos(int.TryParse(CategoryCombo.SelectedValue?.ToString(), out var cId) ? cId : -1);
+                            LoadCombos(int.TryParse(CategoryCombo.SelectedValue?.ToString(), out var cId) ? cId : -1,
+                                int.Parse(comboSurveyList.SelectedValue.ToString()));
                         }
                     }
                 }
@@ -343,7 +358,7 @@ namespace Sample
         private void DependendQuestCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (DependendQuestCombo.SelectedItem is Quest q)
+            if (DependendQuestCombo.SelectedItem is InsertQuest q)
             {
                 layoutControlItem10.Visibility =
                     (q.QuestionId == -1) ?
@@ -356,7 +371,7 @@ namespace Sample
             }
         }
 
-        private void RefreshDependedOption(Quest q)
+        private void RefreshDependedOption(InsertQuest q)
         {
             dependendOptions.DataSource = q.Opts;
             dependendOptions.DisplayMember = "Text";
@@ -377,7 +392,7 @@ namespace Sample
             var f = new NewCategory();
             if (f.ShowDialog() == DialogResult.OK)
             {
-                LoadCombos(f.Result);
+                LoadCombos(f.Result, int.Parse(comboSurveyList.SelectedValue.ToString()));
             }
         }
 
@@ -454,7 +469,7 @@ namespace Sample
 
         private void CategoryCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CategoryCombo.SelectedItem is Cat cat)
+            if (CategoryCombo.SelectedItem is InsertCat cat)
             {
                 if (cat.CatId == -1)
                 {
@@ -462,38 +477,13 @@ namespace Sample
                 }
                 var dependedQuestions = cat.Quests;
 
-                dependedQuestions.Insert(0, new Quest() { Description = "Seçiniz", QuestionId = -1 });
+                dependedQuestions.Insert(0, new InsertQuest() { Description = "Seçiniz", QuestionId = -1 });
                 DependendQuestCombo.DataSource = dependedQuestions;
                 DependendQuestCombo.DisplayMember = nameof(Question.Description);
                 DependendQuestCombo.ValueMember = nameof(Question.QuestionId);
             }
         }
 
-        private class Quest
-        {
-            public int CategoryId { get; set; }
-            public int QuestionId { get; set; }
-            public string Description { get; set; }
-            public int? DependedQuestionId { get; set; }
-            public List<int> DependedOptionIds { get; set; }
-            public List<Opt> Opts { get; set; }
-            public bool IsMultiple { get; set; }
-            public int ControlId { get; set; }
-        }
-        public class Opt
-        {
-            public int OptId { get; set; }
-            public string Text { get; set; }
-            public int QuestionId { get; set; }
-            public int? Value { get; set; }
-            public bool IsDefault { get; set; }
-        }
-        private class Cat
-        {
-            public int CatId { get; set; }
-            public string Title { get; set; }
-            public List<Quest> Quests { get; set; }
-        }
 
         private void chkMultiple_CheckedChanged(object sender, EventArgs e)
         {
@@ -507,5 +497,39 @@ namespace Sample
                 comboControl.Enabled = true;
             }
         }
+
+        private void comboSurveyList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            LoadCombos(-1, int.Parse(comboSurveyList.SelectedValue.ToString()));
+        }
+
+        private class InsertQuest
+        {
+            public int CategoryId { get; set; }
+            public int QuestionId { get; set; }
+            public string Description { get; set; }
+            public int? DependedQuestionId { get; set; }
+            public List<int> DependedOptionIds { get; set; }
+            public List<InsertOpt> Opts { get; set; }
+            public bool IsMultiple { get; set; }
+            public int ControlId { get; set; }
+        }
+        private class InsertOpt
+        {
+            public int OptId { get; set; }
+            public string Text { get; set; }
+            public int QuestionId { get; set; }
+            public int? Value { get; set; }
+            public bool IsDefault { get; set; }
+        }
+        private class InsertCat
+        {
+            public int CatId { get; set; }
+            public string Title { get; set; }
+            public List<InsertQuest> Quests { get; set; }
+        }
     }
+
+
 }

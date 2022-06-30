@@ -4,6 +4,7 @@ using DevExpress.XtraSplashScreen;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Threading.Tasks;
@@ -78,18 +79,11 @@ namespace Sample
                         }).OrderBy(q => q.Id).ToList()
                         }).ToListAsync();
                 }
-            
-                //var first = CategoryWithQuestions.FirstOrDefault();
-                //var firstQ = first?.Quests.FirstOrDefault();
-                //if (firstQ != null)
-                //{
-                //    UpdateUI(firstQ);
-                //}
 
                 foreach (var cat in CategoryWithQuestions)
                 {
                     var grp = new ListViewGroup(cat.Title);
-                    treeView1.Groups.Add(grp);
+                    lstView.Groups.Add(grp);
                     foreach (var q in cat.Quests)
                     {
                         if (q.ParentQuestionId.HasValue == false)
@@ -97,79 +91,32 @@ namespace Sample
                             var item = new ListViewItem(q.Id.ToString(), grp);
                             item.SubItems.Add(q.Description);
                             item.Tag = q;
-                            treeView1.Items.Add(item);
+                            lstView.Items.Add(item);
                         }
                     }
 
                 }
 
-                if (treeView1.Items.Count > 0 && treeView1.Items[0].Tag is SurveyQuest quest)
+                if (lstView.Items.Count > 0 && lstView.Items[0].Tag is SurveyQuest quest)
                 {
-                    treeView1.Items[0].Selected = true;
+                    lstView.Items[0].Selected = true;
                 }
+                recolorListItems(lstView);
             }
             finally
             {
                 SplashScreenManager.CloseForm(false);
             }
         }
-
-        void FillTreeView(TreeNode parent, List<int> questIds)
+        private static void recolorListItems(ListView lv)
         {
-
-            var quests = CategoryWithQuestions.SelectMany(f => f.Quests).Where(g => questIds.Contains(g.Id)).ToList();
-            foreach (var q in quests)
+            for (int ix = 0; ix < lv.Items.Count; ++ix)
             {
-                var parentNode = parent.Nodes.Add(q.Id.ToString(), q.Description + "...");
-
-                parentNode.Tag = q;
-                if (q.SubQuestIds?.Any() == true)
-                {
-                    FillTreeView(parentNode, q.SubQuestIds);
-                }
+                var item = lv.Items[ix];
+                item.BackColor = (ix % 2 == 0) ? Color.Beige : Color.White;
             }
         }
 
-        public class Answer
-        {
-            public int AnswerId { get; set; }
-            public int QuestionId { get; set; }
-            public int? OptionId { get; set; }
-        }
-
-
-        public class Cat
-        {
-            public int CatId { get; set; }
-            public string Title { get; set; }
-            public List<SurveyQuest> Quests { get; set; }
-        }
-        public class SurveyQuest
-        {
-
-            public int Id { get; set; }
-            public string CategoryTitle { get; set; }
-            public string Description { get; set; }
-            public int QuestionType { get; set; }
-            public string DependedQuestionDescription { get; set; }
-            public List<int> SubQuestIds { get; set; }
-            public int? ParentQuestionId { get; set; }
-            public List<Opt> Options { get; set; }
-            public bool IsMultipleOption { get; set; }
-            public int ControlId { get; set; }
-            public List<Answer> Answers { get; set; }
-            public List<DependedOptions> DependedOptions { get; set; }
-            public bool IsSubQuestion => ParentQuestionId.HasValue;
-            public bool IsRootQuestion => !ParentQuestionId.HasValue;
-
-        }
-
-        public class DependedOptions
-        {
-            public int SubQuestId { get; set; }
-            public int? ParentQuestId { get; set; }
-            public int ParentQuestionOption { get; set; }
-        }
 
         private void UpdateUI(SurveyQuest surveyQuest)
         {
@@ -255,33 +202,25 @@ namespace Sample
 
             }
 
-
-
-
         }
 
 
-        private int _catIndex = 0;
-        public int catIndex
-        {
-            get => _catIndex;
-            set
-            {
-                _catIndex = value;
 
-            }
-        }
-        int qIndex = 0;
 
 
         private void btnNext_ClickAsync(object sender, EventArgs e)
         {
-            if (CategoryWithQuestions?.Any() == false || treeView1.SelectedItems.Count == 0) { return; }
-            var node = treeView1.SelectedItems[0];
-            UpdateAnswer();
-            if (treeView1.Items.Count > node.Index + 1)
+            if (CategoryWithQuestions?.Any() == false ||
+                lstView.SelectedItems.Count == 0)
             {
-                treeView1.Items[node.Index + 1].Selected = true;
+                return;
+            }
+            var currentIndex = lstView.SelectedIndices[0];
+            UpdateAnswer();
+
+            if (lstView.Items.Count > currentIndex + 1)
+            {
+                lstView.Items[currentIndex + 1].Selected = true;
             }
 
 
@@ -318,7 +257,7 @@ namespace Sample
 
         private void UpdateAnswer()
         {
-            var squest = treeView1.SelectedItems[0].Tag as SurveyQuest;
+            var squest = lstView.SelectedItems[0].Tag as SurveyQuest;
             if (squest.ControlId == (int)OptionControls.RadioButton)
             {
                 squest.Answers = new List<Answer>()
@@ -345,32 +284,62 @@ namespace Sample
                 var subQuestions = CategoryWithQuestions.
                     SelectMany(f => f.Quests).
                     Where(q => squest.SubQuestIds.Contains(q.Id) == true).ToList();
-
+                var nextIndex = lstView.SelectedItems[0].Index + 1;
                 foreach (var sq in subQuestions)
                 {
                     var dops = sq.DependedOptions.Select(dop => dop.ParentQuestionOption).ToList();
-                    if (dops.Intersect(squest.Answers.Select(a => a.OptionId.Value).ToList()).Any() &&
-                        treeView1.Items.Find(sq.Id.ToString(), false).Count() == 0)
+                    if (dops.Intersect(squest.Answers.Select(a => a.OptionId.Value).ToList()).Any())
                     {
-                        var newAddedItem = new ListViewItem(sq.Id.ToString(), treeView1.SelectedItems[0].Group);
-                        newAddedItem.SubItems.Add(sq.Description);
-                        newAddedItem.Tag = sq;
-                        treeView1.Items.Insert(treeView1.SelectedItems[0].Index + 1, newAddedItem);
+                        if (IsSubQuestionExist(sq.Id) == false)
+                        {
+                            var newAddedItem = new ListViewItem(sq.Id.ToString(), lstView.SelectedItems[0].Group);
+                            newAddedItem.SubItems.Add(sq.Description);
+                            newAddedItem.Tag = sq;
+                            lstView.Items.Insert(nextIndex, newAddedItem);
+                            nextIndex++;
+                        }
 
                     }
                     else
                     {
-                        var removedSubNode = treeView1.Items.Find(sq.Id.ToString(), true);
-                        if (removedSubNode != null)
-                        {
-                            treeView1.Items.RemoveByKey(sq.Id.ToString());
-                        }
+                        RemoveItemById(sq.Id);
                     }
                 }
 
             }
+
+            recolorListItems(lstView);
+            foreach (ListViewItem item in lstView.Items)
+            {
+                if (item.Tag is SurveyQuest s)
+                {
+                    item.Checked = s.Answers.Any();
+                }
+            }
+        }
+        public bool IsSubQuestionExist(int sqId)
+        {
+            foreach (ListViewItem item in lstView.Items)
+            {
+                if (item.Text == sqId.ToString())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
+        public void RemoveItemById(int sqId)
+        {
+            foreach (ListViewItem item in lstView.Items)
+            {
+                if (item.Text == sqId.ToString())
+                {
+                    item.Remove();
+                }
+            }
+
+        }
         private async Task<bool> SaveSurvey()
         {
             await Task.Delay(1000);
@@ -380,8 +349,14 @@ namespace Sample
         private void btnPrevious_Click(object sender, EventArgs e)
         {
 
-            if (CategoryWithQuestions?.Any() == false || treeView1.SelectedItems.Count == 0) { return; }
+            if (CategoryWithQuestions?.Any() == false || lstView.SelectedItems.Count == 0) { return; }
+            var currentIndex = lstView.SelectedIndices[0];
             UpdateAnswer();
+
+            if (currentIndex - 1 >= 0)
+            {
+                lstView.Items[currentIndex - 1].Selected = true;
+            }
 
 
             //if (0 == catIndex && 0 == qIndex)
@@ -408,24 +383,38 @@ namespace Sample
             if (e.Node?.Tag is SurveyQuest surveyQuest)
             {
                 UpdateUI(surveyQuest);
-                treeView1.Select();
-                treeView1.Focus();
+                lstView.Select();
+                lstView.Focus();
             }
-        }
-
-        private void treeView1_SelectedNodeChanged(object sender, TreeViewEventArgs e)
-        {
-
         }
 
         private void treeView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (treeView1.SelectedItems.Count > 0 && treeView1.SelectedItems[0].Tag is SurveyQuest surveyQuest)
+            if (lstView.SelectedItems.Count > 0 && lstView.SelectedItems[0].Tag is SurveyQuest surveyQuest)
             {
                 UpdateUI(surveyQuest);
-                treeView1.Select();
-                treeView1.Focus();
+                lstView.Select();
+                lstView.Focus();
+                lstView.SelectedItems[0].Focused = true;
+                lstView.SelectedItems[0].EnsureVisible();
             }
+        }
+
+        private void treeView1_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            foreach (ListViewItem item in lstView.Items)
+            {
+                if (item.Tag is SurveyQuest s)
+                {
+                    item.Checked = s.Answers.Any();
+                }
+            }
+        }
+
+        private void btnFinish_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

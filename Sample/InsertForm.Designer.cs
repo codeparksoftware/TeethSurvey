@@ -49,6 +49,7 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ekleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dependendOptions = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.btnNewCat = new DevExpress.XtraEditors.SimpleButton();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -62,11 +63,12 @@
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.btnNewCat = new DevExpress.XtraEditors.SimpleButton();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.comboSurveyList = new System.Windows.Forms.ComboBox();
+            this.cmbSurveyList = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -84,17 +86,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbSurveyList)).BeginInit();
             this.SuspendLayout();
             // 
             // CategoryCombo
             // 
             this.CategoryCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoryCombo.FormattingEnabled = true;
-            this.CategoryCombo.Location = new System.Drawing.Point(122, 12);
+            this.CategoryCombo.Location = new System.Drawing.Point(122, 37);
             this.CategoryCombo.Name = "CategoryCombo";
             this.CategoryCombo.Size = new System.Drawing.Size(675, 21);
             this.CategoryCombo.TabIndex = 0;
@@ -104,7 +107,7 @@
             // 
             this.DependendQuestCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DependendQuestCombo.FormattingEnabled = true;
-            this.DependendQuestCombo.Location = new System.Drawing.Point(122, 253);
+            this.DependendQuestCombo.Location = new System.Drawing.Point(122, 282);
             this.DependendQuestCombo.Name = "DependendQuestCombo";
             this.DependendQuestCombo.Size = new System.Drawing.Size(836, 21);
             this.DependendQuestCombo.TabIndex = 2;
@@ -112,7 +115,7 @@
             // 
             // txtDesc
             // 
-            this.txtDesc.Location = new System.Drawing.Point(122, 38);
+            this.txtDesc.Location = new System.Drawing.Point(122, 63);
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
             this.txtDesc.Size = new System.Drawing.Size(836, 76);
@@ -139,7 +142,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(122, 229);
+            this.button1.Location = new System.Drawing.Point(122, 258);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(168, 20);
             this.button1.TabIndex = 9;
@@ -159,6 +162,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.comboSurveyList);
             this.layoutControl1.Controls.Add(this.comboControl);
             this.layoutControl1.Controls.Add(this.chkMultiple);
             this.layoutControl1.Controls.Add(this.OptionlistView);
@@ -183,14 +187,14 @@
             // 
             this.comboControl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboControl.FormattingEnabled = true;
-            this.comboControl.Location = new System.Drawing.Point(122, 302);
+            this.comboControl.Location = new System.Drawing.Point(122, 331);
             this.comboControl.Name = "comboControl";
             this.comboControl.Size = new System.Drawing.Size(836, 21);
             this.comboControl.TabIndex = 16;
             // 
             // chkMultiple
             // 
-            this.chkMultiple.Location = new System.Drawing.Point(122, 278);
+            this.chkMultiple.Location = new System.Drawing.Point(122, 307);
             this.chkMultiple.Name = "chkMultiple";
             this.chkMultiple.Size = new System.Drawing.Size(836, 20);
             this.chkMultiple.TabIndex = 15;
@@ -208,11 +212,11 @@
             this.OptionlistView.FullRowSelect = true;
             this.OptionlistView.GridLines = true;
             this.OptionlistView.HideSelection = false;
-            this.OptionlistView.Location = new System.Drawing.Point(122, 118);
+            this.OptionlistView.Location = new System.Drawing.Point(122, 143);
             this.OptionlistView.MultiSelect = false;
             this.OptionlistView.Name = "OptionlistView";
             this.OptionlistView.ShowGroups = false;
-            this.OptionlistView.Size = new System.Drawing.Size(836, 107);
+            this.OptionlistView.Size = new System.Drawing.Size(836, 111);
             this.OptionlistView.TabIndex = 14;
             this.OptionlistView.UseCompatibleStateImageBehavior = false;
             this.OptionlistView.View = System.Windows.Forms.View.Details;
@@ -263,11 +267,22 @@
             // dependendOptions
             // 
             this.dependendOptions.AllowDrop = true;
-            this.dependendOptions.Location = new System.Drawing.Point(122, 327);
+            this.dependendOptions.Location = new System.Drawing.Point(122, 356);
             this.dependendOptions.Name = "dependendOptions";
-            this.dependendOptions.Size = new System.Drawing.Size(836, 134);
+            this.dependendOptions.Size = new System.Drawing.Size(836, 98);
             this.dependendOptions.StyleController = this.layoutControl1;
             this.dependendOptions.TabIndex = 11;
+            // 
+            // btnNewCat
+            // 
+            this.btnNewCat.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnNewCat.ImageOptions.Image")));
+            this.btnNewCat.Location = new System.Drawing.Point(801, 37);
+            this.btnNewCat.Name = "btnNewCat";
+            this.btnNewCat.Size = new System.Drawing.Size(157, 22);
+            this.btnNewCat.StyleController = this.layoutControl1;
+            this.btnNewCat.TabIndex = 12;
+            this.btnNewCat.Text = "Yeni Category";
+            this.btnNewCat.Click += new System.EventHandler(this.btnNewCat_Click);
             // 
             // Root
             // 
@@ -289,7 +304,8 @@
             this.layoutControlItem1,
             this.layoutControlItem4,
             this.layoutControlItem11,
-            this.layoutControlItem12});
+            this.layoutControlItem12,
+            this.cmbSurveyList});
             this.Root.Name = "Root";
             this.Root.Size = new System.Drawing.Size(970, 524);
             this.Root.TextVisible = false;
@@ -297,7 +313,7 @@
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.CategoryCombo;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 25);
             this.layoutControlItem2.MinSize = new System.Drawing.Size(122, 25);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(789, 26);
@@ -308,7 +324,7 @@
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.txtDesc;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 26);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 51);
             this.layoutControlItem3.MaxSize = new System.Drawing.Size(950, 80);
             this.layoutControlItem3.MinSize = new System.Drawing.Size(950, 80);
             this.layoutControlItem3.Name = "layoutControlItem3";
@@ -320,7 +336,7 @@
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.DependendQuestCombo;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 241);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 270);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(950, 25);
             this.layoutControlItem6.Text = "Depended Question";
@@ -356,16 +372,16 @@
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.dependendOptions;
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 315);
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 344);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(950, 138);
+            this.layoutControlItem10.Size = new System.Drawing.Size(950, 102);
             this.layoutControlItem10.Text = "Depended Option";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(107, 13);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.button1;
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 217);
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 246);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(282, 24);
             this.layoutControlItem5.Text = "  ";
@@ -374,7 +390,7 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(439, 217);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(439, 246);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(511, 24);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -382,7 +398,7 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(282, 217);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(282, 246);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(157, 24);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -402,24 +418,33 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 453);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 446);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(950, 27);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(950, 34);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.btnNewCat;
+            this.layoutControlItem1.Location = new System.Drawing.Point(789, 25);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(161, 26);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.OptionlistView;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 106);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 131);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(950, 111);
+            this.layoutControlItem4.Size = new System.Drawing.Size(950, 115);
             this.layoutControlItem4.Text = "Options";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(107, 13);
             // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.chkMultiple;
-            this.layoutControlItem11.Location = new System.Drawing.Point(0, 266);
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 295);
             this.layoutControlItem11.Name = "layoutControlItem11";
             this.layoutControlItem11.Size = new System.Drawing.Size(950, 24);
             this.layoutControlItem11.Text = "IsMultiple Option?";
@@ -428,31 +453,30 @@
             // layoutControlItem12
             // 
             this.layoutControlItem12.Control = this.comboControl;
-            this.layoutControlItem12.Location = new System.Drawing.Point(0, 290);
+            this.layoutControlItem12.Location = new System.Drawing.Point(0, 319);
             this.layoutControlItem12.Name = "layoutControlItem12";
             this.layoutControlItem12.Size = new System.Drawing.Size(950, 25);
             this.layoutControlItem12.Text = "Option Display Control";
             this.layoutControlItem12.TextSize = new System.Drawing.Size(107, 13);
             // 
-            // btnNewCat
+            // comboSurveyList
             // 
-            this.btnNewCat.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnNewCat.ImageOptions.Image")));
-            this.btnNewCat.Location = new System.Drawing.Point(801, 12);
-            this.btnNewCat.Name = "btnNewCat";
-            this.btnNewCat.Size = new System.Drawing.Size(157, 22);
-            this.btnNewCat.StyleController = this.layoutControl1;
-            this.btnNewCat.TabIndex = 12;
-            this.btnNewCat.Text = "Yeni Category";
-            this.btnNewCat.Click += new System.EventHandler(this.btnNewCat_Click);
+            this.comboSurveyList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboSurveyList.FormattingEnabled = true;
+            this.comboSurveyList.Location = new System.Drawing.Point(122, 12);
+            this.comboSurveyList.Name = "comboSurveyList";
+            this.comboSurveyList.Size = new System.Drawing.Size(836, 21);
+            this.comboSurveyList.TabIndex = 17;
+            this.comboSurveyList.SelectedIndexChanged += new System.EventHandler(this.comboSurveyList_SelectedIndexChanged);
             // 
-            // layoutControlItem1
+            // cmbSurveyList
             // 
-            this.layoutControlItem1.Control = this.btnNewCat;
-            this.layoutControlItem1.Location = new System.Drawing.Point(789, 0);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(161, 26);
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem1.TextVisible = false;
+            this.cmbSurveyList.Control = this.comboSurveyList;
+            this.cmbSurveyList.Location = new System.Drawing.Point(0, 0);
+            this.cmbSurveyList.Name = "cmbSurveyList";
+            this.cmbSurveyList.Size = new System.Drawing.Size(950, 25);
+            this.cmbSurveyList.Text = "Survey";
+            this.cmbSurveyList.TextSize = new System.Drawing.Size(107, 13);
             // 
             // InsertForm
             // 
@@ -480,10 +504,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbSurveyList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -526,5 +551,7 @@
         private System.Windows.Forms.ComboBox comboControl;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private System.Windows.Forms.ColumnHeader colIsDefault;
+        private System.Windows.Forms.ComboBox comboSurveyList;
+        private DevExpress.XtraLayout.LayoutControlItem cmbSurveyList;
     }
 }

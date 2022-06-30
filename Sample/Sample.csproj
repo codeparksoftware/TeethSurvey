@@ -110,6 +110,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto.cs" />
     <Compile Include="ExTreeView.cs">
       <SubType>Component</SubType>
     </Compile>

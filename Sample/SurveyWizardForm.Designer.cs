@@ -30,7 +30,9 @@ namespace Sample
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeView1 = new System.Windows.Forms.ListView();
+            this.lstView = new System.Windows.Forms.ListView();
+            this.colId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colDesc = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnFinish = new DevExpress.XtraEditors.SimpleButton();
@@ -52,8 +54,6 @@ namespace Sample
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblCat = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.colId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colDesc = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -70,25 +70,36 @@ namespace Sample
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // treeView1
+            // lstView
             // 
-            this.treeView1.CheckBoxes = true;
-            this.treeView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstView.CheckBoxes = true;
+            this.lstView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colId,
             this.colDesc});
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.treeView1.FullRowSelect = true;
-            this.treeView1.GridLines = true;
-            this.treeView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.treeView1.HideSelection = false;
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.MultiSelect = false;
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(159, 432);
-            this.treeView1.TabIndex = 4;
-            this.treeView1.UseCompatibleStateImageBehavior = false;
-            this.treeView1.View = System.Windows.Forms.View.Details;
-            this.treeView1.SelectedIndexChanged += new System.EventHandler(this.treeView1_SelectedIndexChanged);
+            this.lstView.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lstView.FullRowSelect = true;
+            this.lstView.GridLines = true;
+            this.lstView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstView.HideSelection = false;
+            this.lstView.Location = new System.Drawing.Point(0, 0);
+            this.lstView.MultiSelect = false;
+            this.lstView.Name = "lstView";
+            this.lstView.Size = new System.Drawing.Size(242, 432);
+            this.lstView.TabIndex = 4;
+            this.lstView.UseCompatibleStateImageBehavior = false;
+            this.lstView.View = System.Windows.Forms.View.Details;
+            this.lstView.SelectedIndexChanged += new System.EventHandler(this.treeView1_SelectedIndexChanged);
+            this.lstView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseClick);
+            // 
+            // colId
+            // 
+            this.colId.Text = "Id";
+            this.colId.Width = 23;
+            // 
+            // colDesc
+            // 
+            this.colDesc.Text = "Question";
+            this.colDesc.Width = 237;
             // 
             // panel4
             // 
@@ -96,9 +107,9 @@ namespace Sample
             this.panel4.Controls.Add(this.panel3);
             this.panel4.Controls.Add(this.panel1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(159, 0);
+            this.panel4.Location = new System.Drawing.Point(242, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(668, 432);
+            this.panel4.Size = new System.Drawing.Size(771, 432);
             this.panel4.TabIndex = 5;
             // 
             // panel2
@@ -110,21 +121,22 @@ namespace Sample
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 377);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(668, 55);
+            this.panel2.Size = new System.Drawing.Size(771, 55);
             this.panel2.TabIndex = 1;
             // 
             // btnFinish
             // 
-            this.btnFinish.Location = new System.Drawing.Point(341, 20);
+            this.btnFinish.Location = new System.Drawing.Point(421, 20);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(75, 23);
             this.btnFinish.TabIndex = 1;
             this.btnFinish.Text = "Finish";
+            this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(422, 20);
+            this.btnCancel.Location = new System.Drawing.Point(502, 20);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 0;
@@ -132,7 +144,7 @@ namespace Sample
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(503, 20);
+            this.btnPrevious.Location = new System.Drawing.Point(583, 20);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(75, 23);
             this.btnPrevious.TabIndex = 0;
@@ -141,7 +153,7 @@ namespace Sample
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(584, 20);
+            this.btnNext.Location = new System.Drawing.Point(664, 20);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 0;
@@ -154,7 +166,7 @@ namespace Sample
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 58);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(668, 374);
+            this.panel3.Size = new System.Drawing.Size(771, 374);
             this.panel3.TabIndex = 2;
             // 
             // layoutControl1
@@ -168,7 +180,7 @@ namespace Sample
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(716, 125, 650, 400);
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(668, 374);
+            this.layoutControl1.Size = new System.Drawing.Size(771, 374);
             this.layoutControl1.TabIndex = 1;
             this.layoutControl1.Text = " ";
             // 
@@ -177,25 +189,25 @@ namespace Sample
             this.comboOptions.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.comboOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboOptions.FormattingEnabled = true;
-            this.comboOptions.Location = new System.Drawing.Point(52, 97);
+            this.comboOptions.Location = new System.Drawing.Point(52, 101);
             this.comboOptions.Name = "comboOptions";
             this.comboOptions.Size = new System.Drawing.Size(613, 21);
             this.comboOptions.TabIndex = 7;
             // 
             // checkedListBoxOptions
             // 
-            this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 198);
+            this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 206);
             this.checkedListBoxOptions.Name = "checkedListBoxOptions";
-            this.checkedListBoxOptions.Size = new System.Drawing.Size(613, 72);
+            this.checkedListBoxOptions.Size = new System.Drawing.Size(707, 77);
             this.checkedListBoxOptions.StyleController = this.layoutControl1;
             this.checkedListBoxOptions.TabIndex = 6;
             // 
             // radioOptions
             // 
-            this.radioOptions.Location = new System.Drawing.Point(52, 122);
+            this.radioOptions.Location = new System.Drawing.Point(52, 126);
             this.radioOptions.Name = "radioOptions";
             this.radioOptions.Properties.ItemVertAlignment = DevExpress.XtraEditors.RadioItemVertAlignment.Top;
-            this.radioOptions.Size = new System.Drawing.Size(613, 72);
+            this.radioOptions.Size = new System.Drawing.Size(707, 76);
             this.radioOptions.StyleController = this.layoutControl1;
             this.radioOptions.TabIndex = 5;
             // 
@@ -203,7 +215,7 @@ namespace Sample
             // 
             this.lblQuestion.Location = new System.Drawing.Point(12, 12);
             this.lblQuestion.Name = "lblQuestion";
-            this.lblQuestion.Size = new System.Drawing.Size(653, 81);
+            this.lblQuestion.Size = new System.Drawing.Size(747, 85);
             this.lblQuestion.TabIndex = 4;
             this.lblQuestion.Text = "Question";
             // 
@@ -219,7 +231,7 @@ namespace Sample
             this.layoutControlCombo,
             this.emptySpaceItem1});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(677, 357);
+            this.Root.Size = new System.Drawing.Size(771, 374);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -227,16 +239,16 @@ namespace Sample
             this.layoutControlItem1.Control = this.lblQuestion;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(657, 85);
+            this.layoutControlItem1.Size = new System.Drawing.Size(751, 89);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // layoutControlRadio
             // 
             this.layoutControlRadio.Control = this.radioOptions;
-            this.layoutControlRadio.Location = new System.Drawing.Point(0, 110);
+            this.layoutControlRadio.Location = new System.Drawing.Point(0, 114);
             this.layoutControlRadio.Name = "layoutControlRadio";
-            this.layoutControlRadio.Size = new System.Drawing.Size(657, 76);
+            this.layoutControlRadio.Size = new System.Drawing.Size(751, 80);
             this.layoutControlRadio.Text = "Options";
             this.layoutControlRadio.TextSize = new System.Drawing.Size(37, 13);
             this.layoutControlRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -244,9 +256,9 @@ namespace Sample
             // layoutControlChecked
             // 
             this.layoutControlChecked.Control = this.checkedListBoxOptions;
-            this.layoutControlChecked.Location = new System.Drawing.Point(0, 186);
+            this.layoutControlChecked.Location = new System.Drawing.Point(0, 194);
             this.layoutControlChecked.Name = "layoutControlChecked";
-            this.layoutControlChecked.Size = new System.Drawing.Size(657, 76);
+            this.layoutControlChecked.Size = new System.Drawing.Size(751, 81);
             this.layoutControlChecked.Text = "Options";
             this.layoutControlChecked.TextSize = new System.Drawing.Size(37, 13);
             this.layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -258,13 +270,13 @@ namespace Sample
             this.layoutControlCombo.AppearanceItemCaption.Options.UseTextOptions = true;
             this.layoutControlCombo.AppearanceItemCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
             this.layoutControlCombo.Control = this.comboOptions;
-            this.layoutControlCombo.Location = new System.Drawing.Point(0, 85);
+            this.layoutControlCombo.Location = new System.Drawing.Point(0, 89);
             this.layoutControlCombo.MaxSize = new System.Drawing.Size(657, 25);
             this.layoutControlCombo.MinSize = new System.Drawing.Size(657, 25);
             this.layoutControlCombo.Name = "layoutControlCombo";
             this.layoutControlCombo.OptionsPrint.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.layoutControlCombo.OptionsPrint.AppearanceItemCaption.Options.UseBackColor = true;
-            this.layoutControlCombo.Size = new System.Drawing.Size(657, 25);
+            this.layoutControlCombo.Size = new System.Drawing.Size(751, 25);
             this.layoutControlCombo.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlCombo.Text = "Options";
             this.layoutControlCombo.TextSize = new System.Drawing.Size(37, 13);
@@ -273,10 +285,10 @@ namespace Sample
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 262);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 275);
             this.emptySpaceItem1.MinSize = new System.Drawing.Size(104, 24);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(657, 75);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(751, 79);
             this.emptySpaceItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -287,7 +299,7 @@ namespace Sample
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(668, 58);
+            this.panel1.Size = new System.Drawing.Size(771, 58);
             this.panel1.TabIndex = 0;
             // 
             // lblCat
@@ -303,21 +315,11 @@ namespace Sample
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(159, 0);
+            this.splitter1.Location = new System.Drawing.Point(242, 0);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(3, 432);
             this.splitter1.TabIndex = 6;
             this.splitter1.TabStop = false;
-            // 
-            // colId
-            // 
-            this.colId.Text = "";
-            this.colId.Width = 0;
-            // 
-            // colDesc
-            // 
-            this.colDesc.Text = "Question";
-            this.colDesc.Width = 120;
             // 
             // SurveyWizardForm
             // 
@@ -325,10 +327,10 @@ namespace Sample
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(827, 432);
+            this.ClientSize = new System.Drawing.Size(1013, 432);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel4);
-            this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.lstView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -357,7 +359,7 @@ namespace Sample
 
         #endregion
 
-        private ListView treeView1;
+        private ListView lstView;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel2;
         private DevExpress.XtraEditors.SimpleButton btnFinish;
