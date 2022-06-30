@@ -110,6 +110,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExTreeView.Designer.cs">
+      <DependentUpon>ExTreeView.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAdmin.cs">
       <SubType>Form</SubType>
     </Compile>

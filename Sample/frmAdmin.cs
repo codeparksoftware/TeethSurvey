@@ -220,6 +220,7 @@ namespace Sample
 
         private async void btnStart_Click(object sender, EventArgs e)
         {
+
             if (cmbSurveys.SelectedIndex < 0 ||
                 int.TryParse(cmbSurveys.SelectedValue?.ToString(), out var sId) == false)
             {
@@ -230,22 +231,25 @@ namespace Sample
             {
                 return;
             }
+
+            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
             using (var m = new Model())
             {
-                if (m.Categories.ToList().Any(f => f.SurveyListId == sId) == false ||
-                    m.Questions.Any(f => f.Category.SurveyListId == sId) == false)
+
+                if (m.Questions.Any(f => f.Category.SurveyListId == sId) == false)
                 {
                     MessageBox.Show("Bu Ankete ait hiç soru bulunmamaktadır");
                     return;
                 }
 
-                var patient = m.Patients.Add(new Patient()
+
+                var patient = new Patient()
                 {
                     EnrollDate = enrollDate.Value,
                     PatientName = txtName.Text,
                     PatientSurname = txtSurname.Text,
                     PatientTCKN = txtTCKN.Text
-                });
+                };
 
                 var sur = new Survey()
                 {
@@ -254,19 +258,21 @@ namespace Sample
                     SurveyDate = DateTime.Now,
                     Patient = patient
                 };
-
-                Survey = m.Surveys.Add(sur);
-                await m.SaveChangesAsync();
-                Survey = m.Surveys.
-                    Include(f => f.Patient).Include(g => g.Pollster).
-                    Include(h => h.SurveyList)
-                    .FirstOrDefault(g => g.Id == Survey.Id);
-
-                SingleService.Instance.Survey = Survey;
-                var wizard = new SurveyWizardForm();
-                wizard.ShowDialog();
+                sur.SurveyList = m.SurveyLists.FirstOrDefault(f => f.Id.ToString() == cmbSurveys.SelectedValue.ToString());
+                sur.Pollster = m.Pollsters.FirstOrDefault(f => f.Id.ToString() == cmbPollster.SelectedValue.ToString());
+                Survey = sur;
 
             }
+            //await m.SaveChangesAsync();
+            //Survey = m.Surveys.
+            //    Include(f => f.Patient).Include(g => g.Pollster).
+            //    Include(h => h.SurveyList)
+            //    .FirstOrDefault(g => g.Id == Survey.Id);
+
+            SingleService.Instance.Survey = Survey;
+            var wizard = new SurveyWizardForm();
+            wizard.ShowDialog();
+
 
         }
 
@@ -434,6 +440,7 @@ namespace Sample
                             cmbSurveys.DisplayMember = nameof(SurveyList.SurveyName);
                             cmbSurveys.ValueMember = nameof(SurveyList.Id);
                         }));
+
 
                     }
                 });
