@@ -20,6 +20,7 @@ namespace Sample
     {
         private Survey Survey;
         private List<Quest> Quests { get; set; }
+        private List<SurveyView> SavedSurveys { get; set; }
         public static List<OptionControl> GetOptionControls => new List<OptionControl>() {
             new OptionControl{
                Text= nameof(OptionControls.RadioButton),
@@ -59,12 +60,23 @@ namespace Sample
                            SurveyId = f.Id,
                            SurveyDate = f.SurveyDate,
                            SurveyName = f.SurveyList.SurveyName,
-                           IsSubmitted = f.IsSubmitted
-                       })
-                    .ToListAsync();
-                    gridSurvey.DataSource = surveys;
-                }
+                           IsSubmitted = f.IsSubmitted,
+                           Questions = f.Answers.Select(a => new AnsweredQuestion()
+                           {
+                               AnswerOptionDesc = a.Option.Text,
+                               CategoryTitle = a.Question.Category.CategoryTitle,
+                               QuestionDesc = a.Question.Description,
+                               QuestionId = a.QuestionId
+                           }).ToList()
+                       }).ToListAsync();
 
+                    gridSurvey.DataSource = surveys;
+                    SavedSurveys = surveys;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
             finally
             {
@@ -72,16 +84,7 @@ namespace Sample
 
             }
         }
-        public class SurveyView
-        {
-            public int SurveyId { get; set; }
-            public string Pollster { get; set; }
-            public string SurveyName { get; set; }
-            public DateTime SurveyDate { get; set; }
-            public string Patient { get; set; }
-            public bool IsSubmitted { get; set; }
-            public Image Icon => IsSubmitted ? Sample.Properties.Resources.apply_16x16 : Sample.Properties.Resources.time2_16x16;
-        }
+
 
         private async Task InitAnketQuestion()
         {
@@ -114,8 +117,6 @@ namespace Sample
                 {
                     gridControl1.DataSource = Quests;
                 }));
-
-
             }
 
         }
@@ -218,7 +219,7 @@ namespace Sample
 
         }
 
-        private async void btnStart_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
 
             if (cmbSurveys.SelectedIndex < 0 ||
@@ -318,56 +319,66 @@ namespace Sample
             {
                 if (e.DataItem is TileViewItem item && tileView1.GetRow(item.RowHandle) is Quest quest)
                 {
-                    var confirm = MessageBox.Show(quest.Description + " \n sorusu silinecektir. Emin misiniz?", "Soru Silme", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (confirm == DialogResult.Yes)
+                    await SilSoru(quest);
+                }
+
+            }
+        }
+
+        async Task SilSoru(Quest quest)
+        {
+            var confirm = MessageBox.Show(
+                quest.Description + " \n sorusu silinecektir. Emin misiniz?",
+                "Soru Silme",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    using (var m = new Model())
                     {
-                        try
+                        var qId = quest.Id;
+                        var IsAnswerExist = m.Answers.Any(f => f.QuestionId == qId);
+                        var isDepended = m.Questions.Any(f => f.DependedQuestionId == qId);
+                        if (isDepended || IsAnswerExist)
                         {
-                            using (var m = new Model())
+                            var res = MessageBox.Show("Bu soruya ait cevap ya da altsorular bulunmaktadır.\n" +
+                                "Silmeniz durumunda alt sorular da silinecektir" +
+                                "\nYine de silmek istiyor musunuz?", "Soru Sil",
+                                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (res == DialogResult.Yes)
                             {
-                                var qId = quest.Id;
-                                var IsAnswerExist = m.Answers.Any(f => f.QuestionId == qId);
-                                var isDepended = m.Questions.Any(f => f.DependedQuestionId == qId);
-                                if (isDepended || IsAnswerExist)
-                                {
-                                    var res = MessageBox.Show("Bu soruya ait cevap ya da altsorular bulunmaktadır.\n" +
-                                        "Silmeniz durumunda alt sorular da silinecektir" +
-                                        "\nYine de silmek istiyor musunuz?", "Soru Sil",
-                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                    if (res == DialogResult.Yes)
-                                    {
-                                        await RemoveChildren(m, qId);
-                                        m.Questions.RemoveRange(m.Questions.Where(f => f.DependedQuestionId == qId).ToList());
-                                        m.Answers.RemoveRange(m.Answers.Where(f => f.QuestionId == qId).ToList());
-                                        m.Options.RemoveRange(m.Options.Where(f => f.QuestionId == qId).ToList());
-                                        m.DependendOptions.RemoveRange(m.DependendOptions.Where(f => f.QuestionId == qId).ToList());
+                                await RemoveChildren(m, qId);
+                                m.Questions.RemoveRange(m.Questions.Where(f => f.DependedQuestionId == qId).ToList());
+                                m.Answers.RemoveRange(m.Answers.Where(f => f.QuestionId == qId).ToList());
+                                m.Options.RemoveRange(m.Options.Where(f => f.QuestionId == qId).ToList());
+                                m.DependendOptions.RemoveRange(m.DependendOptions.Where(f => f.QuestionId == qId).ToList());
 
-                                        await m.SaveChangesAsync();
-                                        m.Questions.Remove(m.Questions.First(f => f.QuestionId == qId));
-                                        await m.SaveChangesAsync();
-                                        await InitAnketQuestion();
-                                    }
-                                    else
-                                    {
-                                        return;
-                                    }
-
-                                }
-                                else
-                                {
-                                    m.Options.RemoveRange(m.Options.Where(f => f.QuestionId == qId).ToList());
-                                    m.Questions.Remove(m.Questions.First(f => f.QuestionId == qId));
-                                    await m.SaveChangesAsync();
-                                    await InitAnketQuestion();
-                                }
+                                await m.SaveChangesAsync();
+                                m.Questions.Remove(m.Questions.First(f => f.QuestionId == qId));
+                                await m.SaveChangesAsync();
+                                await InitAnketQuestion();
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                            else
+                            {
+                                return;
+                            }
 
+                        }
+                        else
+                        {
+                            m.Options.RemoveRange(m.Options.Where(f => f.QuestionId == qId).ToList());
+                            m.Questions.Remove(m.Questions.First(f => f.QuestionId == qId));
+                            await m.SaveChangesAsync();
+                            await InitAnketQuestion();
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
 
             }
@@ -469,13 +480,6 @@ namespace Sample
             }
         }
 
-
-
-        private void barEditItem1_EditValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private async void btnAddPollster_Click(object sender, EventArgs e)
         {
             var pollsterAdd = new NewPollster();
@@ -517,10 +521,34 @@ namespace Sample
             }
         }
 
-        private void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private async void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             //Delete question
+            if (tileView1.GetRow(tileView1.FocusedRowHandle) is Quest quest)
+            {
+                await SilSoru(quest);
+            }
 
+        }
+
+        private void gridSurveys_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            if (int.TryParse(gridSurveys.GetFocusedRowCellValue(colSurveyId)?.ToString(), out var surveyId) && SavedSurveys?.Any() == true)
+            {
+                var quests = SavedSurveys.FirstOrDefault(f => f.SurveyId == surveyId)?.Questions.GroupBy(k => k.QuestionId).
+                    Select(s => new AnsweredQuestion
+                    {
+                        QuestionId = s.Key,
+                        CategoryTitle = s.Select(ss => ss.CategoryTitle).FirstOrDefault(),
+                        AnswerOptionDesc = string.Join(" \n ", s.Select(ss => ss.AnswerOptionDesc)),
+                        QuestionDesc = s.Select(ss => ss.QuestionDesc).FirstOrDefault()
+                    }).ToList();
+                if (quests != null)
+                {
+                    gridControl2.DataSource = quests;
+                    gridResult.ExpandAllGroups();
+                }
+            }
 
         }
     }

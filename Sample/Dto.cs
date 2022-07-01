@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,5 +47,25 @@ namespace Sample
         public int SubQuestId { get; set; }
         public int? ParentQuestId { get; set; }
         public int ParentQuestionOption { get; set; }
+    }
+
+    public class SurveyView
+    {
+        public int SurveyId { get; set; }
+        public string Pollster { get; set; }
+        public string SurveyName { get; set; }
+        public DateTime SurveyDate { get; set; }
+        public string Patient { get; set; }
+        public bool IsSubmitted { get; set; }
+        public Image Icon => IsSubmitted ? Sample.Properties.Resources.apply_16x16 : Sample.Properties.Resources.time2_16x16;
+
+        public List<AnsweredQuestion> Questions { get; set; }
+    }
+    public class AnsweredQuestion
+    {
+        public int QuestionId { get; set; }
+        public string CategoryTitle { get; set; }
+        public string QuestionDesc { get; set; }
+        public string AnswerOptionDesc { get; set; }
     }
 }

@@ -47,6 +47,7 @@ namespace Sample
                         {
                             Id = q.QuestionId,
                             Answers = q.Answers.
+                            Where(a=>a.SurveyId==0).
                             Select(a => new Answer
                             {
                                 AnswerId = a.AnswerId,
@@ -273,13 +274,7 @@ namespace Sample
             }
 
             recolorListItems(lstView);
-            foreach (ListViewItem item in lstView.Items)
-            {
-                if (item.Tag is SurveyQuest s)
-                {
-                    item.Checked = s.Answers.Any();
-                }
-            }
+            UpdateTreeView();
         }
         public bool IsSubQuestionExist(int sqId)
         {
@@ -343,7 +338,11 @@ namespace Sample
 
         private void treeView1_MouseClick(object sender, MouseEventArgs e)
         {
+            UpdateTreeView();
+        }
 
+        private void UpdateTreeView()
+        {
             foreach (ListViewItem item in lstView.Items)
             {
                 if (item.Tag is SurveyQuest s)

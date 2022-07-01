@@ -102,8 +102,15 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.mainPage = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
+            this.gridControl2 = new DevExpress.XtraGrid.GridControl();
+            this.gridResult = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colQuestion = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSelectedOption = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemMemoEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
+            this.colQId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridSurvey = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridSurveys = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colSurveyId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIcon = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSurveyName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -112,6 +119,7 @@
             this.colPollster = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
@@ -162,10 +170,14 @@
             this.mainPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridResult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSurvey)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridSurveys)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             this.SuspendLayout();
             // 
             // colDesc
@@ -485,7 +497,6 @@
             this.surveyListCombo.Edit = this.repositoryItemLookUpEdit1;
             this.surveyListCombo.Id = 3;
             this.surveyListCombo.Name = "surveyListCombo";
-            this.surveyListCombo.EditValueChanged += new System.EventHandler(this.barEditItem1_EditValueChanged);
             // 
             // repositoryItemLookUpEdit1
             // 
@@ -850,6 +861,7 @@
             // 
             // layoutControl2
             // 
+            this.layoutControl2.Controls.Add(this.gridControl2);
             this.layoutControl2.Controls.Add(this.gridSurvey);
             this.layoutControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
@@ -860,36 +872,107 @@
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
+            // gridControl2
+            // 
+            this.gridControl2.Location = new System.Drawing.Point(516, 12);
+            this.gridControl2.MainView = this.gridResult;
+            this.gridControl2.MenuManager = this.ribbonControl1;
+            this.gridControl2.Name = "gridControl2";
+            this.gridControl2.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemMemoEdit1});
+            this.gridControl2.Size = new System.Drawing.Size(501, 339);
+            this.gridControl2.TabIndex = 5;
+            this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridResult});
+            // 
+            // gridResult
+            // 
+            this.gridResult.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colCategory,
+            this.colQuestion,
+            this.colSelectedOption,
+            this.colQId});
+            this.gridResult.GridControl = this.gridControl2;
+            this.gridResult.GroupCount = 1;
+            this.gridResult.Name = "gridResult";
+            this.gridResult.OptionsBehavior.Editable = false;
+            this.gridResult.OptionsBehavior.ReadOnly = true;
+            this.gridResult.OptionsCustomization.AllowRowSizing = true;
+            this.gridResult.OptionsView.EnableAppearanceEvenRow = true;
+            this.gridResult.OptionsView.EnableAppearanceOddRow = true;
+            this.gridResult.OptionsView.RowAutoHeight = true;
+            this.gridResult.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCategory, DevExpress.Data.ColumnSortOrder.Ascending)});
+            // 
+            // colCategory
+            // 
+            this.colCategory.Caption = "Category";
+            this.colCategory.FieldName = "CategoryTitle";
+            this.colCategory.Name = "colCategory";
+            this.colCategory.Visible = true;
+            this.colCategory.VisibleIndex = 0;
+            // 
+            // colQuestion
+            // 
+            this.colQuestion.Caption = "Question";
+            this.colQuestion.FieldName = "QuestionDesc";
+            this.colQuestion.Name = "colQuestion";
+            this.colQuestion.Visible = true;
+            this.colQuestion.VisibleIndex = 0;
+            // 
+            // colSelectedOption
+            // 
+            this.colSelectedOption.Caption = "Answer";
+            this.colSelectedOption.ColumnEdit = this.repositoryItemMemoEdit1;
+            this.colSelectedOption.FieldName = "AnswerOptionDesc";
+            this.colSelectedOption.Name = "colSelectedOption";
+            this.colSelectedOption.Visible = true;
+            this.colSelectedOption.VisibleIndex = 1;
+            // 
+            // repositoryItemMemoEdit1
+            // 
+            this.repositoryItemMemoEdit1.Name = "repositoryItemMemoEdit1";
+            // 
+            // colQId
+            // 
+            this.colQId.FieldName = "QuestionId";
+            this.colQId.Name = "colQId";
+            this.colQId.Visible = true;
+            this.colQId.VisibleIndex = 2;
+            // 
             // gridSurvey
             // 
             this.gridSurvey.Location = new System.Drawing.Point(12, 12);
-            this.gridSurvey.MainView = this.gridView1;
+            this.gridSurvey.MainView = this.gridSurveys;
             this.gridSurvey.MenuManager = this.ribbonControl1;
             this.gridSurvey.Name = "gridSurvey";
-            this.gridSurvey.Size = new System.Drawing.Size(1005, 339);
+            this.gridSurvey.Size = new System.Drawing.Size(500, 339);
             this.gridSurvey.TabIndex = 4;
             this.gridSurvey.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.gridSurveys});
             // 
-            // gridView1
+            // gridSurveys
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridSurveys.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colSurveyId,
             this.colIcon,
             this.colSurveyName,
             this.colPatientId,
             this.colSurveyDate,
             this.colPollster});
-            this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
-            this.gridView1.GridControl = this.gridSurvey;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsBehavior.ReadOnly = true;
-            this.gridView1.OptionsFind.AlwaysVisible = true;
-            this.gridView1.OptionsView.EnableAppearanceEvenRow = true;
+            this.gridSurveys.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
+            this.gridSurveys.GridControl = this.gridSurvey;
+            this.gridSurveys.Name = "gridSurveys";
+            this.gridSurveys.OptionsBehavior.Editable = false;
+            this.gridSurveys.OptionsBehavior.ReadOnly = true;
+            this.gridSurveys.OptionsFind.AlwaysVisible = true;
+            this.gridSurveys.OptionsView.EnableAppearanceEvenRow = true;
+            this.gridSurveys.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridSurveys_FocusedRowChanged);
             // 
             // colSurveyId
             // 
             this.colSurveyId.Caption = "gridColumn1";
+            this.colSurveyId.FieldName = "SurveyId";
             this.colSurveyId.Name = "colSurveyId";
             // 
             // colIcon
@@ -941,7 +1024,8 @@
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.layoutControlGroup1.GroupBordersVisible = false;
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem1});
+            this.layoutControlItem1,
+            this.layoutControlItem7});
             this.layoutControlGroup1.Name = "Root";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1029, 363);
             this.layoutControlGroup1.TextVisible = false;
@@ -951,9 +1035,18 @@
             this.layoutControlItem1.Control = this.gridSurvey;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1009, 343);
+            this.layoutControlItem1.Size = new System.Drawing.Size(504, 343);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
+            // 
+            // layoutControlItem7
+            // 
+            this.layoutControlItem7.Control = this.gridControl2;
+            this.layoutControlItem7.Location = new System.Drawing.Point(504, 0);
+            this.layoutControlItem7.Name = "layoutControlItem7";
+            this.layoutControlItem7.Size = new System.Drawing.Size(505, 343);
+            this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem7.TextVisible = false;
             // 
             // ribbonPageGroup3
             // 
@@ -1037,10 +1130,14 @@
             this.mainPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
             this.layoutControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSurvey)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridSurveys)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1108,21 +1205,29 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItemChecked;
         private DevExpress.XtraBars.BarEditItem surveyListCombo;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
-        private DevExpress.XtraLayout.LayoutControl layoutControl2;
-        private DevExpress.XtraGrid.GridControl gridSurvey;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-        private DevExpress.XtraGrid.Columns.GridColumn colSurveyId;
-        private DevExpress.XtraGrid.Columns.GridColumn colSurveyName;
-        private DevExpress.XtraGrid.Columns.GridColumn colPatientId;
-        private DevExpress.XtraGrid.Columns.GridColumn colSurveyDate;
-        private DevExpress.XtraGrid.Columns.GridColumn colPollster;
         private DevExpress.XtraEditors.SimpleButton btnAddAnket;
         private DevExpress.XtraEditors.SimpleButton btnAddPollster;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
+        private DevExpress.XtraLayout.LayoutControl layoutControl2;
+        private DevExpress.XtraGrid.GridControl gridControl2;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridResult;
+        private DevExpress.XtraGrid.Columns.GridColumn colCategory;
+        private DevExpress.XtraGrid.Columns.GridColumn colQuestion;
+        private DevExpress.XtraGrid.Columns.GridColumn colSelectedOption;
+        private DevExpress.XtraGrid.GridControl gridSurvey;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridSurveys;
+        private DevExpress.XtraGrid.Columns.GridColumn colSurveyId;
         private DevExpress.XtraGrid.Columns.GridColumn colIcon;
+        private DevExpress.XtraGrid.Columns.GridColumn colSurveyName;
+        private DevExpress.XtraGrid.Columns.GridColumn colPatientId;
+        private DevExpress.XtraGrid.Columns.GridColumn colSurveyDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colPollster;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private DevExpress.XtraGrid.Columns.GridColumn colQId;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit1;
     }
 }
