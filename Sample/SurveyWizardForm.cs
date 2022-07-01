@@ -199,14 +199,9 @@ namespace Sample
                     comboOptions.SelectedValue = surveyQuest.Answers.FirstOrDefault().OptionId;
                 }
 
-
             }
 
         }
-
-
-
-
 
         private void btnNext_ClickAsync(object sender, EventArgs e)
         {
@@ -222,37 +217,6 @@ namespace Sample
             {
                 lstView.Items[currentIndex + 1].Selected = true;
             }
-
-
-
-
-            //qIndex++;
-            //if (CategoryWithQuestions[catIndex].Quests.Count <= qIndex)
-            //{
-            //    qIndex = 0;
-            //    catIndex++;
-            //}
-
-            //if (CategoryWithQuestions.Count == catIndex)
-            //{
-
-            //    var res = MessageBox.Show(
-            //          "Anket bitmiştir teşekkürler. Anketi bilgilerini kaydetmek istiyor musunuz?",
-            //          SingleService.Instance.Survey.SurveyList.SurveyName,
-            //           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //    if (res == DialogResult.Yes)
-            //    {
-            //        if (await SaveSurvey())
-            //        {
-            //            btnNext.Visible = false;
-            //            btnCancel.Visible = false;
-            //        }
-            //    }
-            //    return;
-            //}
-
-
-
         }
 
         private void UpdateAnswer()
@@ -340,11 +304,6 @@ namespace Sample
             }
 
         }
-        private async Task<bool> SaveSurvey()
-        {
-            await Task.Delay(1000);
-            return true;
-        }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
@@ -357,24 +316,6 @@ namespace Sample
             {
                 lstView.Items[currentIndex - 1].Selected = true;
             }
-
-
-            //if (0 == catIndex && 0 == qIndex)
-            //{
-            //    return;
-
-            //}
-
-
-            //qIndex--;
-            //if (qIndex < 0)
-            //{
-            //    catIndex--;
-            //    qIndex = CategoryWithQuestions[catIndex].Quests.Count - 1;
-            //}
-            //UpdateUI(CategoryWithQuestions[catIndex].Quests[qIndex]);
-
-
         }
 
 
@@ -412,9 +353,71 @@ namespace Sample
             }
         }
 
-        private void btnFinish_Click(object sender, EventArgs e)
+        private async void btnFinish_Click(object sender, EventArgs e)
         {
+            if (CategoryWithQuestions.SelectMany(f => f.Quests).Any(f => f.Answers.Count > 0))
+            {
+                var res = MessageBox.Show(
+                          "Anketi bitirip var olan bilgileri kaydetmek istiyor musunuz?",
+                          SingleService.Instance.Survey.SurveyList.SurveyName,
+                          MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (res == DialogResult.Yes)
+                {
+                    if (await SaveSurvey())
+                    {
+                        btnNext.Visible = false;
+                        btnCancel.Visible = false;
+                    }
+                }
+            }
 
         }
+        private async Task<bool> SaveSurvey()
+        {
+            if (SingleService.Instance.Survey.Id == 0)//insert
+            {
+                try
+                {
+                    using (var m = new Model())
+                    {
+                        //var tran = m.Database.BeginTransaction();
+
+
+                        var answers = new List<TeetSurvey.Repository.Model.Answer>();
+                        foreach (ListViewItem item in lstView.Items)
+                        {
+                            if (item.Tag is SurveyQuest quest)
+                            {
+                                answers = quest.Answers.Select(f => new TeetSurvey.Repository.Model.Answer()
+                                {
+                                    OptionId = f.OptionId,
+                                    QuestionId = f.QuestionId,
+
+                                }).ToList();
+
+                                foreach (var a in answers)
+                                {
+                                    SingleService.Instance.Survey.Answers.Add(a);
+                                }
+
+                            }
+                        }
+                        SingleService.Instance.Survey.IsSubmitted = true;
+                        var addedSurvey = m.Surveys.Add(SingleService.Instance.Survey);
+                        var save = await m.SaveChangesAsync();
+                        return save > 0;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            return false;
+        }
+
     }
 }
