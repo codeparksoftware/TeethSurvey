@@ -7,9 +7,12 @@ namespace Sample
 {
     public partial class NewCategory : DevExpress.XtraEditors.XtraForm
     {
-        public NewCategory()
+        public int SurveyListId { get; set; }
+        public NewCategory(string surveyName, int surveyListId)
         {
             InitializeComponent();
+            txtSurveyName.Text = surveyName;
+            SurveyListId = surveyListId;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -29,7 +32,8 @@ namespace Sample
                     {
                         var cat = new Category()
                         {
-                            CategoryTitle = txtName.Text
+                            CategoryTitle = txtName.Text,
+                            SurveyListId = SurveyListId
                         };
                         var added = m.Categories.Add(cat);
                         if (await m.SaveChangesAsync() > 0)

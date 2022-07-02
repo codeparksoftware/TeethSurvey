@@ -13,6 +13,7 @@ namespace Sample
     {
         private int? _questionId { get; }
         private bool _isLoadingToUpdate = false;
+        private List<InsertSurveyList> SurveyList { get; set; }
         private List<OptionControl> GetOptionControls() => new List<OptionControl>()
         {
             new OptionControl(){
@@ -30,7 +31,7 @@ namespace Sample
         {
             SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
             InitializeComponent();
-
+            LoadCombos(-1);
             _questionId = questionId;
             if (questionId.HasValue)
             {
@@ -49,6 +50,7 @@ namespace Sample
             _isLoadingToUpdate = true;
             using (var m = new Model())
             {
+
                 var quest = await m.Questions.Select(f =>
                 new InsertQuest
                 {
@@ -102,18 +104,24 @@ namespace Sample
                     }
 
                 }
+
             }
             _isLoadingToUpdate = false;
         }
 
-        private void LoadCombos(int selectedCatId, int surveyId)
+        private void LoadCombos(int selectedCatId)
         {
             SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+
             using (var model = new Model())
             {
-                var categories = model.
-                    Categories.
-                    Where(f => f.SurveyListId == surveyId).
+                SurveyList = model.
+                    SurveyLists.Select(s => new InsertSurveyList
+                    {
+                        SurveylistId = s.Id,
+                        SurveyName = s.SurveyName,
+                        Cat =
+                    s.Categories.
                     Select(f => new InsertCat
                     {
                         CatId = f.CategoryId,
@@ -136,14 +144,16 @@ namespace Sample
                                   IsDefault = o.IsDefault
                               }).ToList()
                           }).ToList()
+                    }).ToList()
+
                     }).ToList();
 
+                comboSurveyList.DisplayMember = nameof(InsertSurveyList.SurveyName);
+                comboSurveyList.ValueMember = nameof(InsertSurveyList.SurveylistId);
 
-                CategoryCombo.DataSource = categories;
-                CategoryCombo.DisplayMember = nameof(InsertCat.Title);
-                CategoryCombo.ValueMember = nameof(InsertCat.CatId);
+                comboSurveyList.DataSource = SurveyList;
 
-                if (selectedCatId > 0)
+                if (selectedCatId > 0 && CategoryCombo.DataSource is List<InsertCat> lstCat && lstCat.Any(l => l.CatId == selectedCatId))
                 {
                     CategoryCombo.SelectedValue = selectedCatId;
                 }
@@ -219,8 +229,7 @@ namespace Sample
                         if (model.SaveChanges() > 0)
                         {
                             MessageBox.Show("Insert operation has been done succesfully.");
-                            LoadCombos(int.TryParse(CategoryCombo.SelectedValue?.ToString(), out var cId) ? cId : -1,
-                                int.Parse(comboSurveyList.SelectedValue.ToString()));
+                            LoadCombos(int.TryParse(CategoryCombo.SelectedValue?.ToString(), out var cId) ? cId : -1);
                         }
                     }
                 }
@@ -389,16 +398,17 @@ namespace Sample
 
         private void btnNewCat_Click(object sender, EventArgs e)
         {
-            var f = new NewCategory();
-            if (f.ShowDialog() == DialogResult.OK)
+            if (comboSurveyList.SelectedItem is InsertSurveyList il)
             {
-                LoadCombos(f.Result, int.Parse(comboSurveyList.SelectedValue.ToString()));
+                var f = new NewCategory(
+                il.SurveyName,
+                int.Parse(comboSurveyList.SelectedValue.ToString()));
+
+                if (f.ShowDialog() == DialogResult.OK)
+                {
+                    LoadCombos(f.Result);
+                }
             }
-        }
-
-        private void OptionlistView_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-
         }
 
         private void SilOption()
@@ -501,7 +511,13 @@ namespace Sample
         private void comboSurveyList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            LoadCombos(-1, int.Parse(comboSurveyList.SelectedValue.ToString()));
+            CategoryCombo.DisplayMember = nameof(InsertCat.Title);
+            CategoryCombo.ValueMember = nameof(InsertCat.CatId);
+            CategoryCombo.DataSource =
+                SurveyList.
+                FirstOrDefault(f =>
+                f.SurveylistId == int.Parse(comboSurveyList.SelectedValue.ToString()))?.Cat;
+
         }
 
         private class InsertQuest
@@ -528,6 +544,13 @@ namespace Sample
             public int CatId { get; set; }
             public string Title { get; set; }
             public List<InsertQuest> Quests { get; set; }
+        }
+
+        private class InsertSurveyList
+        {
+            public int SurveylistId { get; set; }
+            public string SurveyName { get; set; }
+            public List<InsertCat> Cat { get; set; }
         }
     }
 

@@ -1,24 +1,20 @@
-﻿using DevExpress.Utils;
-using DevExpress.Utils.Controls;
-using DevExpress.XtraEditors.Controls;
+﻿using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Tile;
 using DevExpress.XtraSplashScreen;
 using EntityFramework.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TeethSurvey.Extensions;
 using TeetSurvey.Repository.Model;
 
 namespace Sample
 {
     public partial class frmAdmin : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        private Survey Survey;
+
         private List<Quest> Quests { get; set; }
         private List<SurveyView> SavedSurveys { get; set; }
         public static List<OptionControl> GetOptionControls => new List<OptionControl>() {
@@ -69,9 +65,14 @@ namespace Sample
                                QuestionId = a.QuestionId
                            }).ToList()
                        }).ToListAsync();
-
-                    gridSurvey.DataSource = surveys;
                     SavedSurveys = surveys;
+                    gridSurvey.DataSource = surveys;
+                    if (surveys.Count > 0 && gridResult.GetFocusedRow() == null)
+                    {
+                        gridResult.MoveFirst();
+                        UpdateResultGrid();
+                    }
+
                 }
             }
             catch (Exception e)
@@ -240,6 +241,8 @@ namespace Sample
                 if (m.Questions.Any(f => f.Category.SurveyListId == sId) == false)
                 {
                     MessageBox.Show("Bu Ankete ait hiç soru bulunmamaktadır");
+
+                    SplashScreenManager.CloseForm();
                     return;
                 }
 
@@ -259,10 +262,11 @@ namespace Sample
                     SurveyDate = DateTime.Now,
                     Patient = patient
                 };
-                sur.SurveyList = m.SurveyLists.FirstOrDefault(f => f.Id.ToString() == cmbSurveys.SelectedValue.ToString());
+                sur.SurveyList = m.SurveyLists.AsNoTracking().FirstOrDefault(f => f.Id.ToString() == cmbSurveys.SelectedValue.ToString());
                 sur.Pollster = m.Pollsters.FirstOrDefault(f => f.Id.ToString() == cmbPollster.SelectedValue.ToString());
-                Survey = sur;
 
+                var wizard = new SurveyWizardForm(sur);
+                wizard.ShowDialog();
             }
             //await m.SaveChangesAsync();
             //Survey = m.Surveys.
@@ -270,9 +274,7 @@ namespace Sample
             //    Include(h => h.SurveyList)
             //    .FirstOrDefault(g => g.Id == Survey.Id);
 
-            SingleService.Instance.Survey = Survey;
-            var wizard = new SurveyWizardForm();
-            wizard.ShowDialog();
+
 
 
         }
@@ -284,7 +286,7 @@ namespace Sample
             var insert = new InsertForm(null);
             if (insert.ShowDialog() == DialogResult.OK)
             {
-                await DataLoad();
+                await InitAnketQuestion();
             }
         }
 
@@ -533,6 +535,12 @@ namespace Sample
 
         private void gridSurveys_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
+            UpdateResultGrid();
+
+        }
+
+        private void UpdateResultGrid()
+        {
             if (int.TryParse(gridSurveys.GetFocusedRowCellValue(colSurveyId)?.ToString(), out var surveyId) && SavedSurveys?.Any() == true)
             {
                 var quests = SavedSurveys.FirstOrDefault(f => f.SurveyId == surveyId)?.Questions.GroupBy(k => k.QuestionId).
@@ -549,7 +557,11 @@ namespace Sample
                     gridResult.ExpandAllGroups();
                 }
             }
+        }
 
+        private void gridSurveys_Click(object sender, EventArgs e)
+        {
+            UpdateResultGrid();
         }
     }
 

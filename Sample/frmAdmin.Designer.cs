@@ -968,6 +968,7 @@
             this.gridSurveys.OptionsFind.AlwaysVisible = true;
             this.gridSurveys.OptionsView.EnableAppearanceEvenRow = true;
             this.gridSurveys.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridSurveys_FocusedRowChanged);
+            this.gridSurveys.Click += new System.EventHandler(this.gridSurveys_Click);
             // 
             // colSurveyId
             // 

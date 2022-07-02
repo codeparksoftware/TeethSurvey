@@ -164,7 +164,6 @@
     <Compile Include="QuestionView.Designer.cs">
       <DependentUpon>QuestionView.cs</DependentUpon>
     </Compile>
-    <Compile Include="SingleService.cs" />
     <Compile Include="Categories.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -17,13 +17,13 @@ namespace Sample
     public partial class SurveyWizardForm : DevExpress.XtraEditors.XtraForm
     {
         public List<Cat> CategoryWithQuestions { get; set; }
-
-        public SurveyWizardForm()
+        public Survey virtualSurvey;
+        public SurveyWizardForm(Survey survey)
         {
             InitializeComponent();
-            this.Text = SingleService.Instance.Survey.SurveyList.SurveyName +
-                " [ " + SingleService.Instance.Survey.Pollster.Name + " ] ";
-
+            this.Text = survey.SurveyList.SurveyName +
+                " [ " + survey.Pollster.Name + " ] ";
+            virtualSurvey = survey;
         }
 
         private async void SurveyWizardForm_Load(object sender, System.EventArgs e)
@@ -37,7 +37,7 @@ namespace Sample
                         await model.Categories.
                         AsNoTracking().
                         Where(c => c.Questions.Count > 0
-                        && c.SurveyListId == SingleService.Instance.Survey.SurveyListId).
+                        && c.SurveyListId == virtualSurvey.SurveyListId).
                         Select(c => new Cat()
                         {
                             CatId = c.CategoryId,
@@ -47,7 +47,7 @@ namespace Sample
                         {
                             Id = q.QuestionId,
                             Answers = q.Answers.
-                            Where(a=>a.SurveyId==0).
+                            Where(a => a.SurveyId == 0).
                             Select(a => new Answer
                             {
                                 AnswerId = a.AnswerId,
@@ -358,15 +358,14 @@ namespace Sample
             {
                 var res = MessageBox.Show(
                           "Anketi bitirip var olan bilgileri kaydetmek istiyor musunuz?",
-                          SingleService.Instance.Survey.SurveyList.SurveyName,
+                       virtualSurvey.SurveyList.SurveyName,
                           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (res == DialogResult.Yes)
                 {
                     if (await SaveSurvey())
                     {
-                        btnNext.Visible = false;
-                        btnCancel.Visible = false;
+                        Close();
                     }
                 }
             }
@@ -374,7 +373,7 @@ namespace Sample
         }
         private async Task<bool> SaveSurvey()
         {
-            if (SingleService.Instance.Survey.Id == 0)//insert
+            if (virtualSurvey.Id == 0)//insert
             {
                 try
                 {
@@ -382,7 +381,21 @@ namespace Sample
                     {
                         //var tran = m.Database.BeginTransaction();
 
+                        var patient = new Patient()
+                        {
+                            EnrollDate = virtualSurvey.Patient.EnrollDate,
+                            PatientName = virtualSurvey.Patient.PatientName,
+                            PatientSurname = virtualSurvey.Patient.PatientSurname,
+                            PatientTCKN = virtualSurvey.Patient.PatientTCKN
+                        };
 
+                        var sur = new Survey()
+                        {
+                            SurveyListId = virtualSurvey.SurveyListId,
+                            PollsterId = virtualSurvey.PollsterId,
+                            SurveyDate = DateTime.Now,
+                            Patient = patient
+                        };
                         var answers = new List<TeetSurvey.Repository.Model.Answer>();
                         foreach (ListViewItem item in lstView.Items)
                         {
@@ -397,13 +410,13 @@ namespace Sample
 
                                 foreach (var a in answers)
                                 {
-                                    SingleService.Instance.Survey.Answers.Add(a);
+                                    sur.Answers.Add(a);
                                 }
 
                             }
                         }
-                        SingleService.Instance.Survey.IsSubmitted = true;
-                        var addedSurvey = m.Surveys.Add(SingleService.Instance.Survey);
+                        sur.IsSubmitted = true;
+                        var addedSurvey = m.Surveys.Add(sur);
                         var save = await m.SaveChangesAsync();
                         return save > 0;
                     }

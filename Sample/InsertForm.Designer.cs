@@ -220,7 +220,6 @@
             this.OptionlistView.TabIndex = 14;
             this.OptionlistView.UseCompatibleStateImageBehavior = false;
             this.OptionlistView.View = System.Windows.Forms.View.Details;
-            this.OptionlistView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.OptionlistView_MouseDoubleClick);
             // 
             // columnHeader1
             // 
