@@ -19,14 +19,15 @@ namespace TeetSurvey.Repository.Model
 
         public int PatientId { get; set; }
 
-        public int? PollsterId { get; set; }
+        public int PollsterId { get; set; }
 
         public DateTime SurveyDate { get; set; }
 
-        public int? TotalPoint { get; set; }
-
         public int SurveyListId { get; set; }
-        public bool IsSubmitted{ get; set; }
+
+        public bool IsSubmitted { get; set; }
+
+        public int SessionId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Answer> Answers { get; set; }

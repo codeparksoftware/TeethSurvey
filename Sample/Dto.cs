@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sample
 {
@@ -58,8 +55,8 @@ namespace Sample
         public string Patient { get; set; }
         public bool IsSubmitted { get; set; }
         public Image Icon => IsSubmitted ? Sample.Properties.Resources.apply_16x16 : Sample.Properties.Resources.time2_16x16;
-
         public List<AnsweredQuestion> Questions { get; set; }
+        public int SessionId { get;  set; }
     }
     public class AnsweredQuestion
     {

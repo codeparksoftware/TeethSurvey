@@ -135,6 +135,12 @@
     <Compile Include="InsertForm.Designer.cs">
       <DependentUpon>InsertForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InsertPatientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertPatientForm.Designer.cs">
+      <DependentUpon>InsertPatientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewCategory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InsertForm.resx">
       <DependentUpon>InsertForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertPatientForm.resx">
+      <DependentUpon>InsertPatientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewCategory.resx">
       <DependentUpon>NewCategory.cs</DependentUpon>

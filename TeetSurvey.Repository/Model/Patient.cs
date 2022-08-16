@@ -30,7 +30,7 @@ namespace TeetSurvey.Repository.Model
         public string PatientTCKN { get; set; }
 
         public DateTime EnrollDate { get; set; }
-
+        public string FullName => $"{PatientName} {PatientSurname}";
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Survey> Surveys { get; set; }
     }

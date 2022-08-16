@@ -18,13 +18,17 @@ namespace Sample
     {
         public List<Cat> CategoryWithQuestions { get; set; }
         public Survey virtualSurvey;
+
+
         public SurveyWizardForm(Survey survey)
         {
             InitializeComponent();
-            this.Text = survey.SurveyList.SurveyName +
+            Text = survey.SurveyList.SurveyName +
                 " [ " + survey.Pollster.Name + " ] ";
             virtualSurvey = survey;
         }
+
+
 
         private async void SurveyWizardForm_Load(object sender, System.EventArgs e)
         {
@@ -47,7 +51,7 @@ namespace Sample
                         {
                             Id = q.QuestionId,
                             Answers = q.Answers.
-                            Where(a => a.SurveyId == 0).
+                            Where(a => a.SurveyId == virtualSurvey.Id).
                             Select(a => new Answer
                             {
                                 AnswerId = a.AnswerId,
@@ -180,11 +184,15 @@ namespace Sample
             }
             else if (surveyQuest.ControlId == (int)OptionControls.ComboBox)
             {
+                layoutControlRadio.Visibility =
+                    DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                emptySpaceItem1.Visibility =
+                    DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                layoutControlCombo.Visibility =
+                    DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                layoutControlChecked.Visibility =
+                    DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
-                layoutControlRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-                emptySpaceItem1.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-                layoutControlCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
-                layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 comboOptions.DataSource = surveyQuest.
                     Options.ToList();
 
@@ -193,11 +201,13 @@ namespace Sample
 
                 if (surveyQuest.Answers.Any() == false)
                 {
-                    comboOptions.SelectedValue = surveyQuest.Options.FirstOrDefault(f => f.IsDefault)?.Id;
+                    comboOptions.SelectedValue =
+                        surveyQuest.Options.FirstOrDefault(f => f.IsDefault)?.Id;
                 }
                 else
                 {
-                    comboOptions.SelectedValue = surveyQuest.Answers.FirstOrDefault().OptionId;
+                    comboOptions.SelectedValue =
+                        surveyQuest.Answers.FirstOrDefault().OptionId;
                 }
 
             }
@@ -381,21 +391,17 @@ namespace Sample
                     {
                         //var tran = m.Database.BeginTransaction();
 
-                        var patient = new Patient()
-                        {
-                            EnrollDate = virtualSurvey.Patient.EnrollDate,
-                            PatientName = virtualSurvey.Patient.PatientName,
-                            PatientSurname = virtualSurvey.Patient.PatientSurname,
-                            PatientTCKN = virtualSurvey.Patient.PatientTCKN
-                        };
+
 
                         var sur = new Survey()
                         {
                             SurveyListId = virtualSurvey.SurveyListId,
                             PollsterId = virtualSurvey.PollsterId,
                             SurveyDate = DateTime.Now,
-                            Patient = patient
+                            PatientId = virtualSurvey.PatientId,
+                            SessionId = virtualSurvey.SessionId
                         };
+
                         var answers = new List<TeetSurvey.Repository.Model.Answer>();
                         foreach (ListViewItem item in lstView.Items)
                         {

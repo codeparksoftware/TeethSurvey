@@ -57,6 +57,7 @@ namespace Sample
                            SurveyDate = f.SurveyDate,
                            SurveyName = f.SurveyList.SurveyName,
                            IsSubmitted = f.IsSubmitted,
+                           SessionId = f.SessionId,
                            Questions = f.Answers.Select(a => new AnsweredQuestion()
                            {
                                AnswerOptionDesc = a.Option.Text,
@@ -233,7 +234,11 @@ namespace Sample
             {
                 return;
             }
-
+            if (cmbPatients.SelectedIndex < 0 ||
+              int.TryParse(cmbPatients.SelectedValue?.ToString(), out var paId) == false)
+            {
+                return;
+            }
             SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
             using (var m = new Model())
             {
@@ -246,28 +251,30 @@ namespace Sample
                     return;
                 }
 
-
-                var patient = new Patient()
-                {
-                    EnrollDate = enrollDate.Value,
-                    PatientName = txtName.Text,
-                    PatientSurname = txtSurname.Text,
-                    PatientTCKN = txtTCKN.Text
-                };
-
                 var sur = new Survey()
                 {
                     SurveyListId = sId,
                     PollsterId = pId,
                     SurveyDate = DateTime.Now,
-                    Patient = patient
+                    PatientId = paId,
+                    SessionId = m.Surveys.Count(f => f.PatientId == paId && f.SurveyListId == sId) + 1
                 };
-                sur.SurveyList = m.SurveyLists.AsNoTracking().FirstOrDefault(f => f.Id.ToString() == cmbSurveys.SelectedValue.ToString());
-                sur.Pollster = m.Pollsters.FirstOrDefault(f => f.Id.ToString() == cmbPollster.SelectedValue.ToString());
+
+                sur.SurveyList =
+                    m.SurveyLists.
+                    AsNoTracking().
+                    FirstOrDefault(f =>
+                    f.Id.ToString() == cmbSurveys.SelectedValue.ToString());
+
+                sur.Pollster =
+                    m.
+                    Pollsters.
+                    FirstOrDefault(f => f.Id.ToString() == cmbPollster.SelectedValue.ToString());
 
                 var wizard = new SurveyWizardForm(sur);
                 wizard.ShowDialog();
             }
+
             //await m.SaveChangesAsync();
             //Survey = m.Surveys.
             //    Include(f => f.Patient).Include(g => g.Pollster).
@@ -435,9 +442,11 @@ namespace Sample
                         var surveyListFuture = ctx.SurveyLists.AsNoTracking().Future();
                         var pollsterFuture =
                         ctx.Pollsters.AsNoTracking().Future();
+                        var patientFuture = ctx.Patients.AsNoTracking().Future();
 
                         var surveyList = surveyListFuture.ToList();
                         var pollster = pollsterFuture.ToList();
+                        var patients = patientFuture.ToList();
 
                         cmbPollster.Invoke((Action)(() =>
                         {
@@ -452,6 +461,12 @@ namespace Sample
                             cmbSurveys.DataSource = surveyList;
                             cmbSurveys.DisplayMember = nameof(SurveyList.SurveyName);
                             cmbSurveys.ValueMember = nameof(SurveyList.Id);
+                        }));
+                        cmbPatients.Invoke((Action)(() =>
+                        {
+                            cmbPatients.DataSource = patients;
+                            cmbPatients.DisplayMember = nameof(Patient.FullName);
+                            cmbPatients.ValueMember = nameof(Patient.PatientId);
                         }));
 
 
@@ -563,8 +578,43 @@ namespace Sample
         {
             UpdateResultGrid();
         }
+
+        private async void simpleButton1_Click(object sender, EventArgs e)
+        {
+            var insertPatientForm = new InsertPatientForm();
+            if (insertPatientForm.ShowDialog() == DialogResult.OK)
+            {
+                using (var ctx = new Model())
+                {
+                    var patients = await ctx.Patients.ToListAsync();
+
+                    cmbPatients.Invoke((Action)(() =>
+                    {
+                        cmbPatients.DataSource = patients;
+                        cmbPatients.DisplayMember = nameof(Patient.FullName);
+                        cmbPatients.ValueMember = nameof(Patient.PatientId);
+                    }));
+                    cmbPatients.SelectedValue = insertPatientForm.ResultId;
+                }
+            }
+        }
+
+        private void gridSurveys_DoubleClick(object sender, EventArgs e)
+        {
+            if (int.TryParse(gridSurveys.GetFocusedRowCellValue(colSurveyId)?.ToString(), out var surveyId))
+            {
+                using (var m = new Model())
+                {
+                    var survey = m.Surveys.FirstOrDefault(f => f.Id == surveyId);
+
+                    if (survey != null)
+                    {
+                        var wizard = new SurveyWizardForm(survey);
+                        wizard.ShowDialog();
+                    }
+                }
+            }
+        }
     }
-
-
 
 }
