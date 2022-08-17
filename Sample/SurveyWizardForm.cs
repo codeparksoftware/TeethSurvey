@@ -51,7 +51,7 @@ namespace Sample
                         {
                             Id = q.QuestionId,
                             Answers = q.Answers.
-                            Where(a => a.SurveyId == virtualSurvey.Id).
+                            Where(a => a.SurveyId == 0).
                             Select(a => new Answer
                             {
                                 AnswerId = a.AnswerId,
@@ -83,36 +83,96 @@ namespace Sample
                             SubQuestIds = q.Question1.Select(sq => sq.QuestionId).ToList(),
                         }).OrderBy(q => q.Id).ToList()
                         }).ToListAsync();
-                }
 
-                foreach (var cat in CategoryWithQuestions)
-                {
-                    var grp = new ListViewGroup(cat.Title);
-                    lstView.Groups.Add(grp);
-                    foreach (var q in cat.Quests)
+
+
+
+                    foreach (var cat in CategoryWithQuestions)
                     {
-                        if (q.ParentQuestionId.HasValue == false)
+                        var grp = new ListViewGroup(cat.Title);
+                        lstView.Groups.Add(grp);
+                        foreach (var q in cat.Quests)
                         {
-                            var item = new ListViewItem(q.Id.ToString(), grp);
-                            item.SubItems.Add(q.Description);
-                            item.Tag = q;
-                            lstView.Items.Add(item);
+                            if (q.ParentQuestionId.HasValue == false)
+                            {
+                                var item = new ListViewItem(q.Id.ToString(), grp);
+                                item.SubItems.Add(q.Description);
+                                item.Tag = q;
+                                lstView.Items.Add(item);
+                            }
                         }
+
                     }
 
-                }
+                    if (lstView.Items.Count > 0 && lstView.Items[0].Tag is SurveyQuest quest)
+                    {
+                        lstView.Items[0].Selected = true;
+                    }
+                    recolorListItems(lstView);
 
-                if (lstView.Items.Count > 0 && lstView.Items[0].Tag is SurveyQuest quest)
-                {
-                    lstView.Items[0].Selected = true;
+                    var answers =
+                        model.
+                        Answers.
+                        Include(q => q.Question).
+                        Where(f => f.SurveyId == virtualSurvey.Id).
+                        ToList();
+
+                    if (answers.Any())
+                    {
+                        foreach (var a in answers)
+                        {
+                            var lstItem = FindLstItem(a.QuestionId);
+                            if (lstItem != null)
+                            {
+                                lstItem.Selected = true;
+                                if (a.Question.ControlId == (int)OptionControls.RadioButton)
+                                {
+                                    radioOptions.EditValue = a.OptionId;
+                                    btnNext.PerformClick();
+                                }
+                                else if (a.Question.ControlId == (int)OptionControls.ComboBox)
+                                {
+                                    comboOptions.SelectedValue = a.OptionId;
+                                }
+                                else if (a.Question.ControlId == (int)OptionControls.CheckedListBox)
+                                {
+                                    foreach (CheckedListBoxItem chkItem in checkedListBoxOptions.Items)
+                                    {
+                                        if (chkItem.CastTo<Opt>().Id == a.OptionId)
+                                        {
+                                            chkItem.CheckState = CheckState.Checked;
+                                        }
+                                        else
+                                        {
+                                            chkItem.CheckState = CheckState.Unchecked;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
                 }
-                recolorListItems(lstView);
             }
             finally
             {
                 SplashScreenManager.CloseForm(false);
             }
         }
+
+        private ListViewItem FindLstItem(int questionId)
+        {
+            for (int i = 0; i < lstView.Items.Count; i++)
+            {
+                if (lstView.Items[i].Tag is SurveyQuest quest && quest.Id == questionId)
+                {
+                    lstView.Items[i].Selected = true;
+                    return lstView.Items[i];
+                }
+            }
+            return null;
+        }
+
         private static void recolorListItems(ListView lv)
         {
             for (int ix = 0; ix < lv.Items.Count; ++ix)

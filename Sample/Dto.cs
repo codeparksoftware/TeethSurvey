@@ -21,7 +21,6 @@ namespace Sample
     }
     public class SurveyQuest
     {
-
         public int Id { get; set; }
         public string CategoryTitle { get; set; }
         public string Description { get; set; }

@@ -64,7 +64,6 @@
     <Compile Include="Model\QuestionControl.cs" />
     <Compile Include="Model\Survey.cs" />
     <Compile Include="Model\SurveyList.cs" />
-    <Compile Include="Model\sysdiagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@ namespace TeetSurvey.Repository.Model
         public virtual DbSet<QuestionControl> QuestionControls { get; set; }
         public virtual DbSet<Survey> Surveys { get; set; }
         public virtual DbSet<SurveyList> SurveyLists { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+       
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
