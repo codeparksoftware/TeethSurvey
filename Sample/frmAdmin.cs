@@ -4,6 +4,7 @@ using DevExpress.XtraSplashScreen;
 using EntityFramework.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,13 +33,14 @@ namespace Sample
         {
             InitializeComponent();
             colCat.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+
         }
 
         private async void frmAdmin_LoadAsync(object sender, EventArgs e)
         {
             await InitMainPage();
         }
-
+        public List<SurveyList> SurveyLists { get; set; }
         private async Task InitMainPage()
         {
             try
@@ -47,32 +49,51 @@ namespace Sample
 
                 using (var m = new Model())
                 {
-                    var surveys = await m.Surveys.
-                        Select(f =>
-                       new SurveyView()
-                       {
-                           Patient = f.Patient.PatientName,
-                           Pollster = f.Pollster.Name,
-                           SurveyId = f.Id,
-                           SurveyDate = f.SurveyDate,
-                           SurveyName = f.SurveyList.SurveyName,
-                           IsSubmitted = f.IsSubmitted,
-                           SessionId = f.SessionId,
-                           Questions = f.Answers.Select(a => new AnsweredQuestion()
-                           {
-                               AnswerOptionDesc = a.Option.Text,
-                               CategoryTitle = a.Question.Category.CategoryTitle,
-                               QuestionDesc = a.Question.Description,
-                               QuestionId = a.QuestionId
-                           }).ToList()
-                       }).ToListAsync();
-                    SavedSurveys = surveys;
-                    gridSurvey.DataSource = surveys;
-                    if (surveys.Count > 0 && gridResult.GetFocusedRow() == null)
+                    SurveyLists = await m.SurveyLists.ToListAsync();
+                    surveyListlookUp.DataSource = SurveyLists;
+                    surveyListlookUp.DisplayMember = nameof(SurveyList.SurveyName);
+                    surveyListlookUp.ValueMember = nameof(SurveyList.Id);
+                    var firstId = SurveyLists.First()?.Id;
+                    barEditItem.EditValue = 0;//trick to trig reload taken survey
+                    if (firstId.HasValue)
                     {
-                        gridResult.MoveFirst();
-                        UpdateResultGrid();
+                        barEditItem.EditValue = firstId.Value;
                     }
+                    //var surveys = await m.Surveys.
+                    //    Select(f =>
+                    //   new SurveyView()
+                    //   {
+                    //       Patient = f.Patient.PatientName,
+                    //       Pollster = f.Pollster.Name,
+                    //       SurveyId = f.Id,
+                    //       SurveyDate = f.SurveyDate,
+                    //       SurveyName = f.SurveyList.SurveyName,
+                    //       IsSubmitted = f.IsSubmitted,
+                    //       SessionId = f.SessionId,
+                    //       Questions = f.Answers.Select(a => new AnsweredQuestion()
+                    //       {
+                    //           AnswerOptionDesc = a.Option.Text,
+                    //           CategoryTitle = a.Question.Category.CategoryTitle,
+                    //           QuestionDesc = a.Question.Description,
+                    //           QuestionId = a.QuestionId
+                    //       }).ToList()
+                    //   }).ToListAsync();
+                    //  var surveys = await m.Answers.Select(f => new PivotSurvey
+                    //  {
+                    //      Answer = f.Option.Text,
+                    //      Category = f.Question.Category.CategoryTitle,
+                    //      Question = f.Question.Description,
+                    //      SurveyId = f.SurveyId
+
+                    //  }).ToListAsync();
+                    ////  SavedSurveys = surveys;
+                    //  gridSurveys.DataSource = surveys;
+
+                    //if (surveys.Count > 0 && gridResult.GetFocusedRow() == null)
+                    //{
+                    //    gridResult.MoveFirst();
+                    //    UpdateResultGrid();
+                    //}
 
                 }
             }
@@ -111,10 +132,19 @@ namespace Sample
 
             using (var ctx = new Model())
             {
-                var questions = await ctx.Questions.AsNoTracking().ToListAsync();
+                var questions =
+                    await ctx.Questions.
+                    Include(f => f.Category).
+                    Include(f => f.Options).
+                    Include(f => f.DependendOptions).
+                    AsNoTracking().
+                    ToListAsync();
 
 
-                Quests = questions.Select(f => CreateQuest(f, questions)).ToList();
+                Quests = questions.
+                    Select(f => CreateQuest(f, questions)).
+                    ToList();
+
                 gridControl1.Invoke(new Action(() =>
                 {
                     gridControl1.DataSource = Quests;
@@ -257,7 +287,7 @@ namespace Sample
                     PollsterId = pId,
                     SurveyDate = DateTime.Now,
                     PatientId = paId,
-                    SessionId = m.Surveys.Count(f => f.PatientId == paId && f.SurveyListId == sId) + 1
+                    SessionId = m.Surveys.Count(f => f.PatientId == paId && f.SurveyListId == sId) + 1//auto calculated
                 };
 
                 sur.SurveyList =
@@ -274,16 +304,6 @@ namespace Sample
                 var wizard = new SurveyWizardForm(sur);
                 wizard.ShowDialog();
             }
-
-            //await m.SaveChangesAsync();
-            //Survey = m.Surveys.
-            //    Include(f => f.Patient).Include(g => g.Pollster).
-            //    Include(h => h.SurveyList)
-            //    .FirstOrDefault(g => g.Id == Survey.Id);
-
-
-
-
         }
 
         private async void barButtonItem1_ItemClick(
@@ -434,6 +454,7 @@ namespace Sample
             try
             {
                 SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+
                 await Task.Run(() =>
                 {
                     using (var ctx = new Model())
@@ -556,16 +577,31 @@ namespace Sample
 
         private void UpdateResultGrid()
         {
-            if (int.TryParse(gridSurveys.GetFocusedRowCellValue(colSurveyId)?.ToString(), out var surveyId) && SavedSurveys?.Any() == true)
+            if (int.TryParse(gridSurveys.GetFocusedRowCellValue("SurveyId")?.ToString(), out var surveyId))
             {
-                var quests = SavedSurveys.FirstOrDefault(f => f.SurveyId == surveyId)?.Questions.GroupBy(k => k.QuestionId).
-                    Select(s => new AnsweredQuestion
-                    {
-                        QuestionId = s.Key,
-                        CategoryTitle = s.Select(ss => ss.CategoryTitle).FirstOrDefault(),
-                        AnswerOptionDesc = string.Join(" \n ", s.Select(ss => ss.AnswerOptionDesc)),
-                        QuestionDesc = s.Select(ss => ss.QuestionDesc).FirstOrDefault()
-                    }).ToList();
+                var answers = SavedSurveys.Where(f => f.SurveyId == surveyId).FirstOrDefault();
+                if (answers != null)
+                {
+                    txtPatient.Text = answers.Patient;
+                    txtSessionNo.Text = answers.SessionId.ToString();
+                    chkIsSubmitted.Checked = answers.IsSubmitted;
+                    txtSurveyName.Text = answers.SurveyName;
+                    txtSurveyDate.Text = answers.SurveyDate.ToLongDateString();
+
+
+                }
+
+                var quests = SavedSurveys.FirstOrDefault(f => f.SurveyId == surveyId)?.
+                    Questions.
+                    GroupBy(k => k.QuestionId).
+                  Select(s => new Answers
+                  {
+                      QuestionId = s.Key,
+                      CategoryTitle = s.Select(ss => ss.CategoryTitle).FirstOrDefault(),
+                      AnswerOptionDesc = string.Join(" \n ", s.SelectMany(ss => ss.Answers)),
+                      QuestionDesc = s.Select(ss => ss.QuestionDesc).FirstOrDefault(),
+                  }).ToList();
+
                 if (quests != null)
                 {
                     gridControl2.DataSource = quests;
@@ -582,6 +618,7 @@ namespace Sample
         private async void simpleButton1_Click(object sender, EventArgs e)
         {
             var insertPatientForm = new InsertPatientForm();
+
             if (insertPatientForm.ShowDialog() == DialogResult.OK)
             {
                 using (var ctx = new Model())
@@ -594,6 +631,7 @@ namespace Sample
                         cmbPatients.DisplayMember = nameof(Patient.FullName);
                         cmbPatients.ValueMember = nameof(Patient.PatientId);
                     }));
+
                     cmbPatients.SelectedValue = insertPatientForm.ResultId;
                 }
             }
@@ -601,11 +639,15 @@ namespace Sample
 
         private void gridSurveys_DoubleClick(object sender, EventArgs e)
         {
-            if (int.TryParse(gridSurveys.GetFocusedRowCellValue(colSurveyId)?.ToString(), out var surveyId))
+            if (int.TryParse(gridSurveys.GetFocusedRowCellValue("SurveyId")?.ToString(), out var surveyId))
             {
                 using (var m = new Model())
                 {
-                    var survey = m.Surveys.FirstOrDefault(f => f.Id == surveyId);
+                    var survey = m.
+                        Surveys.
+                        Include(f => f.SurveyList).
+                        Include(f => f.Pollster).
+                        FirstOrDefault(f => f.Id == surveyId);
 
                     if (survey != null)
                     {
@@ -615,6 +657,113 @@ namespace Sample
                 }
             }
         }
+
+        private void reportSingle_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            gridResult.ShowPrintPreview();
+        }
+
+        private async void barEditItem_EditValueChanged(object sender, EventArgs e)
+        {
+            await LoadTakenSurvey();
+        }
+
+        private async Task LoadTakenSurvey()
+        {
+            using (var m = new Model())
+            {
+                var takenSurvey = await m.Surveys.ToListAsync();
+                var surveylistId = int.Parse(barEditItem.EditValue.ToString());
+
+                var questions = await m.
+                    Questions.
+                    Where(f => f.Category.SurveyListId == surveylistId).
+                    ToListAsync();
+                var dt = new DataTable();
+                dt.Columns.Add(new DataColumn("PatientInfo"));
+                dt.Columns.Add(new DataColumn("SurveyId"));
+                dt.Columns.Add(new DataColumn("SessionNo"));
+
+                dt.Columns
+                    .AddRange(
+                    questions.
+                    Select(f => new DataColumn(f.QuestionId.ToString() + "#" + f.Description)).ToArray());
+                var answers = await m.Answers.Select(f =>
+                  new PivotSurvey
+                  {
+                      Answer = f.Option.Text,
+                      QuestionId = f.QuestionId,
+                      Question = f.Question.Description,
+                      SurveyId = f.SurveyId,
+                      Category = f.Question.Category.CategoryTitle,
+                      PatientName = f.Survey.Patient.PatientName,
+                      PatientSurname = f.Survey.Patient.PatientSurname,
+                      SessionNo = f.Survey.SessionId,
+                  }).ToListAsync();
+
+                SavedSurveys = m.Surveys.Select(f =>
+                new SurveyView
+                {
+                    IsSubmitted = f.IsSubmitted,
+                    SurveyDate = f.SurveyDate,
+                    Pollster = f.Pollster.Name,
+                    Patient = f.Patient.PatientName,
+                    SurveyName = f.SurveyList.SurveyName,
+                    SessionId = f.SessionId,
+                    SurveyId = f.Id,
+                    Questions = f.SurveyList.Categories.SelectMany(c => c.Questions).Select(g =>
+                    new AnsweredQuestion
+                    {
+                        CategoryTitle = g.Category.CategoryTitle,
+                        QuestionId = g.QuestionId,
+                        QuestionDesc = g.Description,
+                        Answers =                    
+                        f.Answers.Where(h => h.QuestionId == g.QuestionId).Select(ss => ss.Option.Text).ToList()
+
+                    }).ToList()
+                }).ToList();
+
+                foreach (var ts in takenSurvey)
+                {
+                    var takenAnswers = answers.Where(a => a.SurveyId == ts.Id).ToList();
+                    var row = dt.NewRow();
+                    var ta = takenAnswers.FirstOrDefault();
+                    row["PatientInfo"] = ta?.PatientInfo;
+                    row["SessionNo"] = ta?.SessionNo;
+                    row["SurveyId"] = ta?.SurveyId;
+                    foreach (var a in takenAnswers)
+                    {
+                        row[a.QuestionId + "#" + a.Question] = a.Answer;
+
+                    }
+
+                    dt.Rows.Add(row);
+                }
+
+                gridTakenSurveys.DataSource = dt;
+                gridSurveys.Columns["SurveyId"].Visible = false;
+                gridSurveys.BestFitColumns();
+            }
+        }
+
+        private void reportAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            gridTakenSurveys.ShowPrintPreview();
+        }
+    }
+
+    public class PivotSurvey
+    {
+        public int SurveyId { get; set; }
+        public string Question { get; set; }
+        public int QuestionId { get; set; }
+        public string Answer { get; set; }
+        public string Category { get; set; }
+        public int SessionNo { get; set; }
+        public string PatientName { get; set; }
+        public string PatientSurname { get; set; }
+
+        public string PatientInfo => PatientSurname + ", " + PatientName;
     }
 
 }

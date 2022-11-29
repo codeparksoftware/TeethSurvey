@@ -73,6 +73,7 @@ namespace Sample
                       }).ToList()
                 }).
                     FirstOrDefaultAsync(q => q.QuestionId == _questionId.Value);
+
                 if (quest != null)
                 {
                     CategoryCombo.SelectedValue = quest.CategoryId;
@@ -237,7 +238,12 @@ namespace Sample
                 {
                     using (var model = new Model())
                     {
-                        var question = model.Questions.FirstOrDefault(f => f.QuestionId == _questionId.Value);
+                        var question = model.Questions.
+                            Include(f=>f.Options).
+                            Include(f=>f.Category).
+                            Include(f=>f.DependendOptions).
+                            FirstOrDefault(f => f.QuestionId == _questionId.Value);
+
                         question.CategoryId = int.Parse(CategoryCombo.SelectedValue?.ToString());
                         question.Description = txtDesc.Text;
                         question.DependedQuestionId =
@@ -247,12 +253,15 @@ namespace Sample
 
                         question.IsMultipleOption = chkMultiple.Checked;
                         question.ControlId = int.TryParse(comboControl.SelectedValue?.ToString(), out var cid) ? cid : 1;
+                        
                         question.DependendOptions = dependendOptions.CheckedItems.OfType<CheckedListBoxItem>().
                             Select(f => new DependendOption()
                             {
                                 DependedOptionId = (int)f.Value
                             }).ToList();
+
                         var currentOptions = question.Options.ToList();
+                        
                         var editedOptions = OptionlistView.Items.Cast<ListViewItem>().Select(f => new Option()
                         {
                             QuestionId = question.QuestionId,
@@ -265,6 +274,7 @@ namespace Sample
                         var interstects = currentOptions.
                             Select(f => f.OptionId).ToList().
                             Intersect(editedOptions.Select(f => f.OptionId).ToList());
+
                         var left = currentOptions.Where(f => !interstects.Contains(f.OptionId)).ToList();
                         var right = editedOptions.Where(f => !interstects.Contains(f.OptionId)).ToList();
 

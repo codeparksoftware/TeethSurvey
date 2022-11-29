@@ -1,5 +1,4 @@
-﻿using DevExpress.Utils.Extensions;
-using DevExpress.XtraEditors.Controls;
+﻿using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraSplashScreen;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,6 @@ using System.Linq.Dynamic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TeetSurvey.Repository.Model;
-using static Sample.InsertForm;
 
 namespace Sample
 {
@@ -138,14 +136,16 @@ namespace Sample
                                 {
                                     foreach (CheckedListBoxItem chkItem in checkedListBoxOptions.Items)
                                     {
-                                        if (chkItem.CastTo<Opt>().Id == a.OptionId)
-                                        {
-                                            chkItem.CheckState = CheckState.Checked;
-                                        }
-                                        else
-                                        {
-                                            chkItem.CheckState = CheckState.Unchecked;
-                                        }
+                                        Console.WriteLine(chkItem?.ToString());
+
+                                        //if (Opt(chkItem)).Id == a.OptionId)
+                                        //{
+                                        //    chkItem.CheckState = CheckState.Checked;
+                                        //}
+                                        //else
+                                        //{
+                                        //    chkItem.CheckState = CheckState.Unchecked;
+                                        //}
                                     }
 
                                 }

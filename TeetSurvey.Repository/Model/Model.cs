@@ -10,6 +10,7 @@ namespace TeetSurvey.Repository.Model
         public Model()
             : base("name=ModelWeb")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public virtual DbSet<Answer> Answers { get; set; }

@@ -19,6 +19,7 @@ namespace Sample
         public string Title { get; set; }
         public List<SurveyQuest> Quests { get; set; }
     }
+
     public class SurveyQuest
     {
         public int Id { get; set; }
@@ -53,15 +54,29 @@ namespace Sample
         public DateTime SurveyDate { get; set; }
         public string Patient { get; set; }
         public bool IsSubmitted { get; set; }
-        public Image Icon => IsSubmitted ? Sample.Properties.Resources.apply_16x16 : Sample.Properties.Resources.time2_16x16;
+
+        public Image Icon => IsSubmitted ? 
+            Properties.Resources.apply_16x16 : 
+            Properties.Resources.time2_16x16;
+
         public List<AnsweredQuestion> Questions { get; set; }
         public int SessionId { get;  set; }
     }
+
     public class AnsweredQuestion
     {
         public int QuestionId { get; set; }
         public string CategoryTitle { get; set; }
         public string QuestionDesc { get; set; }
         public string AnswerOptionDesc { get; set; }
+        public List<string> Answers { get; set; }
+    }
+    public class Answers
+    {
+        public int QuestionId { get; set; }
+        public string CategoryTitle { get; set; }
+        public string QuestionDesc { get; set; }
+        public string AnswerOptionDesc { get; set; }
+     
     }
 }
