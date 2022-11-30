@@ -9,7 +9,7 @@ namespace TeetSurvey.Repository.Model
     [Table("Answer")]
     public partial class Answer
     {
-        public int AnswerId { get; set; }
+        public long AnswerId { get; set; }
 
         public int QuestionId { get; set; }
 

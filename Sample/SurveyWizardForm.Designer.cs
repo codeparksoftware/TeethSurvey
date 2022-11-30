@@ -141,6 +141,7 @@ namespace Sample
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Cancel";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnPrevious
             // 
@@ -189,25 +190,25 @@ namespace Sample
             this.comboOptions.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.comboOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboOptions.FormattingEnabled = true;
-            this.comboOptions.Location = new System.Drawing.Point(52, 101);
+            this.comboOptions.Location = new System.Drawing.Point(61, 101);
             this.comboOptions.Name = "comboOptions";
-            this.comboOptions.Size = new System.Drawing.Size(613, 21);
+            this.comboOptions.Size = new System.Drawing.Size(604, 21);
             this.comboOptions.TabIndex = 7;
             // 
             // checkedListBoxOptions
             // 
-            this.checkedListBoxOptions.Location = new System.Drawing.Point(52, 206);
+            this.checkedListBoxOptions.Location = new System.Drawing.Point(61, 206);
             this.checkedListBoxOptions.Name = "checkedListBoxOptions";
-            this.checkedListBoxOptions.Size = new System.Drawing.Size(707, 77);
+            this.checkedListBoxOptions.Size = new System.Drawing.Size(698, 77);
             this.checkedListBoxOptions.StyleController = this.layoutControl1;
             this.checkedListBoxOptions.TabIndex = 6;
             // 
             // radioOptions
             // 
-            this.radioOptions.Location = new System.Drawing.Point(52, 126);
+            this.radioOptions.Location = new System.Drawing.Point(61, 126);
             this.radioOptions.Name = "radioOptions";
             this.radioOptions.Properties.ItemVertAlignment = DevExpress.XtraEditors.RadioItemVertAlignment.Top;
-            this.radioOptions.Size = new System.Drawing.Size(707, 76);
+            this.radioOptions.Size = new System.Drawing.Size(698, 76);
             this.radioOptions.StyleController = this.layoutControl1;
             this.radioOptions.TabIndex = 5;
             // 
@@ -274,8 +275,8 @@ namespace Sample
             this.layoutControlCombo.MaxSize = new System.Drawing.Size(657, 25);
             this.layoutControlCombo.MinSize = new System.Drawing.Size(657, 25);
             this.layoutControlCombo.Name = "layoutControlCombo";
-            this.layoutControlCombo.OptionsPrint.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.layoutControlCombo.OptionsPrint.AppearanceItemCaption.Options.UseBackColor = true;
+            this.layoutControlCombo.OptionsPrint.AppearanceItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.layoutControlCombo.OptionsPrint.AppearanceItem.Options.UseBackColor = true;
             this.layoutControlCombo.Size = new System.Drawing.Size(751, 25);
             this.layoutControlCombo.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlCombo.Text = "Options";
@@ -294,7 +295,7 @@ namespace Sample
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.AliceBlue;
+            this.panel1.BackColor = System.Drawing.Color.SkyBlue;
             this.panel1.Controls.Add(this.lblCat);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);

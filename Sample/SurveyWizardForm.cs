@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraPrinting;
 using DevExpress.XtraSplashScreen;
 using System;
 using System.Collections.Generic;
@@ -82,7 +83,21 @@ namespace Sample
                         }).OrderBy(q => q.Id).ToList()
                         }).ToListAsync();
 
+                    var resQuest = new SurveyQuest
+                    {
+                        Id = 0,
+                        ControlId = -1,
+                        Description = "Anket bitti! \nTeşekkürler!\n Lütfen 'Finish' butonuna basarak anketi kaydediniz",
+                        CategoryTitle = "Son",
+                        Options = new List<Opt>(),
+                        DependedOptions=new List<DependedOptions>(),
+                        SubQuestIds=new List<int>(),
+                        Answers = new List<Answer>()
+                    };
 
+                    var resCat = new Cat() { CatId = 0, Title = "Son", Quests = new List<SurveyQuest> { resQuest } };
+
+                    CategoryWithQuestions.Add(resCat);
 
 
                     foreach (var cat in CategoryWithQuestions)
@@ -106,6 +121,7 @@ namespace Sample
                     {
                         lstView.Items[0].Selected = true;
                     }
+
                     recolorListItems(lstView);
 
                     var answers =
@@ -136,6 +152,7 @@ namespace Sample
                                 {
                                     foreach (CheckedListBoxItem chkItem in checkedListBoxOptions.Items)
                                     {
+
                                         Console.WriteLine(chkItem?.ToString());
 
                                         //if (Opt(chkItem)).Id == a.OptionId)
@@ -193,6 +210,14 @@ namespace Sample
             comboOptions.DataSource = null;
             checkedListBoxOptions.DataSource = null;
 
+
+            layoutControlChecked.Visibility = surveyQuest.ControlId != -1
+                ? DevExpress.XtraLayout.Utils.LayoutVisibility.Always : DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            layoutControlCombo.Visibility = surveyQuest.ControlId != -1
+                ? DevExpress.XtraLayout.Utils.LayoutVisibility.Always : DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            layoutControlRadio.Visibility = surveyQuest.ControlId != -1 
+                ? DevExpress.XtraLayout.Utils.LayoutVisibility.Always : DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+
             if (surveyQuest.ControlId == (int)OptionControls.RadioButton)
             {
                 emptySpaceItem1.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -218,8 +243,10 @@ namespace Sample
                 layoutControlRadio.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlCombo.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 layoutControlChecked.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
                 checkedListBoxOptions.DataSource = surveyQuest.
                     Options.ToList();
+
                 checkedListBoxOptions.DisplayMember = nameof(Opt.Text);
                 checkedListBoxOptions.ValueMember = nameof(Opt.Id);
 
@@ -288,6 +315,7 @@ namespace Sample
             {
                 lstView.Items[currentIndex + 1].Selected = true;
             }
+
         }
 
         private void UpdateAnswer()
@@ -403,6 +431,9 @@ namespace Sample
                 lstView.Focus();
                 lstView.SelectedItems[0].Focused = true;
                 lstView.SelectedItems[0].EnsureVisible();
+                var currentIndex = lstView.SelectedIndices[0];
+                btnNext.Enabled = lstView.Items.Count > currentIndex+1;
+                btnPrevious.Enabled = currentIndex > 0;
             }
         }
 
@@ -433,7 +464,7 @@ namespace Sample
 
                 if (res == DialogResult.Yes)
                 {
-                    if (await SaveSurvey())
+                    if (await SaveSurvey(true))
                     {
                         Close();
                     }
@@ -441,7 +472,7 @@ namespace Sample
             }
 
         }
-        private async Task<bool> SaveSurvey()
+        private async Task<bool> SaveSurvey(bool isSubmitted)
         {
             if (virtualSurvey.Id == 0)//insert
             {
@@ -449,10 +480,6 @@ namespace Sample
                 {
                     using (var m = new Model())
                     {
-                        //var tran = m.Database.BeginTransaction();
-
-
-
                         var sur = new Survey()
                         {
                             SurveyListId = virtualSurvey.SurveyListId,
@@ -463,9 +490,10 @@ namespace Sample
                         };
 
                         var answers = new List<TeetSurvey.Repository.Model.Answer>();
+
                         foreach (ListViewItem item in lstView.Items)
                         {
-                            if (item.Tag is SurveyQuest quest)
+                            if (item.Tag is SurveyQuest quest && quest.Id > 0)
                             {
                                 answers = quest.Answers.Select(f => new TeetSurvey.Repository.Model.Answer()
                                 {
@@ -481,7 +509,10 @@ namespace Sample
 
                             }
                         }
-                        sur.IsSubmitted = true;
+
+                        sur.IsSubmitted = isSubmitted;
+                        sur.IsCompleted = CategoryWithQuestions.SelectMany(c => c.Quests).Count() == sur.Answers.Count;
+
                         var addedSurvey = m.Surveys.Add(sur);
                         var save = await m.SaveChangesAsync();
                         return save > 0;
@@ -493,9 +524,62 @@ namespace Sample
                     MessageBox.Show(ex.Message);
                 }
             }
+            else
+            {
+                using (var m = new Model())
+                {
+                    var existSurvey = m.Surveys.FirstOrDefault(f => f.Id == virtualSurvey.Id);
 
+                    if (existSurvey != null)
+                    {
+                        m.Answers.RemoveRange(m.Answers.Where(f => f.SurveyId == existSurvey.Id).ToList());
+
+                        var answers = new List<TeetSurvey.Repository.Model.Answer>();
+
+                        foreach (ListViewItem item in lstView.Items)
+                        {
+                            if (item.Tag is SurveyQuest quest && quest.Id > 0)
+                            {
+                                answers = quest.Answers.Select(f => new TeetSurvey.Repository.Model.Answer()
+                                {
+                                    OptionId = f.OptionId,
+                                    QuestionId = f.QuestionId,
+
+                                }).ToList();
+
+                                foreach (var a in answers)
+                                {
+                                    existSurvey.Answers.Add(a);
+                                }
+
+                            }
+                        }
+
+                        existSurvey.IsSubmitted = isSubmitted;
+                        existSurvey.IsCompleted = CategoryWithQuestions.SelectMany(c => c.Quests).Count() == existSurvey.Answers.Count;
+                        var save = await m.SaveChangesAsync();
+                        return save > 0;
+
+                    }
+                }
+            }
             return false;
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if (CategoryWithQuestions.SelectMany(f => f.Quests).Any(f => f.Answers.Count > 0))
+            {
+                var res = MessageBox.Show(
+                          "İptal etmek istediğinizde emin misiniz?",
+                       virtualSurvey.SurveyList.SurveyName,
+                          MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (res == DialogResult.Yes)
+                {
+                    Close();
+                }
+            }
+        }
     }
 }

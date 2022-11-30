@@ -26,7 +26,7 @@ namespace TeetSurvey.Repository.Model
         public int SurveyListId { get; set; }
 
         public bool IsSubmitted { get; set; }
-
+        public bool IsCompleted { get; set; }
         public int SessionId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -647,10 +647,21 @@ namespace Sample
                         Surveys.
                         Include(f => f.SurveyList).
                         Include(f => f.Pollster).
+                        Include(f=>f.Answers).
                         FirstOrDefault(f => f.Id == surveyId);
+
+                    //var qCount = m.SurveyLists.Where(f => f. == surveyId).Count(h=>h.SurveyList.Categories.);
 
                     if (survey != null)
                     {
+                        //if(survey.Answers.Count== qCount)
+                        //{
+                        //    if(MessageBox.Show("Bu anket tamamen cevaplanmış. Bunu değiştirmek istediğinizden emin misiniz?")!= DialogResult.Yes)
+                        //    {
+                        //        return;
+                        //    }
+                        //}
+
                         var wizard = new SurveyWizardForm(survey);
                         wizard.ShowDialog();
                     }

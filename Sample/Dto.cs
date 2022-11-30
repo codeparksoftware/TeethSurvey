@@ -7,7 +7,7 @@ namespace Sample
 
     public class Answer
     {
-        public int AnswerId { get; set; }
+        public long AnswerId { get; set; }
         public int QuestionId { get; set; }
         public int? OptionId { get; set; }
     }
