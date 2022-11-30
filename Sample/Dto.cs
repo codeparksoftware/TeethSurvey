@@ -48,6 +48,7 @@ namespace Sample
 
     public class SurveyView
     {
+        public bool IsCompleted { get; set; }
         public int SurveyId { get; set; }
         public string Pollster { get; set; }
         public string SurveyName { get; set; }
@@ -55,7 +56,7 @@ namespace Sample
         public string Patient { get; set; }
         public bool IsSubmitted { get; set; }
 
-        public Image Icon => IsSubmitted ? 
+        public Image Icon => IsCompleted ? 
             Properties.Resources.apply_16x16 : 
             Properties.Resources.time2_16x16;
 

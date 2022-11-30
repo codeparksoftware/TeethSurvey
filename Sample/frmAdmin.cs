@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Tile;
 using DevExpress.XtraSplashScreen;
 using EntityFramework.Extensions;
@@ -584,7 +585,7 @@ namespace Sample
                 {
                     txtPatient.Text = answers.Patient;
                     txtSessionNo.Text = answers.SessionId.ToString();
-                    chkIsSubmitted.Checked = answers.IsSubmitted;
+                    chkIsCompleted.Checked = answers.IsCompleted;
                     txtSurveyName.Text = answers.SurveyName;
                     txtSurveyDate.Text = answers.SurveyDate.ToLongDateString();
 
@@ -647,7 +648,7 @@ namespace Sample
                         Surveys.
                         Include(f => f.SurveyList).
                         Include(f => f.Pollster).
-                        Include(f=>f.Answers).
+                        Include(f => f.Answers).
                         FirstOrDefault(f => f.Id == surveyId);
 
                     //var qCount = m.SurveyLists.Where(f => f. == surveyId).Count(h=>h.SurveyList.Categories.);
@@ -671,7 +672,10 @@ namespace Sample
 
         private void reportSingle_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            gridResult.ShowPrintPreview();
+
+            gridResult.OptionsPrint.RtfReportHeader = txtPatient.Text + "\t{" + txtSessionNo.Text +
+                "}\n" + txtSurveyName.Text + "\t" + txtSurveyDate.Text;
+            gridResult.ShowRibbonPrintPreview();
         }
 
         private async void barEditItem_EditValueChanged(object sender, EventArgs e)
@@ -691,6 +695,7 @@ namespace Sample
                     Where(f => f.Category.SurveyListId == surveylistId).
                     ToListAsync();
                 var dt = new DataTable();
+                dt.Columns.Add(new DataColumn("Status"));
                 dt.Columns.Add(new DataColumn("PatientInfo"));
                 dt.Columns.Add(new DataColumn("SurveyId"));
                 dt.Columns.Add(new DataColumn("SessionNo"));
@@ -702,6 +707,7 @@ namespace Sample
                 var answers = await m.Answers.Select(f =>
                   new PivotSurvey
                   {
+                      IsCompleted = f.Survey.IsCompleted,
                       Answer = f.Option.Text,
                       QuestionId = f.QuestionId,
                       Question = f.Question.Description,
@@ -715,6 +721,7 @@ namespace Sample
                 SavedSurveys = m.Surveys.Select(f =>
                 new SurveyView
                 {
+                    IsCompleted = f.IsCompleted,
                     IsSubmitted = f.IsSubmitted,
                     SurveyDate = f.SurveyDate,
                     Pollster = f.Pollster.Name,
@@ -728,7 +735,7 @@ namespace Sample
                         CategoryTitle = g.Category.CategoryTitle,
                         QuestionId = g.QuestionId,
                         QuestionDesc = g.Description,
-                        Answers =                    
+                        Answers =
                         f.Answers.Where(h => h.QuestionId == g.QuestionId).Select(ss => ss.Option.Text).ToList()
 
                     }).ToList()
@@ -742,6 +749,8 @@ namespace Sample
                     row["PatientInfo"] = ta?.PatientInfo;
                     row["SessionNo"] = ta?.SessionNo;
                     row["SurveyId"] = ta?.SurveyId;
+                    row["Status"] =  ta?.IsCompleted;
+
                     foreach (var a in takenAnswers)
                     {
                         row[a.QuestionId + "#" + a.Question] = a.Answer;
@@ -753,13 +762,15 @@ namespace Sample
 
                 gridTakenSurveys.DataSource = dt;
                 gridSurveys.Columns["SurveyId"].Visible = false;
+ 
                 gridSurveys.BestFitColumns();
+                gridTakenSurveys.DataSource = dt;
             }
         }
 
         private void reportAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            gridTakenSurveys.ShowPrintPreview();
+            gridTakenSurveys.ShowRibbonPrintPreview();
         }
     }
 
@@ -773,7 +784,7 @@ namespace Sample
         public int SessionNo { get; set; }
         public string PatientName { get; set; }
         public string PatientSurname { get; set; }
-
+        public bool IsCompleted { get; set; }
         public string PatientInfo => PatientSurname + ", " + PatientName;
     }
 

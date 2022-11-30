@@ -1,4 +1,6 @@
-﻿using DevExpress.XtraEditors.Controls;
+﻿using DevExpress.Data.ODataLinq.Helpers;
+using DevExpress.Data.WcfLinq.Helpers;
+using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraSplashScreen;
 using System;
@@ -90,8 +92,8 @@ namespace Sample
                         Description = "Anket bitti! \nTeşekkürler!\n Lütfen 'Finish' butonuna basarak anketi kaydediniz",
                         CategoryTitle = "Son",
                         Options = new List<Opt>(),
-                        DependedOptions=new List<DependedOptions>(),
-                        SubQuestIds=new List<int>(),
+                        DependedOptions = new List<DependedOptions>(),
+                        SubQuestIds = new List<int>(),
                         Answers = new List<Answer>()
                     };
 
@@ -136,17 +138,19 @@ namespace Sample
                         foreach (var a in answers)
                         {
                             var lstItem = FindLstItem(a.QuestionId);
+
                             if (lstItem != null)
                             {
                                 lstItem.Selected = true;
                                 if (a.Question.ControlId == (int)OptionControls.RadioButton)
                                 {
                                     radioOptions.EditValue = a.OptionId;
-                                    btnNext.PerformClick();
+
                                 }
                                 else if (a.Question.ControlId == (int)OptionControls.ComboBox)
                                 {
                                     comboOptions.SelectedValue = a.OptionId;
+
                                 }
                                 else if (a.Question.ControlId == (int)OptionControls.CheckedListBox)
                                 {
@@ -215,7 +219,7 @@ namespace Sample
                 ? DevExpress.XtraLayout.Utils.LayoutVisibility.Always : DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             layoutControlCombo.Visibility = surveyQuest.ControlId != -1
                 ? DevExpress.XtraLayout.Utils.LayoutVisibility.Always : DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-            layoutControlRadio.Visibility = surveyQuest.ControlId != -1 
+            layoutControlRadio.Visibility = surveyQuest.ControlId != -1
                 ? DevExpress.XtraLayout.Utils.LayoutVisibility.Always : DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
 
             if (surveyQuest.ControlId == (int)OptionControls.RadioButton)
@@ -432,7 +436,7 @@ namespace Sample
                 lstView.SelectedItems[0].Focused = true;
                 lstView.SelectedItems[0].EnsureVisible();
                 var currentIndex = lstView.SelectedIndices[0];
-                btnNext.Enabled = lstView.Items.Count > currentIndex+1;
+                btnNext.Enabled = lstView.Items.Count > currentIndex + 1;
                 btnPrevious.Enabled = currentIndex > 0;
             }
         }
@@ -455,20 +459,79 @@ namespace Sample
 
         private async void btnFinish_Click(object sender, EventArgs e)
         {
-            if (CategoryWithQuestions.SelectMany(f => f.Quests).Any(f => f.Answers.Count > 0))
-            {
-                var res = MessageBox.Show(
-                          "Anketi bitirip var olan bilgileri kaydetmek istiyor musunuz?",
-                       virtualSurvey.SurveyList.SurveyName,
-                          MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (res == DialogResult.Yes)
+            try
+            {
+                if (CategoryWithQuestions.SelectMany(f => f.Quests).Any(f => f.Answers.Count > 0))
                 {
-                    if (await SaveSurvey(true))
+
+                    var res = MessageBox.Show(
+                              "Anketi bitirip var olan bilgileri kaydetmek istiyor musunuz?",
+                              virtualSurvey.SurveyList.SurveyName,
+                              MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (res == DialogResult.Yes)
                     {
-                        Close();
+                        var lst = lstView.Items.Cast<ListViewItem>().ToList().Take(lstView.Items.Count - 1);
+                        ListViewItem listViewItem = null;
+
+                        foreach (ListViewItem item in lst)
+                        {
+
+                            if ((item.Tag is SurveyQuest quest && quest.Answers.Any() == false) || item.Checked == false)
+                            {
+
+                                listViewItem = item;
+                                break;
+
+                            }
+
+                        }
+
+                        if (listViewItem != null)
+                        {
+
+                            if (MessageBox.Show("İşaretlenmeyen sorular var. Eksik olarak göndermek istiyor musunuz?",
+                                                          virtualSurvey.SurveyList.SurveyName,
+                                                          MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+                                if (await SaveSurvey(true))
+                                {
+                                    SplashScreenManager.CloseForm();
+                                    Close();
+                                }
+                            }
+                            else
+                            {
+                                listViewItem.Selected = true;
+                            }
+                        }
+                        else
+                        {
+                            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+                            if (await SaveSurvey(true))
+                            {
+                                SplashScreenManager.CloseForm();
+                                Close();
+                            }
+                            else
+                            {
+                                SplashScreenManager.CloseForm();
+                                MessageBox.Show("Anket kaydedilemedi. Lütfen tekrar deneyiniz.");
+                              
+                            }
+                        }
+
+
                     }
                 }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Hata oluştu:\n" + ex.Message);
             }
 
         }
@@ -511,7 +574,15 @@ namespace Sample
                         }
 
                         sur.IsSubmitted = isSubmitted;
-                        sur.IsCompleted = CategoryWithQuestions.SelectMany(c => c.Quests).Count() == sur.Answers.Count;
+                        sur.IsCompleted = true;
+                        foreach (ListViewItem item in lstView.Items)
+                        {
+                            if ((item.Tag is SurveyQuest sq && sq.Answers.Any() == false) || item.Checked == false)
+                            {
+                                sur.IsCompleted = false;
+                            }
+                        }
+
 
                         var addedSurvey = m.Surveys.Add(sur);
                         var save = await m.SaveChangesAsync();
@@ -556,7 +627,7 @@ namespace Sample
                         }
 
                         existSurvey.IsSubmitted = isSubmitted;
-                        existSurvey.IsCompleted = CategoryWithQuestions.SelectMany(c => c.Quests).Count() == existSurvey.Answers.Count;
+                        existSurvey.IsCompleted = CategoryWithQuestions.SelectMany(c => c.Quests).Count(f => f.ControlId > -1) == existSurvey.Answers.Count;
                         var save = await m.SaveChangesAsync();
                         return save > 0;
 

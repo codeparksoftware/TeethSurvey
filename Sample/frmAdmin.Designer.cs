@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.ContextButton contextButton3 = new DevExpress.Utils.ContextButton();
+            DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdmin));
-            DevExpress.Utils.ContextButton contextButton4 = new DevExpress.Utils.ContextButton();
-            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition2 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
-            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement2 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
+            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition1 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
+            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement1 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.colDesc = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colCat = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.officeNavigationBar1 = new DevExpress.XtraBars.Navigation.OfficeNavigationBar();
@@ -110,11 +110,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.gridTakenSurveys = new DevExpress.XtraGrid.GridControl();
             this.gridSurveys = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.repositoryItemCheckedComboBoxEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridResult = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -122,18 +119,23 @@
             this.colSelectedOption = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemMemoEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colQId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
-            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.txtPatient = new DevExpress.XtraEditors.TextEdit();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.txtSessionNo = new DevExpress.XtraEditors.TextEdit();
-            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.txtSurveyDate = new DevExpress.XtraEditors.TextEdit();
-            this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.txtSurveyName = new DevExpress.XtraEditors.TextEdit();
+            this.chkIsCompleted = new DevExpress.XtraEditors.CheckEdit();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.chkIsSubmitted = new DevExpress.XtraEditors.CheckEdit();
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
+            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.officeNavigationBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame1)).BeginInit();
             this.navigationFrame1.SuspendLayout();
@@ -183,24 +185,26 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTakenSurveys)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSurveys)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckedComboBoxEdit1)).BeginInit();
             this.tabPage2.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPatient.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSessionNo.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSurveyDate.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSurveyName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIsCompleted.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIsSubmitted.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             this.SuspendLayout();
             // 
             // colDesc
@@ -296,18 +300,18 @@
             this.colDesc,
             this.colCat});
             this.tileView1.ColumnSet.GroupColumn = this.colCat;
-            contextButton3.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
-            contextButton3.AppearanceNormal.Options.UseImage = true;
-            contextButton3.Id = new System.Guid("7c5800c4-d16f-4e3e-81ab-53a218c3ab3f");
-            contextButton3.ImageOptionsCollection.ItemNormal.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
-            contextButton3.Name = "cbSil";
-            contextButton4.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
-            contextButton4.AppearanceNormal.Options.UseImage = true;
-            contextButton4.Id = new System.Guid("5acbee6b-8808-4e3e-9ed7-80b7a437c2b0");
-            contextButton4.ImageOptionsCollection.ItemNormal.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
-            contextButton4.Name = "cbEdit";
-            this.tileView1.ContextButtons.Add(contextButton3);
-            this.tileView1.ContextButtons.Add(contextButton4);
+            contextButton1.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
+            contextButton1.AppearanceNormal.Options.UseImage = true;
+            contextButton1.Id = new System.Guid("7c5800c4-d16f-4e3e-81ab-53a218c3ab3f");
+            contextButton1.ImageOptionsCollection.ItemNormal.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            contextButton1.Name = "cbSil";
+            contextButton2.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
+            contextButton2.AppearanceNormal.Options.UseImage = true;
+            contextButton2.Id = new System.Guid("5acbee6b-8808-4e3e-9ed7-80b7a437c2b0");
+            contextButton2.ImageOptionsCollection.ItemNormal.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
+            contextButton2.Name = "cbEdit";
+            this.tileView1.ContextButtons.Add(contextButton1);
+            this.tileView1.ContextButtons.Add(contextButton2);
             this.tileView1.GridControl = this.gridControl1;
             this.tileView1.Name = "tileView1";
             this.tileView1.OptionsBehavior.ReadOnly = true;
@@ -322,13 +326,13 @@
             this.tileView1.OptionsTiles.RowCount = 0;
             this.tileView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCat, DevExpress.Data.ColumnSortOrder.Ascending)});
-            this.tileView1.TileRows.Add(tableRowDefinition2);
-            tileViewItemElement2.Column = this.colDesc;
-            tileViewItemElement2.StretchHorizontal = true;
-            tileViewItemElement2.StretchVertical = true;
-            tileViewItemElement2.Text = "colDesc";
-            tileViewItemElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
-            this.tileView1.TileTemplate.Add(tileViewItemElement2);
+            this.tileView1.TileRows.Add(tableRowDefinition1);
+            tileViewItemElement1.Column = this.colDesc;
+            tileViewItemElement1.StretchHorizontal = true;
+            tileViewItemElement1.StretchVertical = true;
+            tileViewItemElement1.Text = "colDesc";
+            tileViewItemElement1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
+            this.tileView1.TileTemplate.Add(tileViewItemElement1);
             this.tileView1.ContextButtonClick += new DevExpress.Utils.ContextItemClickEventHandler(this.tileView1_ContextButtonClick);
             this.tileView1.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridView1_FocusedRowChanged);
             // 
@@ -345,7 +349,7 @@
             // 
             this.repositoryItemButtonEdit1.AutoHeight = false;
             this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete, "Sil", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete, "Sil", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.repositoryItemButtonEdit1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
             // 
@@ -961,6 +965,9 @@
             this.gridTakenSurveys.MainView = this.gridSurveys;
             this.gridTakenSurveys.MenuManager = this.ribbonControl1;
             this.gridTakenSurveys.Name = "gridTakenSurveys";
+            this.gridTakenSurveys.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemCheckedComboBoxEdit1,
+            this.repositoryItemCheckEdit1});
             this.gridTakenSurveys.Size = new System.Drawing.Size(1015, 316);
             this.gridTakenSurveys.TabIndex = 9;
             this.gridTakenSurveys.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -984,6 +991,13 @@
             this.gridSurveys.Click += new System.EventHandler(this.gridSurveys_Click);
             this.gridSurveys.DoubleClick += new System.EventHandler(this.gridSurveys_DoubleClick);
             // 
+            // repositoryItemCheckedComboBoxEdit1
+            // 
+            this.repositoryItemCheckedComboBoxEdit1.AutoHeight = false;
+            this.repositoryItemCheckedComboBoxEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemCheckedComboBoxEdit1.Name = "repositoryItemCheckedComboBoxEdit1";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.gridControl2);
@@ -995,36 +1009,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Single";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // ribbonPageGroup3
-            // 
-            this.ribbonPageGroup3.AllowTextClipping = false;
-            this.ribbonPageGroup3.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
-            this.ribbonPageGroup3.Text = "Tasks";
-            // 
-            // ribbonPageGroup4
-            // 
-            this.ribbonPageGroup4.AllowTextClipping = false;
-            this.ribbonPageGroup4.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
-            this.ribbonPageGroup4.Text = "Tasks";
-            // 
-            // bbiNew
-            // 
-            this.bbiNew.Caption = "New";
-            this.bbiNew.Id = 16;
-            this.bbiNew.ImageOptions.ImageUri.Uri = "New";
-            this.bbiNew.Name = "bbiNew";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.layoutControl2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1015, 68);
-            this.panel1.TabIndex = 0;
             // 
             // gridControl2
             // 
@@ -1093,13 +1077,22 @@
             this.colQId.FieldName = "QuestionId";
             this.colQId.Name = "colQId";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.layoutControl2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1015, 68);
+            this.panel1.TabIndex = 0;
+            // 
             // layoutControl2
             // 
             this.layoutControl2.Controls.Add(this.txtPatient);
             this.layoutControl2.Controls.Add(this.txtSessionNo);
             this.layoutControl2.Controls.Add(this.txtSurveyDate);
             this.layoutControl2.Controls.Add(this.txtSurveyName);
-            this.layoutControl2.Controls.Add(this.chkIsSubmitted);
+            this.layoutControl2.Controls.Add(this.chkIsCompleted);
             this.layoutControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
@@ -1107,6 +1100,57 @@
             this.layoutControl2.Size = new System.Drawing.Size(1015, 68);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
+            // 
+            // txtPatient
+            // 
+            this.txtPatient.Location = new System.Drawing.Point(85, 12);
+            this.txtPatient.MenuManager = this.ribbonControl1;
+            this.txtPatient.Name = "txtPatient";
+            this.txtPatient.Properties.ReadOnly = true;
+            this.txtPatient.Size = new System.Drawing.Size(382, 20);
+            this.txtPatient.StyleController = this.layoutControl2;
+            this.txtPatient.TabIndex = 4;
+            // 
+            // txtSessionNo
+            // 
+            this.txtSessionNo.Location = new System.Drawing.Point(544, 12);
+            this.txtSessionNo.MenuManager = this.ribbonControl1;
+            this.txtSessionNo.Name = "txtSessionNo";
+            this.txtSessionNo.Properties.ReadOnly = true;
+            this.txtSessionNo.Size = new System.Drawing.Size(172, 20);
+            this.txtSessionNo.StyleController = this.layoutControl2;
+            this.txtSessionNo.TabIndex = 5;
+            // 
+            // txtSurveyDate
+            // 
+            this.txtSurveyDate.Location = new System.Drawing.Point(85, 36);
+            this.txtSurveyDate.MenuManager = this.ribbonControl1;
+            this.txtSurveyDate.Name = "txtSurveyDate";
+            this.txtSurveyDate.Properties.ReadOnly = true;
+            this.txtSurveyDate.Size = new System.Drawing.Size(382, 20);
+            this.txtSurveyDate.StyleController = this.layoutControl2;
+            this.txtSurveyDate.TabIndex = 6;
+            // 
+            // txtSurveyName
+            // 
+            this.txtSurveyName.Location = new System.Drawing.Point(544, 36);
+            this.txtSurveyName.MenuManager = this.ribbonControl1;
+            this.txtSurveyName.Name = "txtSurveyName";
+            this.txtSurveyName.Properties.ReadOnly = true;
+            this.txtSurveyName.Size = new System.Drawing.Size(459, 20);
+            this.txtSurveyName.StyleController = this.layoutControl2;
+            this.txtSurveyName.TabIndex = 7;
+            // 
+            // chkIsCompleted
+            // 
+            this.chkIsCompleted.Location = new System.Drawing.Point(720, 12);
+            this.chkIsCompleted.MenuManager = this.ribbonControl1;
+            this.chkIsCompleted.Name = "chkIsCompleted";
+            this.chkIsCompleted.Properties.Caption = "IsCompleted";
+            this.chkIsCompleted.Properties.ReadOnly = true;
+            this.chkIsCompleted.Size = new System.Drawing.Size(283, 20);
+            this.chkIsCompleted.StyleController = this.layoutControl2;
+            this.chkIsCompleted.TabIndex = 8;
             // 
             // layoutControlGroup1
             // 
@@ -1122,16 +1166,6 @@
             this.layoutControlGroup1.Size = new System.Drawing.Size(1015, 68);
             this.layoutControlGroup1.TextVisible = false;
             // 
-            // txtPatient
-            // 
-            this.txtPatient.Location = new System.Drawing.Point(85, 12);
-            this.txtPatient.MenuManager = this.ribbonControl1;
-            this.txtPatient.Name = "txtPatient";
-            this.txtPatient.Properties.ReadOnly = true;
-            this.txtPatient.Size = new System.Drawing.Size(382, 20);
-            this.txtPatient.StyleController = this.layoutControl2;
-            this.txtPatient.TabIndex = 4;
-            // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.txtPatient;
@@ -1140,35 +1174,6 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(459, 24);
             this.layoutControlItem1.Text = "Patient";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(61, 13);
-            // 
-            // txtSessionNo
-            // 
-            this.txtSessionNo.Location = new System.Drawing.Point(544, 12);
-            this.txtSessionNo.MenuManager = this.ribbonControl1;
-            this.txtSessionNo.Name = "txtSessionNo";
-            this.txtSessionNo.Properties.ReadOnly = true;
-            this.txtSessionNo.Size = new System.Drawing.Size(172, 20);
-            this.txtSessionNo.StyleController = this.layoutControl2;
-            this.txtSessionNo.TabIndex = 5;
-            // 
-            // layoutControlItem7
-            // 
-            this.layoutControlItem7.Control = this.txtSessionNo;
-            this.layoutControlItem7.Location = new System.Drawing.Point(459, 0);
-            this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(249, 24);
-            this.layoutControlItem7.Text = "Session No";
-            this.layoutControlItem7.TextSize = new System.Drawing.Size(61, 13);
-            // 
-            // txtSurveyDate
-            // 
-            this.txtSurveyDate.Location = new System.Drawing.Point(85, 36);
-            this.txtSurveyDate.MenuManager = this.ribbonControl1;
-            this.txtSurveyDate.Name = "txtSurveyDate";
-            this.txtSurveyDate.Properties.ReadOnly = true;
-            this.txtSurveyDate.Size = new System.Drawing.Size(382, 20);
-            this.txtSurveyDate.StyleController = this.layoutControl2;
-            this.txtSurveyDate.TabIndex = 6;
             // 
             // layoutControlItem10
             // 
@@ -1179,16 +1184,6 @@
             this.layoutControlItem10.Text = "SurveyDate";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(61, 13);
             // 
-            // txtSurveyName
-            // 
-            this.txtSurveyName.Location = new System.Drawing.Point(544, 36);
-            this.txtSurveyName.MenuManager = this.ribbonControl1;
-            this.txtSurveyName.Name = "txtSurveyName";
-            this.txtSurveyName.Properties.ReadOnly = true;
-            this.txtSurveyName.Size = new System.Drawing.Size(459, 20);
-            this.txtSurveyName.StyleController = this.layoutControl2;
-            this.txtSurveyName.TabIndex = 7;
-            // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.txtSurveyName;
@@ -1198,25 +1193,49 @@
             this.layoutControlItem11.Text = "SurveyName";
             this.layoutControlItem11.TextSize = new System.Drawing.Size(61, 13);
             // 
-            // chkIsSubmitted
-            // 
-            this.chkIsSubmitted.Location = new System.Drawing.Point(720, 12);
-            this.chkIsSubmitted.MenuManager = this.ribbonControl1;
-            this.chkIsSubmitted.Name = "chkIsSubmitted";
-            this.chkIsSubmitted.Properties.Caption = "IsSubmitted";
-            this.chkIsSubmitted.Properties.ReadOnly = true;
-            this.chkIsSubmitted.Size = new System.Drawing.Size(283, 20);
-            this.chkIsSubmitted.StyleController = this.layoutControl2;
-            this.chkIsSubmitted.TabIndex = 8;
-            // 
             // layoutControlItem13
             // 
-            this.layoutControlItem13.Control = this.chkIsSubmitted;
+            this.layoutControlItem13.Control = this.chkIsCompleted;
             this.layoutControlItem13.Location = new System.Drawing.Point(708, 0);
             this.layoutControlItem13.Name = "layoutControlItem13";
             this.layoutControlItem13.Size = new System.Drawing.Size(287, 24);
             this.layoutControlItem13.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem13.TextVisible = false;
+            // 
+            // layoutControlItem7
+            // 
+            this.layoutControlItem7.Control = this.txtSessionNo;
+            this.layoutControlItem7.Location = new System.Drawing.Point(459, 0);
+            this.layoutControlItem7.Name = "layoutControlItem7";
+            this.layoutControlItem7.Size = new System.Drawing.Size(249, 24);
+            this.layoutControlItem7.Text = "Session No";
+            this.layoutControlItem7.TextSize = new System.Drawing.Size(61, 13);
+            // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.AllowTextClipping = false;
+            this.ribbonPageGroup3.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "Tasks";
+            // 
+            // ribbonPageGroup4
+            // 
+            this.ribbonPageGroup4.AllowTextClipping = false;
+            this.ribbonPageGroup4.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+            this.ribbonPageGroup4.Text = "Tasks";
+            // 
+            // bbiNew
+            // 
+            this.bbiNew.Caption = "New";
+            this.bbiNew.Id = 16;
+            this.bbiNew.ImageOptions.ImageUri.Uri = "New";
+            this.bbiNew.Name = "bbiNew";
+            // 
+            // repositoryItemCheckEdit1
+            // 
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
             // 
             // frmAdmin
             // 
@@ -1281,24 +1300,26 @@
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridTakenSurveys)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridSurveys)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckedComboBoxEdit1)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).EndInit();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
             this.layoutControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPatient.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSessionNo.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSurveyDate.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSurveyName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIsCompleted.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIsSubmitted.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1399,7 +1420,9 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
-        private DevExpress.XtraEditors.CheckEdit chkIsSubmitted;
+        private DevExpress.XtraEditors.CheckEdit chkIsCompleted;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit repositoryItemCheckedComboBoxEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
     }
 }
