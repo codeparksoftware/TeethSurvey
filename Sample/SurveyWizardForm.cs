@@ -52,7 +52,7 @@ namespace Sample
                         {
                             Id = q.QuestionId,
                             Answers = q.Answers.
-                            Where(a => a.SurveyId == 0).
+                            Where(a=>a.SurveyId==virtualSurvey.Id).
                             Select(a => new Answer
                             {
                                 AnswerId = a.AnswerId,
@@ -76,7 +76,8 @@ namespace Sample
                                 QuestionId = f.QuestionId,
                                 Text = f.Text,
                                 Value = f.Value,
-                                IsDefault = f.IsDefault
+                                IsDefault = f.IsDefault,
+                                IsChecked = q.Answers.Any(qa => qa.OptionId == f.OptionId && qa.SurveyId == virtualSurvey.Id)
                             }).ToList(),
                             IsMultipleOption = q.IsMultipleOption,
                             ControlId = q.ControlId,
@@ -142,6 +143,7 @@ namespace Sample
                             if (lstItem != null)
                             {
                                 lstItem.Selected = true;
+                                lstItem.Checked = true;
                                 if (a.Question.ControlId == (int)OptionControls.RadioButton)
                                 {
                                     radioOptions.EditValue = a.OptionId;
@@ -154,21 +156,13 @@ namespace Sample
                                 }
                                 else if (a.Question.ControlId == (int)OptionControls.CheckedListBox)
                                 {
-                                    foreach (CheckedListBoxItem chkItem in checkedListBoxOptions.Items)
+                                    if (checkedListBoxOptions.DataSource is List<Opt> opts)
                                     {
-
-                                        Console.WriteLine(chkItem?.ToString());
-
-                                        //if (Opt(chkItem)).Id == a.OptionId)
+                                        //foreach (var o in opts )
                                         //{
-                                        //    chkItem.CheckState = CheckState.Checked;
-                                        //}
-                                        //else
-                                        //{
-                                        //    chkItem.CheckState = CheckState.Unchecked;
+                                        //    o.IsChecked = o.Id == a.OptionId;
                                         //}
                                     }
-
                                 }
                             }
                         }
@@ -253,10 +247,13 @@ namespace Sample
 
                 checkedListBoxOptions.DisplayMember = nameof(Opt.Text);
                 checkedListBoxOptions.ValueMember = nameof(Opt.Id);
+                checkedListBoxOptions.CheckMember = nameof(Opt.IsChecked);
 
                 if (surveyQuest.Answers.Any() == false)
                 {
-                    checkedListBoxOptions.CheckMember = nameof(Opt.IsDefault);
+                    var def = surveyQuest.Options.FirstOrDefault(f => f.IsDefault);
+
+                    def.IsChecked = true;
                 }
                 else
                 {
@@ -495,12 +492,7 @@ namespace Sample
                                                           virtualSurvey.SurveyList.SurveyName,
                                                           MessageBoxButtons.YesNo) == DialogResult.Yes)
                             {
-                                SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
-                                if (await SaveSurvey(true))
-                                {
-                                    SplashScreenManager.CloseForm();
-                                    Close();
-                                }
+                                await TryToSave();
                             }
                             else
                             {
@@ -509,24 +501,18 @@ namespace Sample
                         }
                         else
                         {
-                            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
-                            if (await SaveSurvey(true))
-                            {
-                                SplashScreenManager.CloseForm();
-                                Close();
-                            }
-                            else
-                            {
-                                SplashScreenManager.CloseForm();
-                                MessageBox.Show("Anket kaydedilemedi. Lütfen tekrar deneyiniz.");
-                              
-                            }
+                            await TryToSave();
                         }
 
 
                     }
                 }
-
+                else
+                {
+                    MessageBox.Show("Hiç bir soru cevaplanmadı.\n" +
+                        "Soru cevaplamak için Next ya da Previous butonuna tıklayınız." +
+                        "\nSoru kutucukları seçili hale gelecektir.");
+                }
             }
             catch (Exception ex)
             {
@@ -535,6 +521,23 @@ namespace Sample
             }
 
         }
+
+        private async Task TryToSave()
+        {
+            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+            if (await SaveSurvey(true))
+            {
+                SplashScreenManager.CloseForm();
+                Close();
+            }
+            else
+            {
+                SplashScreenManager.CloseForm();
+                MessageBox.Show("Anket kaydedilemedi. Lütfen tekrar deneyiniz.");
+
+            }
+        }
+
         private async Task<bool> SaveSurvey(bool isSubmitted)
         {
             if (virtualSurvey.Id == 0)//insert
@@ -627,7 +630,11 @@ namespace Sample
                         }
 
                         existSurvey.IsSubmitted = isSubmitted;
-                        existSurvey.IsCompleted = CategoryWithQuestions.SelectMany(c => c.Quests).Count(f => f.ControlId > -1) == existSurvey.Answers.Count;
+
+                        existSurvey.IsCompleted = CategoryWithQuestions.
+                            SelectMany(c => c.Quests).
+                            Count(f => f.ControlId > -1) == existSurvey.Answers.Count;
+
                         var save = await m.SaveChangesAsync();
                         return save > 0;
 

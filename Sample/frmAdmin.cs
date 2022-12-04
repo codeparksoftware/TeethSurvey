@@ -438,13 +438,17 @@ namespace Sample
                     await InitAnketQuestion();
                 }
                 anketYonetimGroup.Visible = true;
+                reportGroup.Visible = false;
             }
             if (navigationFrame1.SelectedPage == mainPage)
             {
                 anketYonetimGroup.Visible = false;
+                reportGroup.Visible = true;
             }
             if (navigationFrame1.SelectedPage == takeSurvey)
             {
+                anketYonetimGroup.Visible = false;
+                reportGroup.Visible = false;
                 await InitTakeSurvey();
             }
 
@@ -749,7 +753,7 @@ namespace Sample
                     row["PatientInfo"] = ta?.PatientInfo;
                     row["SessionNo"] = ta?.SessionNo;
                     row["SurveyId"] = ta?.SurveyId;
-                    row["Status"] =  ta?.IsCompleted;
+                    row["Status"] = ta?.IsCompleted;
 
                     foreach (var a in takenAnswers)
                     {
@@ -762,7 +766,7 @@ namespace Sample
 
                 gridTakenSurveys.DataSource = dt;
                 gridSurveys.Columns["SurveyId"].Visible = false;
- 
+
                 gridSurveys.BestFitColumns();
                 gridTakenSurveys.DataSource = dt;
             }

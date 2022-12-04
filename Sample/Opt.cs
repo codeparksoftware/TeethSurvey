@@ -7,5 +7,6 @@
         public int? Value { get; set; }
         public int QuestionId { get; set; }
         public bool IsDefault { get; set; }
+        public bool IsChecked { get; set; }
     }
 }
